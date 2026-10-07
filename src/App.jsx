@@ -19,7 +19,7 @@ import Tracking from './pages/Tracking';
 
 function App() {
   return (
-    <Router>
+    <Router basename={import.meta.env.BASE_URL}>
       <Layout>
         <Routes>
           <Route path="/about" element={<About />} />
