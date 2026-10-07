@@ -53,23 +53,10 @@ export default function ScrollEffects() {
     gsap.ticker.add(tick);
     gsap.ticker.lagSmoothing(0);
 
-    // Turn full-page <a href="/x"> reloads into SPA navigations
-    const onClick = (ev) => {
-      if (ev.defaultPrevented || ev.button !== 0 || ev.metaKey || ev.ctrlKey || ev.shiftKey || ev.altKey) return;
-      const a = ev.target.closest && ev.target.closest('a[href]');
-      if (!a || a.target === '_blank' || a.hasAttribute('download')) return;
-      const href = a.getAttribute('href');
-      if (!href || !href.startsWith('/') || href.startsWith('//')) return;
-      ev.preventDefault();
-      navigate(href);
-    };
-    document.addEventListener('click', onClick);
-
     const onLoad = () => ScrollTrigger.refresh();
     window.addEventListener('load', onLoad);
 
     return () => {
-      document.removeEventListener('click', onClick);
       window.removeEventListener('load', onLoad);
       gsap.ticker.remove(tick);
       lenis.destroy();

@@ -14,9 +14,9 @@ export default function Header() {
                 <Link to="/about" className="hover:text-brand-accent transition-colors transform hover:-translate-y-0.5 duration-300">About Us</Link>
                 
                 <div className="relative group h-full py-6 -my-6 flex items-center">
-                    <button className="flex items-center gap-1 hover:text-brand-accent transition-colors cursor-pointer transform hover:-translate-y-0.5 duration-300" onClick="window.location.href='services.html'">
+                    <Link to="/services" className="flex items-center gap-1 hover:text-brand-accent transition-colors cursor-pointer transform hover:-translate-y-0.5 duration-300">
                         Services <i data-lucide="chevron-down" className="w-4 h-4 group-hover:rotate-180 transition-transform duration-300"></i>
-                    </button>
+                    </Link>
                     
                     {/*  Mega Menu Dropdown  */}
                     <div className="absolute top-full left-1/2 -translate-x-1/2 pt-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 w-[650px] z-50">

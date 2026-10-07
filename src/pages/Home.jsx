@@ -1,4 +1,5 @@
 import React, { useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { motion, useScroll, useTransform } from 'framer-motion';
 
 export default function Home() {
@@ -86,9 +87,7 @@ export default function Home() {
                     Provides supply chain software development, app design, data analytics, staff augmentation, and system integrations (ERP to last-mile delivery). Assists with digital strategy, custom transportation management systems (TMS), and support for in-house engineering teams.
                 </motion.p>
                 <motion.div variants={{ hidden: { opacity: 0, y: 40 }, show: { opacity: 1, y: 0 } }} className="flex gap-4 group">
-                    <a href="/quote" className="px-8 py-4 rounded-full bg-brand-accent text-white font-bold hover:bg-brand-accentHover transition-all duration-300 flex items-center gap-2 shadow-lg shadow-brand-accent/30 transform hover:-translate-y-1 hover:scale-105">
-                        Get Started <i data-lucide="arrow-right" className="w-5 h-5 group-hover:translate-x-2 transition-transform duration-300"></i>
-                    </a>
+                    <Link to="/quote" className="px-8 py-4 rounded-full bg-brand-accent text-white font-bold hover:bg-brand-accentHover transition-all duration-300 flex items-center gap-2 shadow-lg shadow-brand-accent/30 transform hover:-translate-y-1 hover:scale-105"> Get Started <i data-lucide="arrow-right" className="w-5 h-5 group-hover:translate-x-2 transition-transform duration-300"></i></Link>
                 </motion.div>
             </motion.div>
             
@@ -158,9 +157,7 @@ export default function Home() {
                     </div>
                     <h3 className="text-2xl font-bold mb-3 text-slate-900 group-hover:text-brand-accent transition-colors duration-300">Development &amp; Strategy</h3>
                     <p className="text-slate-500 text-sm mb-6 flex-grow">Rapid Prototyping, Custom Software Development, Strategy Roadmaps, and Technology Consulting. Taking digital ideas from conception to deployment.</p>
-                    <a href="/strategy-and-development" className="inline-flex items-center gap-2 text-brand-accent font-bold text-sm group/btn mt-auto">
-                        Explore Strategy <i data-lucide="arrow-right" className="w-4 h-4 group-hover/btn:translate-x-2 transition-transform duration-300"></i>
-                    </a>
+                    <Link to="/strategy-and-development" className="inline-flex items-center gap-2 text-brand-accent font-bold text-sm group/btn mt-auto"> Explore Strategy <i data-lucide="arrow-right" className="w-4 h-4 group-hover/btn:translate-x-2 transition-transform duration-300"></i></Link>
                 </div>
             </motion.div>
 
@@ -176,9 +173,7 @@ export default function Home() {
                     </div>
                     <h3 className="text-2xl font-bold mb-3 text-slate-900 group-hover:text-blue-600 transition-colors duration-300">Dedicated Teams</h3>
                     <p className="text-slate-500 text-sm mb-6 flex-grow">Ongoing Long-Term Support &amp; Maintenance, Product Development &amp; Integration. Scalable engineering team augmentation tailored to client roadmaps.</p>
-                    <a href="/dedicated-teams" className="inline-flex items-center gap-2 text-blue-600 font-bold text-sm group/btn mt-auto">
-                        Explore Teams <i data-lucide="arrow-right" className="w-4 h-4 group-hover/btn:translate-x-2 transition-transform duration-300"></i>
-                    </a>
+                    <Link to="/dedicated-teams" className="inline-flex items-center gap-2 text-blue-600 font-bold text-sm group/btn mt-auto"> Explore Teams <i data-lucide="arrow-right" className="w-4 h-4 group-hover/btn:translate-x-2 transition-transform duration-300"></i></Link>
                 </div>
             </motion.div>
 
@@ -194,9 +189,7 @@ export default function Home() {
                     </div>
                     <h3 className="text-2xl font-bold mb-3 text-slate-900 group-hover:text-emerald-600 transition-colors duration-300">Data Science &amp; AI</h3>
                     <p className="text-slate-500 text-sm mb-6 flex-grow">Predictive modeling, disruption prevention, and system optimization. Combining data scientists and ML models for decision-making.</p>
-                    <a href="/data-science" className="inline-flex items-center gap-2 text-emerald-600 font-bold text-sm group/btn mt-auto">
-                        Explore Data Science <i data-lucide="arrow-right" className="w-4 h-4 group-hover/btn:translate-x-2 transition-transform duration-300"></i>
-                    </a>
+                    <Link to="/data-science" className="inline-flex items-center gap-2 text-emerald-600 font-bold text-sm group/btn mt-auto"> Explore Data Science <i data-lucide="arrow-right" className="w-4 h-4 group-hover/btn:translate-x-2 transition-transform duration-300"></i></Link>
                 </div>
             </motion.div>
         </div>

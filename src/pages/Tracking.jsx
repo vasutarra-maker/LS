@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export default function Tracking() {
 
@@ -18,9 +19,7 @@ export default function Tracking() {
                     Transforming global freight forwarders and 3PL networks through real-time telemetry, automated route optimization, and high-velocity freight execution.
                 </p>
                 <div className="flex gap-4">
-                    <a href="/quote" className="px-8 py-4 rounded-full bg-brand-accent text-white font-bold hover:bg-brand-accentHover transition-all flex items-center gap-2 shadow-lg shadow-brand-accent/30">
-                        Book Shipment <i data-lucide="arrow-right" className="w-5 h-5"></i>
-                    </a>
+                    <Link to="/quote" className="px-8 py-4 rounded-full bg-brand-accent text-white font-bold hover:bg-brand-accentHover transition-all flex items-center gap-2 shadow-lg shadow-brand-accent/30"> Book Shipment <i data-lucide="arrow-right" className="w-5 h-5"></i></Link>
                 </div>
             </div>
             
