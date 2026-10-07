@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export default function Footer() {
   return (
@@ -7,14 +8,14 @@ export default function Footer() {
             
             {/*  Links Column  */}
             <div className="space-y-6">
-                <a href="/" className="flex items-center gap-3 mb-8">
+                <Link to="/" className="flex items-center gap-3 mb-8">
                     <img src="https://logisticsstudio.com/wp-content/uploads/2024/04/Logistics-Studio-logo_hd-1-768x269.png" alt="Logistics Studio" className="h-12 w-auto" />
-                </a>
+                </Link>
                 <ul className="space-y-4 font-medium text-slate-300">
-                    <li><a href="/" className="hover:text-[#e85d22] transition-colors">Home</a></li>
-                    <li><a href="/services" className="hover:text-[#e85d22] transition-colors">Services</a></li>
-                    <li><a href="/quote" className="hover:text-[#e85d22] transition-colors">Get in Touch</a></li>
-                    <li><a href="/resources" className="hover:text-[#e85d22] transition-colors">Resources</a></li>
+                    <li><Link to="/" className="hover:text-[#e85d22] transition-colors">Home</Link></li>
+                    <li><Link to="/services" className="hover:text-[#e85d22] transition-colors">Services</Link></li>
+                    <li><Link to="/quote" className="hover:text-[#e85d22] transition-colors">Get in Touch</Link></li>
+                    <li><Link to="/resources" className="hover:text-[#e85d22] transition-colors">Resources</Link></li>
                 </ul>
             </div>
 
@@ -76,3 +77,4 @@ export default function Footer() {
     </footer>
   );
 }
+
