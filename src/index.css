@@ -1,0 +1,91 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-accent: #f97316;
+  --color-brand-accent-hover: #ea580c;
+  --color-brand-dark: #0a0f1c;
+  --color-brand-surface: #ffffff;
+  --color-brand-muted: #f1f5f9;
+
+  --font-sans: "Inter", sans-serif;
+  --font-display: "Sora", sans-serif;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: #f8fafc;
+  color: #0f172a;
+}
+
+h1, h2, h3, h4, .font-display {
+  font-family: var(--font-display);
+}
+
+.hero-bg {
+  background-color: var(--color-brand-dark);
+  color: white;
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-100%); }
+}
+
+.animate-marquee {
+  display: flex;
+  animation: marquee 20s linear infinite;
+}
+
+.fretrix-card {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 1rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.fretrix-card:hover {
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  transform: translateY(-4px);
+  border-color: var(--color-brand-accent);
+}
+
+.dropdown-menu {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: all 0.2s ease;
+}
+
+.group:hover .dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* ---- Motion layer (Lenis + GSAP) ---- */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-stopped { overflow: hidden; }
+
+header { will-change: transform; transition: transform .45s cubic-bezier(.22,1,.36,1), background-color .3s, box-shadow .3s; }
+header > div { transition: padding .35s ease; }
+header.fx-scrolled { background-color: rgba(255,255,255,.96); box-shadow: 0 10px 30px -12px rgba(15,23,42,.18); }
+header.fx-scrolled > div { padding-top: .6rem; padding-bottom: .6rem; }
+
+.sticky-tabs {
+  top: 73px;
+  transition: top .45s cubic-bezier(.22,1,.36,1);
+}
+body.is-scrolled .sticky-tabs {
+  top: 60px;
+}
+body.header-hidden .sticky-tabs {
+  top: 0;
+}
+
+::selection { background: var(--color-brand-accent); color: #fff; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}
