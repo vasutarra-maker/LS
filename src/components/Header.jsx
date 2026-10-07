@@ -1,16 +1,17 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export default function Header() {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200 shadow-sm transition-all duration-300">
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-            <a href="/" className="flex items-center gap-3 group">
+            <Link to="/" className="flex items-center gap-3 group">
                 <img src="https://logisticsstudio.com/wp-content/uploads/2024/04/Logistics-Studio-logo_hd-1-768x269.png" alt="Logistics Studio" className="h-10 w-auto" />
-            </a>
+            </Link>
 
             <nav className="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-600">
-                <a href="/" className="hover:text-brand-accent transition-colors transform hover:-translate-y-0.5 duration-300">Home</a>
-                <a href="/about" className="hover:text-brand-accent transition-colors transform hover:-translate-y-0.5 duration-300">About Us</a>
+                <Link to="/" className="hover:text-brand-accent transition-colors transform hover:-translate-y-0.5 duration-300">Home</Link>
+                <Link to="/about" className="hover:text-brand-accent transition-colors transform hover:-translate-y-0.5 duration-300">About Us</Link>
                 
                 <div className="relative group h-full py-6 -my-6 flex items-center">
                     <button className="flex items-center gap-1 hover:text-brand-accent transition-colors cursor-pointer transform hover:-translate-y-0.5 duration-300" onClick="window.location.href='services.html'">
@@ -22,7 +23,7 @@ export default function Header() {
                         <div className="bg-[#0b1536] rounded-2xl p-4 shadow-2xl border border-slate-700/50 grid grid-cols-2 gap-2 relative">
                             
                             {/*  Item 1  */}
-                            <a href="/strategy-and-development" className="flex items-start gap-4 p-4 rounded-xl hover:bg-slate-800/50 transition-colors group/link">
+                            <Link to="/strategy-and-development" className="flex items-start gap-4 p-4 rounded-xl hover:bg-slate-800/50 transition-colors group/link">
                                 <div className="w-10 h-10 rounded-lg border border-brand-accent/50 flex items-center justify-center text-brand-accent shrink-0 mt-0.5">
                                     <i data-lucide="compass" className="w-5 h-5"></i>
                                 </div>
@@ -30,10 +31,10 @@ export default function Header() {
                                     <div className="text-slate-100 font-bold text-[15px] mb-1">Strategy and Development</div>
                                     <div className="text-xs text-slate-400">Digital roadmaps &amp; consulting</div>
                                 </div>
-                            </a>
+                            </Link>
 
                             {/*  Item 2  */}
-                            <a href="/dedicated-teams" className="flex items-start gap-4 p-4 rounded-xl hover:bg-slate-800/50 transition-colors group/link">
+                            <Link to="/dedicated-teams" className="flex items-start gap-4 p-4 rounded-xl hover:bg-slate-800/50 transition-colors group/link">
                                 <div className="w-10 h-10 rounded-lg border border-brand-accent/50 flex items-center justify-center text-brand-accent shrink-0 mt-0.5">
                                     <i data-lucide="users" className="w-5 h-5"></i>
                                 </div>
@@ -41,10 +42,10 @@ export default function Header() {
                                     <div className="text-slate-100 font-bold text-[15px] mb-1">Dedicated Teams</div>
                                     <div className="text-xs text-slate-400">Staff augmentation &amp; support</div>
                                 </div>
-                            </a>
+                            </Link>
 
                             {/*  Item 3  */}
-                            <a href="/data-science" className="flex items-start gap-4 p-4 rounded-xl hover:bg-slate-800/50 transition-colors group/link">
+                            <Link to="/data-science" className="flex items-start gap-4 p-4 rounded-xl hover:bg-slate-800/50 transition-colors group/link">
                                 <div className="w-10 h-10 rounded-lg border border-brand-accent/50 flex items-center justify-center text-brand-accent shrink-0 mt-0.5">
                                     <i data-lucide="bar-chart-2" className="w-5 h-5"></i>
                                 </div>
@@ -52,10 +53,10 @@ export default function Header() {
                                     <div className="text-slate-100 font-bold text-[15px] mb-1">Data Science</div>
                                     <div className="text-xs text-slate-400">AI predictive models &amp; analytics</div>
                                 </div>
-                            </a>
+                            </Link>
 
                             {/*  Item 4  */}
-                            <a href="/ibm-sterling-b2b-integrator" className="flex items-start gap-4 p-4 rounded-xl hover:bg-slate-800/50 transition-colors group/link">
+                            <Link to="/ibm-sterling-b2b-integrator" className="flex items-start gap-4 p-4 rounded-xl hover:bg-slate-800/50 transition-colors group/link">
                                 <div className="w-10 h-10 rounded-lg border border-brand-accent/50 flex items-center justify-center text-brand-accent shrink-0 mt-0.5">
                                     <i data-lucide="git-merge" className="w-5 h-5"></i>
                                 </div>
@@ -63,10 +64,10 @@ export default function Header() {
                                     <div className="text-slate-100 font-bold text-[15px] mb-1">IBM Sterling Integrator</div>
                                     <div className="text-xs text-slate-400">Supply chain &amp; B2B workflows</div>
                                 </div>
-                            </a>
+                            </Link>
 
                             {/*  Item 5  */}
-                            <a href="/supply-chain-sustainability" className="flex items-start gap-4 p-4 rounded-xl hover:bg-slate-800/50 transition-colors group/link">
+                            <Link to="/supply-chain-sustainability" className="flex items-start gap-4 p-4 rounded-xl hover:bg-slate-800/50 transition-colors group/link">
                                 <div className="w-10 h-10 rounded-lg border border-brand-accent/50 flex items-center justify-center text-brand-accent shrink-0 mt-0.5">
                                     <i data-lucide="leaf" className="w-5 h-5"></i>
                                 </div>
@@ -74,10 +75,10 @@ export default function Header() {
                                     <div className="text-slate-100 font-bold text-[15px] mb-1">Sustainability</div>
                                     <div className="text-xs text-slate-400">Green metrics &amp; optimization</div>
                                 </div>
-                            </a>
+                            </Link>
 
                             {/*  Item 6  */}
-                            <a href="/ibm-watsonx" className="flex items-start gap-4 p-4 rounded-xl hover:bg-slate-800/50 transition-colors group/link">
+                            <Link to="/ibm-watsonx" className="flex items-start gap-4 p-4 rounded-xl hover:bg-slate-800/50 transition-colors group/link">
                                 <div className="w-10 h-10 rounded-lg border border-brand-accent/50 flex items-center justify-center text-brand-accent shrink-0 mt-0.5">
                                     <i data-lucide="cpu" className="w-5 h-5"></i>
                                 </div>
@@ -85,26 +86,26 @@ export default function Header() {
                                     <div className="text-slate-100 font-bold text-[15px] mb-1">IBM Watsonx</div>
                                     <div className="text-xs text-slate-400">Enterprise AI for logistics</div>
                                 </div>
-                            </a>
+                            </Link>
                             
                             {/*  Bottom Action  */}
                             <div className="col-span-2 mt-2 pt-4 border-t border-slate-700/50 flex justify-start">
-                                <a href="/services" className="text-brand-accent font-bold text-sm hover:text-orange-400 transition-colors flex items-center gap-2 pl-4 pb-2">
+                                <Link to="/services" className="text-brand-accent font-bold text-sm hover:text-orange-400 transition-colors flex items-center gap-2 pl-4 pb-2">
                                     View all services <i data-lucide="arrow-right" className="w-4 h-4"></i>
-                                </a>
+                                </Link>
                             </div>
 
                         </div>
                     </div>
                 </div>
                 
-                <a href="/resources" className="hover:text-brand-accent transition-colors transform hover:-translate-y-0.5 duration-300">Resources</a>
+                <Link to="/resources" className="hover:text-brand-accent transition-colors transform hover:-translate-y-0.5 duration-300">Resources</Link>
             </nav>
 
             <div className="flex items-center gap-4">
-                <a href="/quote" className="hidden md:flex items-center gap-2 px-6 py-2.5 rounded-full bg-brand-accent text-white font-bold text-sm hover:bg-brand-accentHover transition-colors shadow-md shadow-brand-accent/30">
+                <Link to="/quote" className="hidden md:flex items-center gap-2 px-6 py-2.5 rounded-full bg-brand-accent text-white font-bold text-sm hover:bg-brand-accentHover transition-colors shadow-md shadow-brand-accent/30">
                     Request Quote <i data-lucide="arrow-right" className="w-4 h-4"></i>
-                </a>
+                </Link>
             </div>
         </div>
     </header>
