@@ -41,11 +41,9 @@ export default function ScrollEffects() {
         const isScrolled = e.scroll > 40;
         header.classList.toggle('fx-scrolled', isScrolled);
         document.body.classList.toggle('is-scrolled', isScrolled);
-        
-        // hide on scroll down, reveal on scroll up
-        const hide = e.direction === 1 && e.scroll > 480;
-        header.style.transform = hide ? 'translateY(-110%)' : 'translateY(0)';
-        document.body.classList.toggle('header-hidden', hide);
+        // Always keep header visible — never hide on scroll down
+        header.style.transform = 'translateY(0)';
+        document.body.classList.remove('header-hidden');
       }
     });
 

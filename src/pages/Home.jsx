@@ -1,235 +1,443 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, useScroll, useTransform } from 'framer-motion';
 
+/* ── Upward arrow particle floating in hero ── */
+function ArrowParticle({ x, delay, duration, size = 16 }) {
+  return (
+    <motion.div
+      className="absolute pointer-events-none"
+      style={{ left: `${x}%`, bottom: '-10px' }}
+      initial={{ y: 0, opacity: 0 }}
+      animate={{ y: [0, -400], opacity: [0, 0.8, 0.6, 0] }}
+      transition={{ duration, delay, repeat: Infinity, ease: 'easeOut', repeatDelay: 0.5 }}
+    >
+      <svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+        <path d="M12 20V4M12 4L6 10M12 4L18 10" stroke="#f97316" strokeWidth="2" strokeLinecap="round" />
+      </svg>
+    </motion.div>
+  );
+}
+
+/* ── Floating cargo box background element ── */
+function FloatingBox({ left, top, size = 40, delay = 0, color = '#f97316', rotate = 0 }) {
+  return (
+    <motion.div
+      className="absolute pointer-events-none"
+      style={{ left, top, color, width: size, height: size }}
+      animate={{ y: [0, -16, 0], rotate: [rotate, rotate + 6, rotate], opacity: [0.2, 0.45, 0.2] }}
+      transition={{ duration: 4 + delay, delay, repeat: Infinity, ease: 'easeInOut' }}
+    >
+      <svg viewBox="0 0 40 40" fill="none" width={size} height={size}>
+        <rect x="4" y="16" width="32" height="20" rx="2" fill="currentColor" fillOpacity="0.15" stroke="currentColor" strokeWidth="1.5" />
+        <path d="M4 22h32" stroke="currentColor" strokeWidth="1.5" />
+        <path d="M20 16v20" stroke="currentColor" strokeWidth="1.5" strokeDasharray="3 2" />
+        <path d="M4 16l3-9h26l3 9" stroke="currentColor" strokeWidth="1.5" />
+        <path d="M16 22v5h8v-5" stroke="currentColor" strokeWidth="1.5" fill="none" />
+        <path d="M20 9V4M17 7l3-3 3 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+      </svg>
+    </motion.div>
+  );
+}
+
+/* ── Card: rises from below ONCE, stays in place on scroll up ── */
+function LiftCard({ children, delay = 0, className = '' }) {
+  return (
+    <motion.div
+      className={className}
+      initial={{ opacity: 0, y: 80 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.15 }}
+      transition={{ duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] }}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+/* ── Service card data ── */
+const SERVICE_CARDS = [
+  {
+    img: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=800',
+    icon: 'compass',
+    title: 'Development & Strategy',
+    desc: 'Rapid Prototyping, Custom Software Development, Strategy Roadmaps, and Technology Consulting. Taking digital ideas from conception to deployment.',
+    link: '/strategy-and-development',
+    label: 'Explore Strategy',
+    accent: { ring: 'border-brand-accent', text: 'text-brand-accent', bg: 'bg-orange-50', hover: 'group-hover:text-brand-accent', hoverBg: 'group-hover:bg-brand-accent', overlay: 'bg-brand-accent/20' },
+  },
+  {
+    img: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=800',
+    icon: 'users',
+    title: 'Dedicated Teams',
+    desc: 'Ongoing Long-Term Support & Maintenance, Product Development & Integration. Scalable engineering team augmentation tailored to client roadmaps.',
+    link: '/dedicated-teams',
+    label: 'Explore Teams',
+    accent: { ring: 'border-blue-500', text: 'text-blue-600', bg: 'bg-blue-50', hover: 'group-hover:text-blue-600', hoverBg: 'group-hover:bg-blue-600', overlay: 'bg-blue-500/20' },
+  },
+  {
+    img: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=800',
+    icon: 'network',
+    title: 'Data Science & AI',
+    desc: 'Predictive modeling, disruption prevention, and system optimization. Combining data scientists and ML models for decision-making.',
+    link: '/data-science',
+    label: 'Explore Data Science',
+    accent: { ring: 'border-emerald-500', text: 'text-emerald-600', bg: 'bg-emerald-50', hover: 'group-hover:text-emerald-600', hoverBg: 'group-hover:bg-emerald-600', overlay: 'bg-emerald-500/20' },
+  },
+];
+
+
+/* ── Smooth scroll section: cards fly in from right smoothly ── */
+function ServiceScrollSection({ UpArrow }) {
+  return (
+    <section className="py-24 bg-white relative" id="services">
+      <div className="max-w-7xl mx-auto px-6">
+
+        {/* Header */}
+        <motion.div 
+          className="text-center mb-16 space-y-3"
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.6 }}
+        >
+          <div className="inline-flex items-center gap-2 text-brand-accent font-semibold uppercase tracking-wider text-sm">
+            <motion.span animate={{ y: [0, -5, 0] }} transition={{ repeat: Infinity, duration: 1.4 }}>
+              <UpArrow size={14} className="text-brand-accent" />
+            </motion.span>
+            Featured Service Modules
+          </div>
+          <h2 className="text-4xl md:text-5xl font-display font-bold text-slate-900">
+            Comprehensive <span className="text-brand-accent">Solutions.</span>
+          </h2>
+        </motion.div>
+
+        {/* Cards grid — each slides in from right smoothly */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 overflow-hidden">
+          {SERVICE_CARDS.map((card, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, x: 80 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, amount: 0.1 }}
+              transition={{ duration: 0.7, delay: i * 0.15, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <div className={`fretrix-card h-full overflow-hidden group flex flex-col hover:${card.accent.ring} transition-all duration-300 shadow-sm hover:shadow-xl border border-slate-100 rounded-2xl`}>
+                <div className="h-48 overflow-hidden relative">
+                  <div className={`absolute inset-0 ${card.accent.overlay} opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10`} />
+                  <img src={card.img} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt={card.title} />
+                  {/* Upward arrow badge on hover */}
+                  <div className="absolute top-3 right-3 z-20 bg-white/85 backdrop-blur rounded-xl p-2
+                    opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300">
+                    <UpArrow size={18} className={card.accent.text} />
+                  </div>
+                </div>
+                <div className="p-8 flex flex-col flex-grow bg-white">
+                  <div className="mb-4">
+                    <div className={`w-12 h-12 rounded-full ${card.accent.bg} ${card.accent.text} flex items-center justify-center
+                      group-hover:scale-110 ${card.accent.hoverBg} group-hover:text-white transition-all duration-300`}>
+                      <i data-lucide={card.icon} />
+                    </div>
+                  </div>
+                  <h3 className={`text-2xl font-bold mb-3 text-slate-900 ${card.accent.hover} transition-colors duration-300`}>
+                    {card.title}
+                  </h3>
+                  <p className="text-slate-500 text-sm mb-6 flex-grow">{card.desc}</p>
+                  <Link to={card.link} className={`inline-flex items-center gap-2 ${card.accent.text} font-bold text-sm mt-auto group/btn`}>
+                    {card.label}
+                    <motion.span animate={{ x: [0, 4, 0] }} transition={{ repeat: Infinity, duration: 1.5, delay: i * 0.15 }}>
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                        <path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                      </svg>
+                    </motion.span>
+                  </Link>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export default function Home() {
-  const servicesRef = useRef(null);
-  const { scrollYProgress: servicesScroll } = useScroll({
-    target: servicesRef,
-    offset: ["start start", "end end"]
-  });
-
-  const card2Y = useTransform(servicesScroll, [0, 0.4], ["100vh", "0vh"]);
-  const card2Op = useTransform(servicesScroll, [0, 0.3], [0, 1]);
-
-  const card3Y = useTransform(servicesScroll, [0.4, 0.8], ["100vh", "0vh"]);
-  const card3Op = useTransform(servicesScroll, [0.4, 0.7], [0, 1]);
-
-  // Services header reveal
-  const servicesHeadY = useTransform(servicesScroll, [0, 0.2], ["60px", "0px"]);
-  const servicesHeadOp = useTransform(servicesScroll, [0, 0.15], [0, 1]);
-
-  const coreRef = useRef(null);
-  const { scrollYProgress: coreScroll } = useScroll({
-    target: coreRef,
-    offset: ["start start", "end end"]
-  });
-
-  const coreCard1Y = useTransform(coreScroll, [0, 0.4], ["100vh", "0vh"]);
-  const coreCard2Y = useTransform(coreScroll, [0.2, 0.6], ["100vh", "0vh"]);
-  const coreCard3Y = useTransform(coreScroll, [0.4, 0.8], ["100vh", "0vh"]);
-  const coreCard4Y = useTransform(coreScroll, [0.6, 1], ["100vh", "0vh"]);
-
-  const coreCard1Op = useTransform(coreScroll, [0, 0.2], [0, 1]);
-  const coreCard2Op = useTransform(coreScroll, [0.2, 0.4], [0, 1]);
-  const coreCard3Op = useTransform(coreScroll, [0.4, 0.6], [0, 1]);
-  const coreCard4Op = useTransform(coreScroll, [0.6, 0.8], [0, 1]);
-
-  // Hero parallax: layers move at different speeds as the user scrolls away
+  /* Hero parallax */
   const heroRef = useRef(null);
-  const { scrollYProgress: heroScroll } = useScroll({
-    target: heroRef,
-    offset: ["start start", "end start"]
-  });
-  const orbY1 = useTransform(heroScroll, [0, 1], ["0px", "250px"]);
-  const orbY2 = useTransform(heroScroll, [0, 1], ["0px", "-150px"]);
-  const heroTextY = useTransform(heroScroll, [0, 1], ["0px", "120px"]);
-  const heroTextOp = useTransform(heroScroll, [0, 0.8], [1, 0]);
-  const heroCardY = useTransform(heroScroll, [0, 1], ["0px", "-80px"]);
-  const heroCardRotate = useTransform(heroScroll, [0, 1], [2, -4]);
-  const heroImgScale = useTransform(heroScroll, [0, 1], [1, 1.15]);
+  const { scrollYProgress: heroScroll } = useScroll({ target: heroRef, offset: ['start start', 'end start'] });
+  const orbY1      = useTransform(heroScroll, [0, 1], ['0px', '220px']);
+  const orbY2      = useTransform(heroScroll, [0, 1], ['0px', '-130px']);
+  const heroTextY  = useTransform(heroScroll, [0, 1], ['0px', '100px']);
+  const heroTextOp = useTransform(heroScroll, [0, 0.75], [1, 0]);
+  const heroCardY  = useTransform(heroScroll, [0, 1], ['0px', '-60px']);
+  const heroImgSc  = useTransform(heroScroll, [0, 1], [1, 1.12]);
 
-  React.useEffect(() => {
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if(entry.isIntersecting) {
-                entry.target.classList.add('animate-fade-in-up');
-                observer.unobserve(entry.target);
-            }
-        });
+  useEffect(() => {
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('animate-fade-in-up'); obs.unobserve(e.target); } });
     }, { threshold: 0.1 });
-    
-    document.querySelectorAll('.scroll-animate').forEach(el => observer.observe(el));
-    
-    return () => {
-        observer.disconnect();
-    };
+    document.querySelectorAll('.scroll-animate').forEach(el => obs.observe(el));
+    return () => obs.disconnect();
   }, []);
+
+  const particles = [
+    { x: 6,  delay: 0,   duration: 3.5, size: 13 },
+    { x: 18, delay: 1.2, duration: 4.2, size: 18 },
+    { x: 33, delay: 0.5, duration: 3.0, size: 11 },
+    { x: 52, delay: 2.0, duration: 4.8, size: 16 },
+    { x: 68, delay: 0.8, duration: 3.8, size: 14 },
+    { x: 82, delay: 1.5, duration: 5.0, size: 20 },
+    { x: 93, delay: 0.3, duration: 3.2, size: 12 },
+  ];
+
+  /* ── Upward arrow icon (reused inline) ── */
+  const UpArrow = ({ size = 16, className = '' }) => (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" className={className}>
+      <path d="M12 20V4M12 4L6 10M12 4L18 10" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
+    </svg>
+  );
 
   return (
     <>
-<section data-no-fx ref={heroRef} className="hero-bg pt-32 pb-24 px-6 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#0a1945] to-[#041029] opacity-90 z-0"></div>
-        <motion.div style={{ y: orbY1 }} className="absolute w-96 h-96 bg-brand-accent/20 rounded-full blur-3xl top-10 right-10 z-0"></motion.div>
-        <motion.div style={{ y: orbY2 }} className="absolute w-96 h-96 bg-blue-500/20 rounded-full blur-3xl bottom-10 left-10 z-0"></motion.div>
-        
-        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10">
-            <motion.div style={{ y: heroTextY, opacity: heroTextOp }} initial="hidden" animate="show" variants={{ hidden: {}, show: { transition: { staggerChildren: 0.15 } } }} className="space-y-8">
-                <motion.div variants={{ hidden: { opacity: 0, y: 30 }, show: { opacity: 1, y: 0 } }} className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-800/50 border border-slate-700 text-xs font-semibold text-slate-300 hover:bg-slate-700/50 transition-colors duration-300">
-                    <span className="w-2 h-2 rounded-full bg-brand-accent animate-ping"></span>
-                    Technology Solutions for Transportation &amp; Logistics
-                </motion.div>
-                <motion.h1 variants={{ hidden: { opacity: 0, y: 40 }, show: { opacity: 1, y: 0 } }} className="text-5xl lg:text-7xl font-display font-extrabold leading-tight tracking-tight">
-                    Innovate, Automate <span className="text-brand-accent">&amp; Predict</span>
-                </motion.h1>
-                <motion.p variants={{ hidden: { opacity: 0, y: 40 }, show: { opacity: 1, y: 0 } }} className="text-lg text-slate-400 max-w-lg leading-relaxed hover:text-slate-300 transition-colors duration-500">
-                    Provides supply chain software development, app design, data analytics, staff augmentation, and system integrations (ERP to last-mile delivery). Assists with digital strategy, custom transportation management systems (TMS), and support for in-house engineering teams.
-                </motion.p>
-                <motion.div variants={{ hidden: { opacity: 0, y: 40 }, show: { opacity: 1, y: 0 } }} className="flex gap-4 group">
-                    <Link to="/quote" className="px-8 py-4 rounded-full bg-brand-accent text-white font-bold hover:bg-brand-accentHover transition-all duration-300 flex items-center gap-2 shadow-lg shadow-brand-accent/30 transform hover:-translate-y-1 hover:scale-105"> Get Started <i data-lucide="arrow-right" className="w-5 h-5 group-hover:translate-x-2 transition-transform duration-300"></i></Link>
-                </motion.div>
-            </motion.div>
-            
-            {/*  Hero Proof Component  */}
-            <motion.div initial={{ opacity: 0, x: 80 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.9, delay: 0.3, ease: "easeOut" }}>
-            <motion.div style={{ y: heroCardY, rotate: heroCardRotate }} className="relative bg-slate-800 rounded-3xl p-2 border border-slate-700 shadow-2xl hover:scale-[1.02] transition-transform duration-500">
-                <div className="overflow-hidden rounded-2xl">
-                    <motion.img style={{ scale: heroImgScale }} src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&amp;w=1000&amp;auto=format&amp;fit=crop" className="object-cover h-[400px] w-full opacity-80 filter hover:brightness-110" />
-                </div>
-                <div className="absolute bottom-6 left-6 right-6 bg-slate-900/90 backdrop-blur-md rounded-2xl p-6 border border-slate-700 flex items-center justify-between transform hover:-translate-y-2 transition-transform duration-300 shadow-xl">
-                    <div>
-                        <div className="flex text-brand-accent mb-1">
-                            <i data-lucide="star" className="w-4 h-4 fill-current"></i><i data-lucide="star" className="w-4 h-4 fill-current"></i><i data-lucide="star" className="w-4 h-4 fill-current"></i><i data-lucide="star" className="w-4 h-4 fill-current"></i><i data-lucide="star" className="w-4 h-4 fill-current"></i>
-                        </div>
-                        <p className="text-white font-bold text-xl">4.9/5 <span className="text-sm font-normal text-slate-400">Trusted Partner</span></p>
-                    </div>
-                    <div className="text-right">
-                        <p className="text-3xl font-display font-bold text-white text-transparent bg-clip-text bg-gradient-to-r from-brand-accent to-orange-400 animate-pulse">100%</p>
-                        <p className="text-xs text-slate-400 uppercase tracking-wider">Agile</p>
-                    </div>
-                </div>
-            </motion.div>
-            </motion.div>
+      {/* ═══════════════ HERO ═══════════════ */}
+      <section data-no-fx ref={heroRef} className="hero-bg pt-32 pb-24 px-6 relative overflow-hidden min-h-screen flex items-center">
+        <div className="absolute inset-0 bg-gradient-to-br from-[#0a1945] to-[#041029] opacity-95 z-0" />
+        <motion.div style={{ y: orbY1 }} className="absolute w-[500px] h-[500px] bg-brand-accent/15 rounded-full blur-3xl top-10 right-10 z-0" />
+        <motion.div style={{ y: orbY2 }} className="absolute w-96 h-96 bg-blue-500/15 rounded-full blur-3xl bottom-10 left-10 z-0" />
+
+        {/* Background floating cargo boxes */}
+        <FloatingBox left="5%"  top="15%" size={44} delay={0}   color="#f97316" rotate={-15} />
+        <FloatingBox left="87%" top="18%" size={36} delay={1.5} color="#60a5fa" rotate={10} />
+        <FloatingBox left="78%" top="62%" size={52} delay={0.8} color="#f97316" rotate={20} />
+        <FloatingBox left="10%" top="68%" size={36} delay={2.2} color="#a78bfa" rotate={-5} />
+        <FloatingBox left="48%" top="8%"  size={30} delay={1.0} color="#34d399" rotate={12} />
+
+        {/* Upward arrow particles rising */}
+        <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+          {particles.map((p, i) => <ArrowParticle key={i} {...p} />)}
         </div>
-    </section>
-<div className="bg-white py-10 border-b border-slate-200 overflow-hidden flex relative">
-        <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-white to-transparent z-10"></div>
-        <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-white to-transparent z-10"></div>
-        
-        <div className="flex animate-marquee gap-16 md:gap-24 items-center px-8 w-max">
-            {/*  Set 1  */}
-            <img src="https://logisticsstudio.com/wp-content/uploads/2024/05/echo-icon-removebg-preview-modified-fotor-2024051722614.png" alt="Echo" className="h-12 w-auto object-contain grayscale hover:grayscale-0 transition-all duration-300 opacity-60 hover:opacity-100" />
-            <img src="https://logisticsstudio.com/wp-content/uploads/2024/04/JB-Hunt-size-4-1-Kittl.svg" alt="JB Hunt" className="h-12 w-auto object-contain grayscale hover:grayscale-0 transition-all duration-300 opacity-60 hover:opacity-100" />
-            <img src="https://logisticsstudio.com/wp-content/uploads/2024/04/Transplace-logo-2-1-Kittl.svg" alt="Transplace" className="h-12 w-auto object-contain grayscale hover:grayscale-0 transition-all duration-300 opacity-60 hover:opacity-100" />
-            <img src="https://logisticsstudio.com/wp-content/uploads/2024/04/Choptanklogo-1-Kittl.svg" alt="Choptank" className="h-12 w-auto object-contain grayscale hover:grayscale-0 transition-all duration-300 opacity-60 hover:opacity-100" />
-            <img src="https://logisticsstudio.com/wp-content/uploads/2024/04/Simple-Logo-Schema-1-Kittl.svg" alt="Simple Schema" className="h-12 w-auto object-contain grayscale hover:grayscale-0 transition-all duration-300 opacity-60 hover:opacity-100" />
-            <img src="https://logisticsstudio.com/wp-content/uploads/2024/05/pgt-1.png" alt="PGT" className="h-12 w-auto object-contain grayscale hover:grayscale-0 transition-all duration-300 opacity-60 hover:opacity-100" />
-            {/*  Set 2  */}
-            <img src="https://logisticsstudio.com/wp-content/uploads/2024/05/echo-icon-removebg-preview-modified-fotor-2024051722614.png" alt="Echo" className="h-12 w-auto object-contain grayscale hover:grayscale-0 transition-all duration-300 opacity-60 hover:opacity-100" />
-            <img src="https://logisticsstudio.com/wp-content/uploads/2024/04/JB-Hunt-size-4-1-Kittl.svg" alt="JB Hunt" className="h-12 w-auto object-contain grayscale hover:grayscale-0 transition-all duration-300 opacity-60 hover:opacity-100" />
-            <img src="https://logisticsstudio.com/wp-content/uploads/2024/04/Transplace-logo-2-1-Kittl.svg" alt="Transplace" className="h-12 w-auto object-contain grayscale hover:grayscale-0 transition-all duration-300 opacity-60 hover:opacity-100" />
-            <img src="https://logisticsstudio.com/wp-content/uploads/2024/04/Choptanklogo-1-Kittl.svg" alt="Choptank" className="h-12 w-auto object-contain grayscale hover:grayscale-0 transition-all duration-300 opacity-60 hover:opacity-100" />
-            <img src="https://logisticsstudio.com/wp-content/uploads/2024/04/Simple-Logo-Schema-1-Kittl.svg" alt="Simple Schema" className="h-12 w-auto object-contain grayscale hover:grayscale-0 transition-all duration-300 opacity-60 hover:opacity-100" />
-            <img src="https://logisticsstudio.com/wp-content/uploads/2024/05/pgt-1.png" alt="PGT" className="h-12 w-auto object-contain grayscale hover:grayscale-0 transition-all duration-300 opacity-60 hover:opacity-100" />
-        </div>
-    </div>
-<section data-no-fx ref={servicesRef} className="h-[200vh] relative" id="services">
-    <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden py-24 px-6">
-        <div className="max-w-7xl mx-auto w-full">
-            <motion.div style={{ y: servicesHeadY, opacity: servicesHeadOp }} className="text-center mb-16 space-y-4">
-                <div className="inline-flex items-center gap-2 text-brand-accent font-semibold uppercase tracking-wider text-sm transform hover:scale-105 transition-transform duration-300">
-                    <span className="w-2 h-2 rounded-full bg-brand-accent animate-ping"></span> Featured Service Modules
-                </div>
-                <h2 className="text-4xl md:text-5xl font-display font-bold text-slate-900 hover:text-brand-accent transition-colors duration-300">Comprehensive <span className="text-brand-accent">Solutions.</span></h2>
-            </motion.div>
-            
-            <div className="relative grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/*  Module 1  */}
-            <motion.div className="fretrix-card scroll-animate overflow-hidden group flex flex-col hover:border-brand-accent transition-all duration-300 z-20">
-                <div className="h-48 overflow-hidden relative">
-                    <div className="absolute inset-0 bg-brand-accent/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"></div>
-                    <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&amp;w=800" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
-                </div>
-                <div className="p-8 flex flex-col flex-grow relative z-20 bg-white shadow-xl">
-                    <div className="flex justify-between items-center mb-4 transform group-hover:-translate-y-1 transition-transform duration-300">
-                        <div className="w-12 h-12 rounded-full bg-orange-50 text-brand-accent flex items-center justify-center group-hover:scale-110 group-hover:bg-brand-accent group-hover:text-white transition-all duration-300"><i data-lucide="compass"></i></div>
-                    </div>
-                    <h3 className="text-2xl font-bold mb-3 text-slate-900 group-hover:text-brand-accent transition-colors duration-300">Development &amp; Strategy</h3>
-                    <p className="text-slate-500 text-sm mb-6 flex-grow">Rapid Prototyping, Custom Software Development, Strategy Roadmaps, and Technology Consulting. Taking digital ideas from conception to deployment.</p>
-                    <Link to="/strategy-and-development" className="inline-flex items-center gap-2 text-brand-accent font-bold text-sm group/btn mt-auto"> Explore Strategy <i data-lucide="arrow-right" className="w-4 h-4 group-hover/btn:translate-x-2 transition-transform duration-300"></i></Link>
-                </div>
+
+        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10 w-full">
+          {/* Left: text */}
+          <motion.div
+            style={{ y: heroTextY, opacity: heroTextOp }}
+            initial="hidden" animate="show"
+            variants={{ hidden: {}, show: { transition: { staggerChildren: 0.14 } } }}
+            className="space-y-8"
+          >
+            <motion.div variants={{ hidden: { opacity: 0, y: 30 }, show: { opacity: 1, y: 0 } }}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-800/50 border border-slate-700 text-xs font-semibold text-slate-300">
+              <span className="w-2 h-2 rounded-full bg-brand-accent animate-ping" />
+              Technology Solutions for Transportation &amp; Logistics
             </motion.div>
 
-            {/*  Module 2  */}
-            <motion.div style={{ y: card2Y, opacity: card2Op }} className="fretrix-card scroll-animate overflow-hidden group flex flex-col hover:border-brand-accent transition-all duration-300 z-30">
-                <div className="h-48 overflow-hidden relative">
-                    <div className="absolute inset-0 bg-brand-accent/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"></div>
-                    <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&amp;w=800" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
-                </div>
-                <div className="p-8 flex flex-col flex-grow relative z-20 bg-white shadow-2xl">
-                    <div className="flex justify-between items-center mb-4 transform group-hover:-translate-y-1 transition-transform duration-300">
-                        <div className="w-12 h-12 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center group-hover:scale-110 group-hover:bg-blue-600 group-hover:text-white transition-all duration-300"><i data-lucide="users"></i></div>
-                    </div>
-                    <h3 className="text-2xl font-bold mb-3 text-slate-900 group-hover:text-blue-600 transition-colors duration-300">Dedicated Teams</h3>
-                    <p className="text-slate-500 text-sm mb-6 flex-grow">Ongoing Long-Term Support &amp; Maintenance, Product Development &amp; Integration. Scalable engineering team augmentation tailored to client roadmaps.</p>
-                    <Link to="/dedicated-teams" className="inline-flex items-center gap-2 text-blue-600 font-bold text-sm group/btn mt-auto"> Explore Teams <i data-lucide="arrow-right" className="w-4 h-4 group-hover/btn:translate-x-2 transition-transform duration-300"></i></Link>
-                </div>
+            <motion.h1 variants={{ hidden: { opacity: 0, y: 40 }, show: { opacity: 1, y: 0 } }}
+              className="text-5xl lg:text-7xl font-display font-extrabold leading-tight tracking-tight text-white">
+              Elevate Your <span className="text-brand-accent">Supply Chain</span>
+            </motion.h1>
+
+            {/* Rising bar-chart accent */}
+            <motion.div variants={{ hidden: { opacity: 0, y: 20 }, show: { opacity: 1, y: 0 } }}
+              className="flex items-end gap-1 h-10">
+              {[3, 5, 4, 7, 6, 8, 7, 9, 8, 10].map((h, i) => (
+                <motion.div key={i} className="w-2 rounded-t bg-brand-accent"
+                  initial={{ height: 0 }}
+                  animate={{ height: `${h * 4}px` }}
+                  transition={{ delay: 0.8 + i * 0.07, duration: 0.5, ease: [0.22, 1, 0.36, 1] }} />
+              ))}
+              <motion.div initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 1.8 }}
+                className="ml-3 text-brand-accent text-sm font-bold flex items-center gap-1">
+                <UpArrow size={15} className="text-brand-accent" /> Trending Up
+              </motion.div>
             </motion.div>
 
-            {/*  Module 3  */}
-            <motion.div style={{ y: card3Y, opacity: card3Op }} className="fretrix-card scroll-animate overflow-hidden group flex flex-col hover:border-brand-accent transition-all duration-300 z-10">
-                <div className="h-48 overflow-hidden relative">
-                    <div className="absolute inset-0 bg-brand-accent/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"></div>
-                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&amp;w=800" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
-                </div>
-                <div className="p-8 flex flex-col flex-grow relative z-20 bg-white shadow-md">
-                    <div className="flex justify-between items-center mb-4 transform group-hover:-translate-y-1 transition-transform duration-300">
-                        <div className="w-12 h-12 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center group-hover:scale-110 group-hover:bg-emerald-600 group-hover:text-white transition-all duration-300"><i data-lucide="network"></i></div>
-                    </div>
-                    <h3 className="text-2xl font-bold mb-3 text-slate-900 group-hover:text-emerald-600 transition-colors duration-300">Data Science &amp; AI</h3>
-                    <p className="text-slate-500 text-sm mb-6 flex-grow">Predictive modeling, disruption prevention, and system optimization. Combining data scientists and ML models for decision-making.</p>
-                    <Link to="/data-science" className="inline-flex items-center gap-2 text-emerald-600 font-bold text-sm group/btn mt-auto"> Explore Data Science <i data-lucide="arrow-right" className="w-4 h-4 group-hover/btn:translate-x-2 transition-transform duration-300"></i></Link>
-                </div>
+            <motion.p variants={{ hidden: { opacity: 0, y: 40 }, show: { opacity: 1, y: 0 } }}
+              className="text-lg text-slate-400 max-w-lg leading-relaxed">
+              Supply chain software development, data analytics, staff augmentation, and system integrations — from ERP to last-mile delivery. Lifting your logistics to new heights.
+            </motion.p>
+
+            <motion.div variants={{ hidden: { opacity: 0, y: 40 }, show: { opacity: 1, y: 0 } }} className="flex gap-4">
+              <Link to="/quote"
+                className="px-8 py-4 rounded-full bg-brand-accent text-white font-bold hover:bg-brand-accentHover transition-all duration-300 flex items-center gap-2 shadow-lg shadow-brand-accent/30 hover:-translate-y-1 hover:scale-105 group">
+                Get Started
+                <motion.span animate={{ y: [0, -4, 0] }} transition={{ repeat: Infinity, duration: 1.2 }}>
+                  <UpArrow size={18} className="text-white" />
+                </motion.span>
+              </Link>
+              <Link to="/services"
+                className="px-8 py-4 rounded-full border border-slate-600 text-slate-300 font-bold hover:border-brand-accent hover:text-brand-accent transition-all duration-300 flex items-center gap-2">
+                Our Services
+              </Link>
             </motion.div>
+          </motion.div>
+
+          {/* Right: hero card */}
+          <motion.div initial={{ opacity: 0, y: 60 }} animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.9, delay: 0.3, ease: 'easeOut' }}>
+            <motion.div style={{ y: heroCardY }}
+              className="relative bg-slate-800 rounded-3xl p-2 border border-slate-700 shadow-2xl">
+              <div className="overflow-hidden rounded-2xl">
+                <motion.img style={{ scale: heroImgSc }}
+                  src="https://images.unsplash.com/photo-1553413077-190dd305871c?q=80&w=1000&auto=format&fit=crop"
+                  className="object-cover h-[380px] w-full opacity-80" alt="Warehouse logistics" />
+              </div>
+
+              {/* Stats overlay */}
+              <div className="absolute bottom-5 left-5 right-5 bg-slate-900/90 backdrop-blur-md rounded-2xl p-5 border border-slate-700 shadow-xl">
+                <div className="grid grid-cols-3 gap-4">
+                  {[
+                    { label: 'Deliveries', value: '2.4M+', icon: '📦' },
+                    { label: 'On-Time Rate', value: '99.2%', icon: '⬆️' },
+                    { label: 'Partners', value: '150+', icon: '🤝' },
+                  ].map((s, i) => (
+                    <motion.div key={i} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 1.2 + i * 0.15 }} className="text-center">
+                      <div className="text-lg mb-0.5">{s.icon}</div>
+                      <div className="text-white font-bold text-lg leading-none">{s.value}</div>
+                      <div className="text-slate-400 text-xs mt-1">{s.label}</div>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Floating cargo box badge */}
+              <motion.div
+                className="absolute -top-5 -right-5 bg-brand-accent rounded-2xl p-3 shadow-lg shadow-brand-accent/40"
+                animate={{ y: [0, -8, 0], rotate: [0, 5, 0] }}
+                transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}>
+                <svg width="26" height="26" viewBox="0 0 40 40" fill="none" className="text-white">
+                  <rect x="4" y="16" width="32" height="20" rx="2" stroke="currentColor" strokeWidth="2.5" fill="currentColor" fillOpacity="0.2" />
+                  <path d="M4 22h32" stroke="currentColor" strokeWidth="2" />
+                  <path d="M20 16v20" stroke="currentColor" strokeWidth="2" strokeDasharray="4 2" />
+                  <path d="M4 16l3-9h26l3 9" stroke="currentColor" strokeWidth="2" />
+                  <path d="M16 22v5h8v-5" stroke="currentColor" strokeWidth="2" fill="none" />
+                  <path d="M20 9V4M17 7l3-3 3 3" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                </svg>
+              </motion.div>
+            </motion.div>
+          </motion.div>
         </div>
-    </div>
-  </div>
-</section>
-<section data-no-fx ref={coreRef} className="h-[150vh] relative bg-slate-100">
-    <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden py-24 px-6">
-        <div className="max-w-7xl mx-auto text-center w-full">
-            <h2 className="text-4xl font-display font-bold text-slate-900 mb-12 hover:scale-105 transition-transform duration-300">Core Capabilities <span className="text-brand-accent">"What We Do"</span></h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 relative">
-                
-                <motion.div style={{ y: coreCard1Y, opacity: coreCard1Op }} className="bg-white p-8 rounded-2xl text-left shadow-sm border border-slate-200 group hover:-translate-y-3 hover:shadow-xl hover:border-brand-accent transition-all duration-500 cursor-pointer relative z-40">
-                    <div className="w-14 h-14 rounded-full bg-brand-accent/10 text-brand-accent flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-brand-accent group-hover:text-white transition-all duration-300"><i data-lucide="map" className="w-6 h-6"></i></div>
-                    <h4 className="text-xl font-bold text-slate-900 group-hover:text-brand-accent transition-colors duration-300">Strategy Solutions</h4>
-                    <p className="text-sm text-slate-500 mt-3 leading-relaxed">Helps logistics companies create clear technology roadmaps through a tailored discovery process.</p>
-                </motion.div>
-                
-                <motion.div style={{ y: coreCard2Y, opacity: coreCard2Op }} className="bg-white p-8 rounded-2xl text-left shadow-sm border border-slate-200 group hover:-translate-y-3 hover:shadow-xl hover:border-blue-500 transition-all duration-500 cursor-pointer relative z-30">
-                    <div className="w-14 h-14 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-blue-600 group-hover:text-white transition-all duration-300"><i data-lucide="code" className="w-6 h-6"></i></div>
-                    <h4 className="text-xl font-bold text-slate-900 group-hover:text-blue-600 transition-colors duration-300">Development &amp; Design</h4>
-                    <p className="text-sm text-slate-500 mt-3 leading-relaxed">Custom software and mobile apps across TMS, office systems, and executive dashboards.</p>
-                </motion.div>
-                
-                <motion.div style={{ y: coreCard3Y, opacity: coreCard3Op }} className="bg-white p-8 rounded-2xl text-left shadow-sm border border-slate-200 group hover:-translate-y-3 hover:shadow-xl hover:border-purple-500 transition-all duration-500 cursor-pointer relative z-20">
-                    <div className="w-14 h-14 rounded-full bg-purple-50 text-purple-600 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-purple-600 group-hover:text-white transition-all duration-300"><i data-lucide="cpu" className="w-6 h-6"></i></div>
-                    <h4 className="text-xl font-bold text-slate-900 group-hover:text-purple-600 transition-colors duration-300">Digital Transformation</h4>
-                    <p className="text-sm text-slate-500 mt-3 leading-relaxed">Cloud migration, custom API/EDI integrations, and ML/AI integration into everyday software.</p>
-                </motion.div>
-                
-                <motion.div style={{ y: coreCard4Y, opacity: coreCard4Op }} className="bg-white p-8 rounded-2xl text-left shadow-sm border border-slate-200 group hover:-translate-y-3 hover:shadow-xl hover:border-emerald-500 transition-all duration-500 cursor-pointer relative z-10">
-                    <div className="w-14 h-14 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-emerald-600 group-hover:text-white transition-all duration-300"><i data-lucide="users" className="w-6 h-6"></i></div>
-                    <h4 className="text-xl font-bold text-slate-900 group-hover:text-emerald-600 transition-colors duration-300">Agile Engineering</h4>
-                    <p className="text-sm text-slate-500 mt-3 leading-relaxed">Agile development squads tailored specifically to the nuances of supply chain challenges.</p>
-                </motion.div>
+      </section>
+
+      {/* ═══════════════ MARQUEE ═══════════════ */}
+      <div className="bg-white py-10 border-b border-slate-200 overflow-hidden flex relative">
+        <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
+        <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
+        
+        <motion.div 
+          className="flex gap-16 md:gap-24 items-center w-max pl-16 md:pl-24"
+          animate={{ x: ["0%", "-50%"] }}
+          transition={{ duration: 30, ease: "linear", repeat: Infinity }}
+        >
+          {[
+            'https://logisticsstudio.com/wp-content/uploads/2024/05/echo-icon-removebg-preview-modified-fotor-2024051722614.png',
+            'https://logisticsstudio.com/wp-content/uploads/2024/04/JB-Hunt-size-4-1-Kittl.svg',
+            'https://logisticsstudio.com/wp-content/uploads/2024/04/Transplace-logo-2-1-Kittl.svg',
+            'https://logisticsstudio.com/wp-content/uploads/2024/04/Choptanklogo-1-Kittl.svg',
+            'https://logisticsstudio.com/wp-content/uploads/2024/04/Simple-Logo-Schema-1-Kittl.svg',
+            'https://logisticsstudio.com/wp-content/uploads/2024/05/pgt-1.png',
+          ].concat([
+            'https://logisticsstudio.com/wp-content/uploads/2024/05/echo-icon-removebg-preview-modified-fotor-2024051722614.png',
+            'https://logisticsstudio.com/wp-content/uploads/2024/04/JB-Hunt-size-4-1-Kittl.svg',
+            'https://logisticsstudio.com/wp-content/uploads/2024/04/Transplace-logo-2-1-Kittl.svg',
+            'https://logisticsstudio.com/wp-content/uploads/2024/04/Choptanklogo-1-Kittl.svg',
+            'https://logisticsstudio.com/wp-content/uploads/2024/04/Simple-Logo-Schema-1-Kittl.svg',
+            'https://logisticsstudio.com/wp-content/uploads/2024/05/pgt-1.png',
+          ]).map((src, i) => (
+            <img key={i} src={src} className="h-12 w-auto object-contain grayscale transition-all duration-300 opacity-60 hover:opacity-100 hover-brand-filter" alt="" />
+          ))}
+        </motion.div>
+      </div>
+
+
+      {/* ═══════════════ SERVICES — cards slide in from RIGHT as you scroll ═══════════════ */}
+      <ServiceScrollSection UpArrow={UpArrow} />
+
+      {/* ═══════════════ CORE CAPABILITIES — elevator-rise ONCE, stays on scroll-up ═══════════════ */}
+      <section className="py-28 px-6 bg-slate-50">
+        <div className="max-w-7xl mx-auto">
+
+          {/* Header */}
+          <motion.div className="text-center mb-14"
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}>
+            <div className="inline-flex items-center gap-3 mb-4">
+              {/* Mini rising bar chart */}
+              <div className="flex items-end gap-0.5 h-7">
+                {[2, 3, 2, 4, 3, 5, 4, 6, 5, 7].map((h, i) => (
+                  <motion.div key={i} className="w-1.5 rounded-t bg-brand-accent"
+                    initial={{ height: 0 }}
+                    whileInView={{ height: `${h * 3.5}px` }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.3 + i * 0.05, duration: 0.4 }} />
+                ))}
+              </div>
+              <span className="text-brand-accent font-semibold text-sm uppercase tracking-wider">Growth Capabilities</span>
             </div>
-        </div>
-    </div>
-</section>
+            <h2 className="text-4xl font-display font-bold text-slate-900">
+              Core Capabilities <span className="text-brand-accent">"What We Do"</span>
+            </h2>
+          </motion.div>
 
+          {/* 4 capability cards — staggered upward entrance, fixed after */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[
+              {
+                icon: 'map', delay: 0,
+                title: 'Strategy Solutions',
+                desc: 'Helps logistics companies create clear technology roadmaps through a tailored discovery process.',
+                accent: 'brand-accent', border: 'border-brand-accent', text: 'text-brand-accent', bg: 'bg-orange-50',
+              },
+              {
+                icon: 'code', delay: 0.12,
+                title: 'Development & Design',
+                desc: 'Custom software and mobile apps across TMS, office systems, and executive dashboards.',
+                accent: 'blue-600', border: 'border-blue-500', text: 'text-blue-600', bg: 'bg-blue-50',
+              },
+              {
+                icon: 'cpu', delay: 0.24,
+                title: 'Digital Transformation',
+                desc: 'Cloud migration, custom API/EDI integrations, and ML/AI integration into everyday software.',
+                accent: 'purple-600', border: 'border-purple-500', text: 'text-purple-600', bg: 'bg-purple-50',
+              },
+              {
+                icon: 'users', delay: 0.36,
+                title: 'Agile Engineering',
+                desc: 'Agile development squads tailored specifically to the nuances of supply chain challenges.',
+                accent: 'emerald-600', border: 'border-emerald-500', text: 'text-emerald-600', bg: 'bg-emerald-50',
+              },
+            ].map((card, i) => (
+              <motion.div key={i}
+                initial={{ opacity: 0, y: 70 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.15 }}
+                transition={{ duration: 0.65, delay: card.delay, ease: [0.22, 1, 0.36, 1] }}
+              >
+                <div className={`bg-white p-8 rounded-2xl text-left shadow-sm border border-slate-200 group h-full
+                  hover:-translate-y-3 hover:shadow-xl hover:${card.border} transition-all duration-500 cursor-pointer relative`}
+                >
+                  {/* Upward arrow accent — visible on hover */}
+                  <div className={`absolute top-4 right-4 ${card.text} opacity-0 group-hover:opacity-100
+                    translate-y-1 group-hover:translate-y-0 transition-all duration-300`}>
+                    <UpArrow size={16} />
+                  </div>
+
+                  <div className={`w-14 h-14 rounded-full ${card.bg} ${card.text} flex items-center justify-center mb-6
+                    group-hover:scale-110 group-hover:bg-${card.accent} group-hover:text-white transition-all duration-300`}>
+                    <i data-lucide={card.icon} className="w-6 h-6" />
+                  </div>
+                  <h4 className={`text-xl font-bold text-slate-900 group-hover:${card.text} transition-colors duration-300`}>
+                    {card.title}
+                  </h4>
+                  <p className="text-sm text-slate-500 mt-3 leading-relaxed">{card.desc}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
     </>
   );
 }

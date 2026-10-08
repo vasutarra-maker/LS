@@ -1,4 +1,6 @@
 import React, { useEffect } from 'react';
+import { motion } from 'framer-motion';
+import shippingImg from '../assets/shipping-containers.png';
 
 export default function About() {
   useEffect(() => {
@@ -22,6 +24,14 @@ export default function About() {
     return () => observer.disconnect();
   }, []);
 
+  const scopeItems = [
+    "Rating & Load Management",
+    "Capacity Management & Fleet Optimization",
+    "Route Planning",
+    "Billing & Invoicing",
+    "Final Mile Delivery Solutions"
+  ];
+
   return (
     <>
 <section className="hero-bg pt-32 pb-24 px-6 relative overflow-hidden">
@@ -38,32 +48,105 @@ export default function About() {
             </p>
         </div>
     </section>
-<section className="py-24 px-6 max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-            <div>
-                <h2 className="text-3xl font-display font-bold text-slate-900 mb-6">Our Scope of Work</h2>
-                <p className="text-slate-600 mb-8 leading-relaxed">
-                    By collaborating with industry leaders, we have tackled unique supply chain challenges and technology roadblocks. Our work spans the entire supply chain—servicing carriers, shippers, and 3PL providers across critical operational areas.
-                </p>
-                <ul className="space-y-4">
-                    <li className="flex items-center gap-3 text-slate-700"><div className="w-8 h-8 rounded-full bg-brand-accent/10 flex items-center justify-center text-brand-accent"><i data-lucide="check" className="w-4 h-4"></i></div> Rating &amp; Load Management</li>
-                    <li className="flex items-center gap-3 text-slate-700"><div className="w-8 h-8 rounded-full bg-brand-accent/10 flex items-center justify-center text-brand-accent"><i data-lucide="check" className="w-4 h-4"></i></div> Capacity Management &amp; Fleet Optimization</li>
-                    <li className="flex items-center gap-3 text-slate-700"><div className="w-8 h-8 rounded-full bg-brand-accent/10 flex items-center justify-center text-brand-accent"><i data-lucide="check" className="w-4 h-4"></i></div> Route Planning</li>
-                    <li className="flex items-center gap-3 text-slate-700"><div className="w-8 h-8 rounded-full bg-brand-accent/10 flex items-center justify-center text-brand-accent"><i data-lucide="check" className="w-4 h-4"></i></div> Billing &amp; Invoicing</li>
-                    <li className="flex items-center gap-3 text-slate-700"><div className="w-8 h-8 rounded-full bg-brand-accent/10 flex items-center justify-center text-brand-accent"><i data-lucide="check" className="w-4 h-4"></i></div> Final Mile Delivery Solutions</li>
-                </ul>
-            </div>
-            <div className="relative">
-                <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&amp;w=1000&amp;auto=format&amp;fit=crop" className="rounded-2xl object-cover h-[500px] w-full shadow-2xl" />
-                <div className="absolute -bottom-6 -left-6 bg-white p-6 rounded-2xl shadow-xl border border-slate-100 max-w-xs">
-                    <div className="flex items-center gap-4 mb-2">
-                        <div className="w-12 h-12 rounded-full bg-brand-accent text-white flex items-center justify-center"><i data-lucide="target" className="w-6 h-6"></i></div>
-                        <h4 className="font-bold text-slate-900">Tech Expertise</h4>
-                    </div>
-                    <p className="text-sm text-slate-600">From MVPs to platforms scaling to over 1M users, delivering custom tech strategies.</p>
+
+    {/* ── Our Scope of Work Section ── */}
+    <section className="py-24 bg-white overflow-hidden border-b border-slate-100" id="scope">
+      <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+        {/* Left Column */}
+        <motion.div 
+          initial={{ opacity: 0, x: -50 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.7 }}
+          className="space-y-8"
+        >
+          <h2 className="text-4xl md:text-5xl font-display font-bold text-slate-900 leading-tight">
+            Our Scope of Work
+          </h2>
+          <p className="text-slate-500 text-lg leading-relaxed">
+            By collaborating with industry leaders, we have tackled unique supply chain challenges and technology roadblocks. Our work spans the entire supply chain—servicing carriers, shippers, and 3PL providers across critical operational areas.
+          </p>
+          <ul className="space-y-5">
+            {scopeItems.map((item, i) => (
+              <motion.li 
+                key={i}
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.2 + (i * 0.1), duration: 0.5 }}
+                className="flex items-center gap-4 text-slate-700 font-medium"
+              >
+                <div className="w-6 h-6 rounded-full bg-brand-accent/10 text-brand-accent flex items-center justify-center shrink-0">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                    <path d="M5 13L9 17L19 7" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
                 </div>
-            </div>
-        </div>
+                {item}
+              </motion.li>
+            ))}
+          </ul>
+        </motion.div>
+
+        {/* Right Column - Image with UX pattern */}
+        <motion.div 
+          initial={{ opacity: 0, x: 50 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.7 }}
+          className="relative group pb-12 pl-4"
+        >
+          {/* Main Image Container */}
+          <div className="relative rounded-[2rem] overflow-hidden shadow-2xl h-[420px] md:h-[480px]">
+             <img src={shippingImg} className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" alt="Shipping Containers" />
+             <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+          </div>
+
+          {/* Floating content Box with better UX (Glassmorphism, hover reveal) */}
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.5, duration: 0.6 }}
+            className="absolute bottom-4 left-0 w-[85%] z-20"
+          >
+             <div className="bg-white/95 backdrop-blur-xl rounded-2xl p-6 shadow-[0_20px_40px_rgb(0,0,0,0.15)] border border-slate-50 group-hover:-translate-y-4 transition-transform duration-500">
+               <div className="flex items-center gap-4 mb-3">
+                 <div className="w-12 h-12 rounded-full bg-brand-accent flex items-center justify-center shrink-0 shadow-lg shadow-brand-accent/40 group-hover:scale-110 transition-transform duration-500">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-white">
+                      <circle cx="12" cy="12" r="8" stroke="currentColor" strokeWidth="2.5" strokeDasharray="4 4" className="animate-spin-slow" />
+                      <circle cx="12" cy="12" r="3" fill="currentColor" />
+                    </svg>
+                 </div>
+                 <h3 className="text-xl font-bold text-slate-900">Tech Expertise</h3>
+               </div>
+               <p className="text-slate-500 leading-relaxed text-sm">
+                  From MVPs to platforms scaling to over 1M users, delivering custom tech strategies.
+               </p>
+
+               {/* Hidden stats that reveal on hover */}
+               <div className="mt-0 h-0 overflow-hidden opacity-0 group-hover:h-auto group-hover:mt-5 group-hover:opacity-100 transition-all duration-500 flex gap-8">
+                  <div>
+                     <div className="text-brand-accent font-bold text-xl">1M+</div>
+                     <div className="text-[10px] text-slate-500 uppercase tracking-wider font-semibold">Active Users</div>
+                  </div>
+                  <div>
+                     <div className="text-brand-accent font-bold text-xl">99.9%</div>
+                     <div className="text-[10px] text-slate-500 uppercase tracking-wider font-semibold">Uptime</div>
+                  </div>
+               </div>
+             </div>
+          </motion.div>
+          
+          {/* Secondary floating accent */}
+          <motion.div 
+             animate={{ y: [0, -10, 0] }}
+             transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+             className="absolute top-8 -left-6 bg-white rounded-2xl p-3 shadow-xl z-10 border border-slate-100 flex items-end gap-1 h-12"
+          >
+             {[2,4,3,5].map((h,i) => <div key={i} className="w-1.5 bg-brand-accent rounded-t" style={{height: `${h*20}%`}} />)}
+          </motion.div>
+        </motion.div>
+      </div>
     </section>
 <section className="bg-slate-50 py-24 px-6">
         <div className="max-w-7xl mx-auto">
@@ -142,13 +225,6 @@ export default function About() {
                         </div>
                     </div>
 
-                <div className="mt-12">
-                    <h3 className="text-xl font-bold text-slate-900 mb-4">Global Presence</h3>
-                    <div className="flex items-start gap-4">
-                        <i data-lucide="map-pin" className="w-6 h-6 text-brand-accent shrink-0 mt-1"></i>
-                        <p className="text-slate-600"><strong>U.S. Headquarters:</strong><br />609 SW 8th Street, 6th Floor<br />Bentonville, AR 72712</p>
-                    </div>
-                </div>
             </div>
             
             </div>

@@ -3,16 +3,42 @@ import { Link } from 'react-router-dom';
 
 export default function Footer() {
   return (
-    <footer className="pt-20 pb-10 px-6 border-t border-slate-800 relative" style={{"backgroundColor":"#0b1536"}}>
+    <footer className="pt-20 pb-10 px-6 border-t border-slate-800 relative overflow-hidden" style={{"backgroundColor":"#0b1536"}}>
+
+        {/* ── Giant text watermark ── */}
+        <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none select-none z-0 overflow-hidden" aria-hidden="true">
+            <span style={{
+                fontSize: 'clamp(5rem, 14vw, 12rem)',
+                fontWeight: 900,
+                fontFamily: '"Sora", "Inter", sans-serif',
+                letterSpacing: '-0.04em',
+                lineHeight: 1,
+                color: 'rgba(255,255,255,0.04)',
+                whiteSpace: 'nowrap',
+                userSelect: 'none',
+                textTransform: 'uppercase',
+            }}>LOGISTICS</span>
+            <span style={{
+                fontSize: 'clamp(5rem, 14vw, 12rem)',
+                fontWeight: 900,
+                fontFamily: '"Sora", "Inter", sans-serif',
+                letterSpacing: '-0.04em',
+                lineHeight: 1,
+                color: 'rgba(255,255,255,0.04)',
+                whiteSpace: 'nowrap',
+                userSelect: 'none',
+                textTransform: 'uppercase',
+            }}>STUDIO</span>
+        </div>
+
+
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 mb-16 relative z-10">
             
             {/*  Links Column  */}
             <div className="space-y-6">
-                <Link to="/" className="flex items-center gap-3 mb-8">
-                    <img src="https://logisticsstudio.com/wp-content/uploads/2024/04/Logistics-Studio-logo_hd-1-768x269.png" alt="Logistics Studio" className="h-12 w-auto" />
-                </Link>
                 <ul className="space-y-4 font-medium text-slate-300">
                     <li><Link to="/" className="hover:text-[#e85d22] transition-colors">Home</Link></li>
+                    <li><Link to="/about" className="hover:text-[#e85d22] transition-colors">About Us</Link></li>
                     <li><Link to="/services" className="hover:text-[#e85d22] transition-colors">Services</Link></li>
                     <li><Link to="/quote" className="hover:text-[#e85d22] transition-colors">Get in Touch</Link></li>
                     <li><Link to="/resources" className="hover:text-[#e85d22] transition-colors">Resources</Link></li>

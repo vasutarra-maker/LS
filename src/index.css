@@ -89,3 +89,42 @@ body.header-hidden .sticky-tabs {
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
 }
+
+/* ── Cargo lift animation ── */
+@keyframes cargo-lift {
+  0%   { transform: translateY(0px) rotate(0deg); }
+  50%  { transform: translateY(-18px) rotate(4deg); }
+  100% { transform: translateY(0px) rotate(0deg); }
+}
+
+@keyframes arrow-rise {
+  0%   { transform: translateY(0);   opacity: 0; }
+  20%  { opacity: 0.8; }
+  80%  { opacity: 0.4; }
+  100% { transform: translateY(-120vh); opacity: 0; }
+}
+
+.cargo-float {
+  animation: cargo-lift 4s ease-in-out infinite;
+}
+
+/* ── Upward bar chart ── */
+@keyframes bar-grow {
+  from { transform: scaleY(0); }
+  to   { transform: scaleY(1); }
+}
+.bar-grow {
+  transform-origin: bottom;
+  animation: bar-grow 0.6s cubic-bezier(.22,1,.36,1) both;
+}
+
+/* ── Hero card glow on hover ── */
+.hero-card-glow:hover {
+  box-shadow: 0 0 60px rgba(249, 115, 22, 0.2), 0 30px 60px rgba(0,0,0,0.4);
+}
+
+
+.hover-brand-filter:hover { filter: invert(47%) sepia(90%) saturate(1915%) hue-rotate(346deg) brightness(99%) contrast(96%) !important; }
+
+@keyframes spin-slow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+.animate-spin-slow { animation: spin-slow 8s linear infinite; }

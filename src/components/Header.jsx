@@ -1,7 +1,14 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 
 export default function Header() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const location = useLocation();
+
+  useEffect(() => {
+    setMobileMenuOpen(false);
+  }, [location]);
+
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200 shadow-sm transition-all duration-300">
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
@@ -106,8 +113,34 @@ export default function Header() {
                 <Link to="/quote" className="hidden md:flex items-center gap-2 px-6 py-2.5 rounded-full bg-brand-accent text-white font-bold text-sm hover:bg-brand-accentHover transition-colors shadow-md shadow-brand-accent/30">
                     Request Quote <i data-lucide="arrow-right" className="w-4 h-4"></i>
                 </Link>
+                {/* Mobile Menu Toggle */}
+                <button 
+                  className="md:hidden p-2 text-slate-600 hover:text-brand-accent focus:outline-none"
+                  onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                >
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    {mobileMenuOpen ? (
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    ) : (
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                    )}
+                  </svg>
+                </button>
             </div>
         </div>
+
+        {/* Mobile Navigation Dropdown */}
+        {mobileMenuOpen && (
+          <div className="md:hidden bg-white border-t border-slate-100 shadow-xl absolute left-0 right-0 top-full flex flex-col py-4 px-6 gap-4 text-lg font-semibold text-slate-700">
+             <Link to="/" onClick={() => setMobileMenuOpen(false)} className="hover:text-brand-accent">Home</Link>
+             <Link to="/about" onClick={() => setMobileMenuOpen(false)} className="hover:text-brand-accent">About Us</Link>
+             <Link to="/services" onClick={() => setMobileMenuOpen(false)} className="hover:text-brand-accent">Services</Link>
+             <Link to="/resources" onClick={() => setMobileMenuOpen(false)} className="hover:text-brand-accent">Resources</Link>
+             <Link to="/quote" onClick={() => setMobileMenuOpen(false)} className="text-brand-accent mt-2 inline-flex items-center gap-2">
+                 Request Quote <i data-lucide="arrow-right" className="w-4 h-4"></i>
+             </Link>
+          </div>
+        )}
     </header>
   );
 }
