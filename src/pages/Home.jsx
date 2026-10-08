@@ -115,12 +115,9 @@ function ServiceScrollSection({ UpArrow }) {
         {/* Cards grid — each slides in from right smoothly */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 overflow-hidden">
           {SERVICE_CARDS.map((card, i) => (
-            <motion.div
+            <div
               key={i}
-              initial={{ opacity: 0, x: 80 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, amount: 0.1 }}
-              transition={{ duration: 0.7, delay: i * 0.15, ease: [0.22, 1, 0.36, 1] }}
+              className="h-full"
             >
               <div className={`fretrix-card h-full overflow-hidden group flex flex-col hover:${card.accent.ring} transition-all duration-300 shadow-sm hover:shadow-xl border border-slate-100 rounded-2xl`}>
                 <div className="h-48 overflow-hidden relative">
@@ -153,7 +150,7 @@ function ServiceScrollSection({ UpArrow }) {
                   </Link>
                 </div>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>

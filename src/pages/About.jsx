@@ -88,11 +88,7 @@ export default function About() {
         </motion.div>
 
         {/* Right Column - Image with UX pattern */}
-        <motion.div 
-          initial={{ opacity: 0, x: 50 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.7 }}
+        <div 
           className="relative group pb-12 pl-4"
         >
           {/* Main Image Container */}
@@ -145,7 +141,7 @@ export default function About() {
           >
              {[2,4,3,5].map((h,i) => <div key={i} className="w-1.5 bg-brand-accent rounded-t" style={{height: `${h*20}%`}} />)}
           </motion.div>
-        </motion.div>
+        </div>
       </div>
     </section>
 <section className="bg-slate-50 py-24 px-6">
