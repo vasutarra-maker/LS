@@ -316,40 +316,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ═══════════════ MARQUEE ═══════════════ */}
-      <div className="bg-white py-10 border-b border-slate-200 overflow-hidden flex relative">
-        <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
-        <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
-        
-        <motion.div 
-          className="flex gap-16 md:gap-24 items-center w-max pl-16 md:pl-24"
-          animate={{ x: ["0%", "-50%"] }}
-          transition={{ duration: 30, ease: "linear", repeat: Infinity }}
-        >
-          {[
-            'https://logisticsstudio.com/wp-content/uploads/2024/05/echo-icon-removebg-preview-modified-fotor-2024051722614.png',
-            'https://logisticsstudio.com/wp-content/uploads/2024/04/JB-Hunt-size-4-1-Kittl.svg',
-            'https://logisticsstudio.com/wp-content/uploads/2024/04/Transplace-logo-2-1-Kittl.svg',
-            'https://logisticsstudio.com/wp-content/uploads/2024/04/Choptanklogo-1-Kittl.svg',
-            'https://logisticsstudio.com/wp-content/uploads/2024/04/Simple-Logo-Schema-1-Kittl.svg',
-            'https://logisticsstudio.com/wp-content/uploads/2024/05/pgt-1.png',
-          ].concat([
-            'https://logisticsstudio.com/wp-content/uploads/2024/05/echo-icon-removebg-preview-modified-fotor-2024051722614.png',
-            'https://logisticsstudio.com/wp-content/uploads/2024/04/JB-Hunt-size-4-1-Kittl.svg',
-            'https://logisticsstudio.com/wp-content/uploads/2024/04/Transplace-logo-2-1-Kittl.svg',
-            'https://logisticsstudio.com/wp-content/uploads/2024/04/Choptanklogo-1-Kittl.svg',
-            'https://logisticsstudio.com/wp-content/uploads/2024/04/Simple-Logo-Schema-1-Kittl.svg',
-            'https://logisticsstudio.com/wp-content/uploads/2024/05/pgt-1.png',
-          ]).map((src, i) => (
-            <img key={i} src={src} className="h-12 w-auto object-contain grayscale transition-all duration-300 opacity-60 hover:opacity-100 hover-brand-filter" alt="" />
-          ))}
-        </motion.div>
-      </div>
-
-
-      {/* ═══════════════ SERVICES — cards slide in from RIGHT as you scroll ═══════════════ */}
-      <ServiceScrollSection UpArrow={UpArrow} />
-
       {/* ═══════════════ CORE CAPABILITIES — elevator-rise ONCE, stays on scroll-up ═══════════════ */}
       <section className="py-28 px-6 bg-slate-50">
         <div className="max-w-7xl mx-auto">
@@ -358,7 +324,7 @@ export default function Home() {
           <motion.div className="text-center mb-14"
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
+            viewport={{ once: true, margin: "200px" }}
             transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}>
             <div className="inline-flex items-center gap-3 mb-4">
               {/* Mini rising bar chart */}
@@ -367,8 +333,8 @@ export default function Home() {
                   <motion.div key={i} className="w-1.5 rounded-t bg-brand-accent"
                     initial={{ height: 0 }}
                     whileInView={{ height: `${h * 3.5}px` }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.3 + i * 0.05, duration: 0.4 }} />
+                    viewport={{ once: true, margin: "200px" }}
+                    transition={{ delay: 0.1 + i * 0.05, duration: 0.4 }} />
                 ))}
               </div>
               <span className="text-brand-accent font-semibold text-sm uppercase tracking-wider">Growth Capabilities</span>
@@ -406,12 +372,7 @@ export default function Home() {
                 accent: 'emerald-600', border: 'border-emerald-500', text: 'text-emerald-600', bg: 'bg-emerald-50',
               },
             ].map((card, i) => (
-              <motion.div key={i}
-                initial={{ opacity: 0, y: 70 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.15 }}
-                transition={{ duration: 0.65, delay: card.delay, ease: [0.22, 1, 0.36, 1] }}
-              >
+              <div key={i} className="h-full">
                 <div className={`bg-white p-8 rounded-2xl text-left shadow-sm border border-slate-200 group h-full
                   hover:-translate-y-3 hover:shadow-xl hover:${card.border} transition-all duration-500 cursor-pointer relative`}
                 >
@@ -430,11 +391,14 @@ export default function Home() {
                   </h4>
                   <p className="text-sm text-slate-500 mt-3 leading-relaxed">{card.desc}</p>
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
       </section>
+
+      {/* ═══════════════ SERVICES — cards slide in from RIGHT as you scroll ═══════════════ */}
+      <ServiceScrollSection UpArrow={UpArrow} />
     </>
   );
 }

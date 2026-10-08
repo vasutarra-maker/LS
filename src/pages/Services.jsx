@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 export default function Services() {
 
@@ -41,15 +42,7 @@ export default function Services() {
             </div>
         </div>
     </section>
-<div className="bg-white py-10 border-b border-slate-200 overflow-hidden flex relative">
-        <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-white to-transparent z-10"></div>
-        <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-white to-transparent z-10"></div>
-        
-        <div className="flex animate-marquee gap-16 items-center whitespace-nowrap text-slate-400 font-display font-bold text-2xl uppercase tracking-widest px-8">
-            <span>Global Partners</span> • <span>Maersk</span> • <span>DHL</span> • <span>FedEx</span> • <span>Lufthansa</span> • <span>Hapag-Lloyd</span> • 
-            <span>Global Partners</span> • <span>Maersk</span> • <span>DHL</span> • <span>FedEx</span> • <span>Lufthansa</span> • <span>Hapag-Lloyd</span>
-        </div>
-    </div>
+
 <section className="py-24 px-6 max-w-7xl mx-auto" id="services">
         <div className="text-center mb-16 space-y-4">
             <div className="inline-flex items-center gap-2 text-brand-accent font-semibold uppercase tracking-wider text-sm">
@@ -62,7 +55,7 @@ export default function Services() {
             {/*  Air  */}
             <div className="fretrix-card overflow-hidden group flex flex-col">
                 <div className="h-48 overflow-hidden relative">
-                    <img src="https://images.unsplash.com/photo-1570710891163-6d815f474911?q=80&amp;w=800" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                    <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&amp;w=800" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                 </div>
                 <div className="p-8 flex flex-col flex-grow">
                     <div className="flex justify-between items-center mb-4">
@@ -126,33 +119,57 @@ export default function Services() {
             </div>
         </div>
     </section>
-<section className="bg-slate-100 py-24 px-6">
+<section className="bg-slate-100 py-24 px-6 relative overflow-hidden">
         <div className="max-w-7xl mx-auto text-center">
-            <h2 className="text-4xl font-display font-bold text-slate-900 mb-12">Live Telemetry Flow</h2>
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-                {/*  Node 1  */}
-                <div className="bg-white p-6 rounded-2xl text-left shadow-sm border border-slate-200">
-                    <div className="w-10 h-10 rounded-full bg-brand-accent text-white flex items-center justify-center font-bold mb-4">1</div>
-                    <h4 className="text-lg font-bold text-slate-900">Consolidation Hub</h4>
-                    <p className="text-sm text-slate-500 mt-2">Automated RFID tagging, weight check &amp; pallet packing.</p>
-                </div>
-                {/*  Node 2  */}
-                <div className="bg-white p-6 rounded-2xl text-left shadow-sm border border-slate-200">
-                    <div className="w-10 h-10 rounded-full bg-slate-800 text-white flex items-center justify-center font-bold mb-4">2</div>
-                    <h4 className="text-lg font-bold text-slate-900">Transit Corridor</h4>
-                    <p className="text-sm text-slate-500 mt-2">Automated digital customs clearance &amp; IoT sensor sync.</p>
-                </div>
-                {/*  Node 3  */}
-                <div className="bg-white p-6 rounded-2xl text-left shadow-sm border border-slate-200">
-                    <div className="w-10 h-10 rounded-full bg-slate-800 text-white flex items-center justify-center font-bold mb-4">3</div>
-                    <h4 className="text-lg font-bold text-slate-900">Regional Hub</h4>
-                    <p className="text-sm text-slate-500 mt-2">High-speed sorting into regional fulfillment fleets.</p>
-                </div>
-                {/*  Node 4  */}
-                <div className="bg-white p-6 rounded-2xl text-left shadow-sm border border-slate-200">
-                    <div className="w-10 h-10 rounded-full bg-slate-800 text-white flex items-center justify-center font-bold mb-4">4</div>
-                    <h4 className="text-lg font-bold text-slate-900">Last-Mile Delivery</h4>
-                    <p className="text-sm text-slate-500 mt-2">EV Fleet dispatch with real-time ETA geo-tracking.</p>
+            <motion.h2 
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                className="text-4xl font-display font-bold text-slate-900 mb-16"
+            >
+                Live Telemetry Flow
+            </motion.h2>
+            
+            <div className="relative">
+                {/* Connecting Line (Desktop only) */}
+                <div className="hidden md:block absolute top-6 left-12 right-12 h-1 bg-slate-200 -z-10"></div>
+                <motion.div 
+                    initial={{ width: "0%" }}
+                    whileInView={{ width: "100%" }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 1.5, ease: "easeInOut", delay: 0.5 }}
+                    className="hidden md:block absolute top-6 left-12 h-1 bg-brand-accent -z-10"
+                ></motion.div>
+
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-6 relative z-10">
+                    {[
+                        { step: 1, title: 'Consolidation Hub', desc: 'Automated RFID tagging, weight check & pallet packing.' },
+                        { step: 2, title: 'Transit Corridor', desc: 'Automated digital customs clearance & IoT sensor sync.' },
+                        { step: 3, title: 'Regional Hub', desc: 'High-speed sorting into regional fulfillment fleets.' },
+                        { step: 4, title: 'Last-Mile Delivery', desc: 'EV Fleet dispatch with real-time ETA geo-tracking.' }
+                    ].map((item, i) => (
+                        <motion.div 
+                            key={i}
+                            initial={{ opacity: 0, y: 40 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.6, delay: i * 0.3 }}
+                            className="bg-white p-8 rounded-2xl text-left shadow-lg shadow-slate-200/50 border border-slate-100 group hover:-translate-y-2 transition-transform duration-300"
+                        >
+                            <motion.div 
+                                initial={{ scale: 0 }}
+                                whileInView={{ scale: 1 }}
+                                viewport={{ once: true }}
+                                transition={{ type: "spring", stiffness: 200, delay: 0.5 + (i * 0.3) }}
+                                className={`w-12 h-12 rounded-full flex items-center justify-center font-bold text-lg mb-6 shadow-md transition-colors duration-300 ${i === 0 ? 'bg-brand-accent text-white shadow-brand-accent/30' : 'bg-slate-800 text-white shadow-slate-800/30 group-hover:bg-brand-accent group-hover:shadow-brand-accent/30'}`}
+                            >
+                                {item.step}
+                            </motion.div>
+                            <h4 className="text-xl font-bold text-slate-900 group-hover:text-brand-accent transition-colors duration-300 mb-3">{item.title}</h4>
+                            <p className="text-slate-500 text-sm leading-relaxed">{item.desc}</p>
+                        </motion.div>
+                    ))}
                 </div>
             </div>
         </div>
