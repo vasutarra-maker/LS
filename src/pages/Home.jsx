@@ -86,7 +86,6 @@ const SERVICE_CARDS = [
   },
 ];
 
-
 /* ── Smooth scroll section: cards fly in from right smoothly ── */
 function ServiceScrollSection({ UpArrow }) {
   return (
@@ -317,88 +316,115 @@ export default function Home() {
       </section>
 
       {/* ═══════════════ CORE CAPABILITIES — elevator-rise ONCE, stays on scroll-up ═══════════════ */}
-      <section className="py-28 px-6 bg-slate-50">
-        <div className="max-w-7xl mx-auto">
-
-          {/* Header */}
-          <motion.div className="text-center mb-14"
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "200px" }}
-            transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}>
-            <div className="inline-flex items-center gap-3 mb-4">
-              {/* Mini rising bar chart */}
-              <div className="flex items-end gap-0.5 h-7">
-                {[2, 3, 2, 4, 3, 5, 4, 6, 5, 7].map((h, i) => (
-                  <motion.div key={i} className="w-1.5 rounded-t bg-brand-accent"
-                    initial={{ height: 0 }}
-                    whileInView={{ height: `${h * 3.5}px` }}
-                    viewport={{ once: true, margin: "200px" }}
-                    transition={{ delay: 0.1 + i * 0.05, duration: 0.4 }} />
-                ))}
-              </div>
-              <span className="text-brand-accent font-semibold text-sm uppercase tracking-wider">Growth Capabilities</span>
-            </div>
-            <h2 className="text-4xl font-display font-bold text-slate-900">
-              Core Capabilities <span className="text-brand-accent">"What We Do"</span>
-            </h2>
-          </motion.div>
-
-          {/* 4 capability cards — staggered upward entrance, fixed after */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              {
-                icon: 'map', delay: 0,
-                title: 'Strategy Solutions',
-                desc: 'Helps logistics companies create clear technology roadmaps through a tailored discovery process.',
-                accent: 'brand-accent', border: 'border-brand-accent', text: 'text-brand-accent', bg: 'bg-orange-50',
-              },
-              {
-                icon: 'code', delay: 0.12,
-                title: 'Development & Design',
-                desc: 'Custom software and mobile apps across TMS, office systems, and executive dashboards.',
-                accent: 'blue-600', border: 'border-blue-500', text: 'text-blue-600', bg: 'bg-blue-50',
-              },
-              {
-                icon: 'cpu', delay: 0.24,
-                title: 'Digital Transformation',
-                desc: 'Cloud migration, custom API/EDI integrations, and ML/AI integration into everyday software.',
-                accent: 'purple-600', border: 'border-purple-500', text: 'text-purple-600', bg: 'bg-purple-50',
-              },
-              {
-                icon: 'users', delay: 0.36,
-                title: 'Agile Engineering',
-                desc: 'Agile development squads tailored specifically to the nuances of supply chain challenges.',
-                accent: 'emerald-600', border: 'border-emerald-500', text: 'text-emerald-600', bg: 'bg-emerald-50',
-              },
-            ].map((card, i) => (
-              <div key={i} className="h-full">
-                <div className={`bg-white p-8 rounded-2xl text-left shadow-sm border border-slate-200 group h-full
-                  hover:-translate-y-3 hover:shadow-xl hover:${card.border} transition-all duration-500 cursor-pointer relative`}
-                >
-                  {/* Upward arrow accent — visible on hover */}
-                  <div className={`absolute top-4 right-4 ${card.text} opacity-0 group-hover:opacity-100
-                    translate-y-1 group-hover:translate-y-0 transition-all duration-300`}>
-                    <UpArrow size={16} />
-                  </div>
-
-                  <div className={`w-14 h-14 rounded-full ${card.bg} ${card.text} flex items-center justify-center mb-6
-                    group-hover:scale-110 group-hover:bg-${card.accent} group-hover:text-white transition-all duration-300`}>
-                    <i data-lucide={card.icon} className="w-6 h-6" />
-                  </div>
-                  <h4 className={`text-xl font-bold text-slate-900 group-hover:${card.text} transition-colors duration-300`}>
-                    {card.title}
-                  </h4>
-                  <p className="text-sm text-slate-500 mt-3 leading-relaxed">{card.desc}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <CoreCapabilitiesSection UpArrow={UpArrow} />
 
       {/* ═══════════════ SERVICES — cards slide in from RIGHT as you scroll ═══════════════ */}
       <ServiceScrollSection UpArrow={UpArrow} />
     </>
+  );
+}
+
+function CoreCapabilitiesSection({ UpArrow }) {
+  const secRef = React.useRef(null);
+  const { scrollYProgress } = useScroll({ 
+    target: secRef, 
+    offset: ["start 90%", "center center"] 
+  });
+
+  // Cards start clustered in the center (inwards) and spread out (outwards) while scrolling
+  const x0 = useTransform(scrollYProgress, [0, 1], [200, 0]);
+  const x1 = useTransform(scrollYProgress, [0, 1], [70, 0]);
+  const x2 = useTransform(scrollYProgress, [0, 1], [-70, 0]);
+  const x3 = useTransform(scrollYProgress, [0, 1], [-200, 0]);
+  const cardTransforms = [x0, x1, x2, x3];
+
+  const cardScale = useTransform(scrollYProgress, [0, 1], [0.85, 1]);
+  const cardOpacity = useTransform(scrollYProgress, [0, 1], [0, 1]);
+
+  return (
+    <section data-no-fx ref={secRef} className="py-28 px-6 bg-slate-50 overflow-hidden">
+      <div className="max-w-7xl mx-auto">
+
+        {/* Header */}
+        <motion.div className="text-center mb-14"
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "200px" }}
+          transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}>
+          <div className="inline-flex items-center gap-3 mb-4">
+            {/* Mini rising bar chart */}
+            <div className="flex items-end gap-0.5 h-7">
+              {[2, 3, 2, 4, 3, 5, 4, 6, 5, 7].map((h, i) => (
+                <motion.div key={i} className="w-1.5 rounded-t bg-brand-accent"
+                  initial={{ height: 0 }}
+                  whileInView={{ height: `${h * 3.5}px` }}
+                  viewport={{ once: true, margin: "200px" }}
+                  transition={{ delay: 0.1 + i * 0.05, duration: 0.4 }} />
+              ))}
+            </div>
+            <span className="text-brand-accent font-semibold text-sm uppercase tracking-wider">Growth Capabilities</span>
+          </div>
+          <h2 className="text-4xl font-display font-bold text-slate-900">
+            Core Capabilities <span className="text-brand-accent">"What We Do"</span>
+          </h2>
+        </motion.div>
+
+        {/* 4 capability cards — fanning out tied to scroll position */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {[
+            {
+              icon: 'map', delay: 0,
+              title: 'Strategy Solutions',
+              desc: 'Helps logistics companies create clear technology roadmaps through a tailored discovery process.',
+              accent: 'brand-accent', border: 'border-brand-accent', text: 'text-brand-accent', bg: 'bg-orange-50',
+            },
+            {
+              icon: 'code', delay: 0.12,
+              title: 'Development & Design',
+              desc: 'Custom software and mobile apps across TMS, office systems, and executive dashboards.',
+              accent: 'blue-600', border: 'border-blue-500', text: 'text-blue-600', bg: 'bg-blue-50',
+            },
+            {
+              icon: 'cpu', delay: 0.24,
+              title: 'Digital Transformation',
+              desc: 'Cloud migration, custom API/EDI integrations, and ML/AI integration into everyday software.',
+              accent: 'purple-600', border: 'border-purple-500', text: 'text-purple-600', bg: 'bg-purple-50',
+            },
+            {
+              icon: 'users', delay: 0.36,
+              title: 'Agile Engineering',
+              desc: 'Agile development squads tailored specifically to the nuances of supply chain challenges.',
+              accent: 'emerald-600', border: 'border-emerald-500', text: 'text-emerald-600', bg: 'bg-emerald-50',
+            },
+          ].map((card, i) => (
+            <motion.div 
+              key={i} 
+              className="h-full relative"
+              style={{ x: cardTransforms[i], scale: cardScale, opacity: cardOpacity }}
+            >
+              <div 
+                className={`bg-white p-8 rounded-2xl text-left shadow-sm border border-slate-200 group h-full
+                  hover:-translate-y-3 hover:shadow-xl hover:${card.border} transition-all duration-500 cursor-pointer relative`}
+              >
+                {/* Upward arrow accent — visible on hover */}
+                <div className={`absolute top-4 right-4 ${card.text} opacity-0 group-hover:opacity-100
+                  translate-y-1 group-hover:translate-y-0 transition-all duration-300`}>
+                  <UpArrow size={16} />
+                </div>
+
+                <div className={`w-14 h-14 rounded-full ${card.bg} ${card.text} flex items-center justify-center mb-6
+                  group-hover:scale-110 group-hover:bg-${card.accent} group-hover:text-white transition-all duration-300`}>
+                  <i data-lucide={card.icon} className="w-6 h-6" />
+                </div>
+                <h4 className={`text-xl font-bold text-slate-900 group-hover:${card.text} transition-colors duration-300`}>
+                  {card.title}
+                </h4>
+                <p className="text-sm text-slate-500 mt-3 leading-relaxed">{card.desc}</p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
   );
 }
