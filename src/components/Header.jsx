@@ -8,6 +8,9 @@ export default function Header() {
 
   useEffect(() => {
     setMobileMenuOpen(false);
+    if (window.lucide) {
+      window.lucide.createIcons();
+    }
   }, [location]);
 
   return (
@@ -26,21 +29,26 @@ export default function Header() {
                         Services <i data-lucide="chevron-down" className="w-4 h-4 group-hover:rotate-180 transition-transform duration-300"></i>
                     </Link>
                     
-                    {/*  Mega Menu Dropdown (All 10 Services in 3 Columns)  */}
+                    {/* Mega Menu Dropdown */}
                     <div className="absolute top-full left-1/2 -translate-x-[40%] pt-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 w-[920px] z-50">
                         <div className="bg-[#0b1536] rounded-2xl p-4 shadow-2xl border border-slate-700/50 grid grid-cols-3 gap-2 relative">
                             {ALL_SERVICES.map((item) => (
                                 <Link
                                     key={item.id}
                                     to={item.path}
-                                    className="flex items-start gap-3 p-3 rounded-xl hover:bg-slate-800/50 transition-colors group/link"
+                                    className="flex items-start gap-3 p-3 rounded-xl hover:bg-slate-800/60 transition-colors group/link"
                                 >
                                     <div className="w-9 h-9 rounded-lg border border-brand-accent/50 flex items-center justify-center text-brand-accent shrink-0 mt-0.5 group-hover/link:bg-brand-accent group-hover/link:text-white transition-all">
                                         <i data-lucide={item.icon} className="w-4.5 h-4.5"></i>
                                     </div>
                                     <div>
-                                        <div className="text-slate-100 font-bold text-[14px] leading-tight mb-1 group-hover/link:text-brand-accent transition-colors">
-                                            {item.name}
+                                        <div className="text-slate-100 font-bold text-[14px] leading-tight mb-1 group-hover/link:text-brand-accent transition-colors flex items-center gap-1.5">
+                                            <span>{item.name}</span>
+                                            {item.badge === 'Flagship Service' && (
+                                              <span className="text-[10px] px-1.5 py-0.2 rounded bg-brand-accent/30 text-brand-accent font-semibold">
+                                                Flagship
+                                              </span>
+                                            )}
                                         </div>
                                         <div className="text-xs text-slate-400 leading-snug">
                                             {item.subtitle}
@@ -49,11 +57,15 @@ export default function Header() {
                                 </Link>
                             ))}
 
-                            {/*  Bottom Action  */}
-                            <div className="col-span-3 mt-2 pt-3 border-t border-slate-700/50 flex justify-start">
-                                <Link to="/services" className="text-brand-accent font-bold text-sm hover:text-orange-400 transition-colors flex items-center gap-2 pl-3 pb-1">
-                                    View all services <i data-lucide="arrow-right" className="w-4 h-4"></i>
+                            {/* Bottom Action */}
+                            <div className="col-span-3 mt-2 pt-3 border-t border-slate-700/50 flex items-center justify-between px-3">
+                                <Link to="/services" className="text-brand-accent font-bold text-sm hover:text-orange-400 transition-colors flex items-center gap-2">
+                                    <span>View all services & complete EDI lifecycle</span>
+                                    <i data-lucide="arrow-right" className="w-4 h-4"></i>
                                 </Link>
+                                <span className="text-[11px] text-slate-400">
+                                  14 Yrs Logistics · 400 Engineers
+                                </span>
                             </div>
                         </div>
                     </div>

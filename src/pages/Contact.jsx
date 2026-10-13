@@ -62,7 +62,7 @@ export default function Contact() {
             {/*  Air  */}
             <div className="fretrix-card overflow-hidden group flex flex-col">
                 <div className="h-48 overflow-hidden relative">
-                    <img src="https://images.unsplash.com/photo-1570710891163-6d815f474911?q=80&amp;w=800" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                    <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&amp;w=800" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="Air Freight" />
                 </div>
                 <div className="p-8 flex flex-col flex-grow">
                     <div className="flex justify-between items-center mb-4">

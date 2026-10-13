@@ -1,13 +1,24 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { ALL_SERVICES } from '../data/servicesList';
 
 export default function ServiceSidebar() {
   const location = useLocation();
 
+  useEffect(() => {
+    if (window.lucide) {
+      window.lucide.createIcons();
+    }
+  }, [location]);
+
   return (
     <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm sticky top-32">
-      <h3 className="font-display font-bold text-xl mb-4 text-slate-900">All Services</h3>
+      <div className="flex items-center justify-between mb-4">
+        <h3 className="font-display font-bold text-xl text-slate-900">All Services</h3>
+        <span className="text-xs font-semibold px-2 py-0.5 rounded bg-slate-100 text-slate-600">
+          6 Lines
+        </span>
+      </div>
       <ul className="space-y-2">
         {ALL_SERVICES.map((service) => {
           const isActive = location.pathname === service.path;
@@ -15,31 +26,27 @@ export default function ServiceSidebar() {
             <li key={service.id}>
               <Link
                 to={service.path}
-                className={`block px-4 py-3 rounded-lg text-sm font-medium transition-colors border ${
+                className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all border ${
                   isActive
-                    ? 'bg-brand-accent text-white font-semibold border-brand-accent shadow-sm'
-                    : 'bg-[#f8fafc] text-slate-700 border-transparent hover:bg-brand-accent hover:text-white hover:border-brand-accent'
+                    ? 'bg-brand-accent text-white font-semibold border-brand-accent shadow-md shadow-brand-accent/20'
+                    : 'bg-[#f8fafc] text-slate-700 border-transparent hover:bg-orange-50 hover:text-brand-accent hover:border-brand-accent/40'
                 }`}
               >
-                {service.fullName || service.name}
+                <div
+                  className={`w-7 h-7 rounded-lg flex items-center justify-center shrink-0 ${
+                    isActive
+                      ? 'bg-white/20 text-white'
+                      : 'bg-white text-brand-accent border border-slate-200'
+                  }`}
+                >
+                  <i data-lucide={service.icon} className="w-3.5 h-3.5"></i>
+                </div>
+                <span className="truncate">{service.fullName || service.name}</span>
               </Link>
             </li>
           );
         })}
       </ul>
-      <div className="mt-8 p-8 bg-[#0a1945] rounded-2xl text-center relative overflow-hidden">
-        <div className="absolute inset-0 bg-brand-accent/10"></div>
-        <h4 className="text-white font-display font-bold text-xl mb-4 relative z-10">Need a Quote?</h4>
-        <p className="text-slate-300 text-sm mb-6 relative z-10">
-          Contact our logistics experts to get a tailored solution for your business.
-        </p>
-        <Link
-          to="/quote"
-          className="relative z-10 inline-block px-8 py-3 bg-brand-accent text-white font-bold rounded-full text-sm hover:bg-brand-accentHover transition-colors shadow-lg shadow-brand-accent/30"
-        >
-          Contact Us
-        </Link>
-      </div>
     </div>
   );
 }

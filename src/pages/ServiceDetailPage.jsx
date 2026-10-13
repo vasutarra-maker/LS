@@ -58,6 +58,9 @@ export default function ServiceDetailPage({
           <div className="lg:col-span-8 space-y-8 text-slate-600 leading-relaxed text-lg">
             <img
               src={service.heroImage}
+              onError={(e) => {
+                e.currentTarget.src = 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=800&auto=format&fit=crop';
+              }}
               className="w-full max-w-2xl mx-auto mb-10 rounded-2xl shadow-2xl object-cover h-[300px]"
               alt={service.title}
             />

@@ -34,9 +34,9 @@ export default function ValuesScrollSection() {
   const columns = [
     {
       number: '1',
-      title: 'Development & Strategy',
+      title: 'Strategy & Development',
       description:
-        'Rapid Prototyping, Custom Software Development, Strategy Roadmaps, and Technology Consulting. Taking digital ideas from conception to deployment.',
+        'Technology roadmaps, architecture and custom software, planned and built by the same team.',
       path: '/strategy-and-development',
       label: 'Explore Strategy',
       accentColor: 'text-white hover:text-white/80',
@@ -50,9 +50,9 @@ export default function ValuesScrollSection() {
     },
     {
       number: '2',
-      title: 'Dedicated Teams',
+      title: 'Dedicated Teams / Staff Augmentation',
       description:
-        'Ongoing Long-Term Support & Maintenance, Product Development & Integration. Scalable engineering team augmentation tailored to client roadmaps.',
+        'Engineers who already know logistics, working inside your team.',
       path: '/dedicated-teams',
       label: 'Explore Teams',
       accentColor: 'text-white hover:text-white/80',
@@ -66,9 +66,9 @@ export default function ValuesScrollSection() {
     },
     {
       number: '3',
-      title: 'Data Science & AI',
+      title: 'AI & Data Science',
       description:
-        'Predictive modeling, disruption prevention, and system optimization. Combining data scientists and ML models for decision-making.',
+        'Forecasting, pattern detection and automation built on your operational data.',
       path: '/data-science',
       label: 'Explore Data Science',
       accentColor: 'text-white hover:text-white/80',

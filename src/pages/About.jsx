@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import shippingImg from '../assets/shipping-containers.png';
+import {
+  PLATFORMS_DATA,
+  STANDARDS_DOCUMENTS_DATA,
+  WHY_LOGISTICS_STUDIO,
+} from '../data/servicesList';
 
 function LeadershipSection() {
   const [activeSlide, setActiveSlide] = useState(0);
@@ -154,24 +159,9 @@ function LeadershipSection() {
 
 export default function About() {
   useEffect(() => {
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.remove('opacity-0');
-                if (entry.target.classList.contains('value-box-left')) {
-                    entry.target.classList.remove('-translate-x-12');
-                } else if (entry.target.classList.contains('value-box-right')) {
-                    entry.target.classList.remove('translate-x-12');
-                }
-                observer.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.1 });
-
-    const elements = document.querySelectorAll('.value-box-left, .value-box-right');
-    elements.forEach(el => observer.observe(el));
-
-    return () => observer.disconnect();
+    if (window.lucide) {
+      window.lucide.createIcons();
+    }
   }, []);
 
   const scopeItems = [
@@ -294,42 +284,123 @@ export default function About() {
         </div>
       </div>
     </section>
-<LeadershipSection />
-<section className="py-24 px-6 max-w-7xl mx-auto">
-        <div className="max-w-4xl mx-auto">
-            {/*  Values  */}
-            <div>
-                <h2 className="text-3xl font-display font-bold text-slate-900 mb-6">Our Core Values</h2>
-                <p className="text-slate-600 mb-8">
-                    Operating out of our headquarters in Visakhapatnam alongside regional offices in the United States, we are guided by a foundational set of core values.
-                </p>
-                
-                    <div className="grid grid-cols-2 gap-6">
-                        <div className="bg-brand-accent/5 p-4 rounded-xl border border-brand-accent/10 opacity-0 -translate-x-12 transition-all duration-700 value-box-left">
-                            <div className="text-brand-accent font-bold mb-1">Mutual Respect</div>
-                        </div>
-                        <div className="bg-brand-accent/5 p-4 rounded-xl border border-brand-accent/10 opacity-0 translate-x-12 transition-all duration-700 value-box-right">
-                            <div className="text-brand-accent font-bold mb-1">Shared Responsibility</div>
-                        </div>
-                        <div className="bg-brand-accent/5 p-4 rounded-xl border border-brand-accent/10 opacity-0 -translate-x-12 transition-all duration-700 value-box-left">
-                            <div className="text-brand-accent font-bold mb-1">Integrity &amp; Trust</div>
-                        </div>
-                        <div className="bg-brand-accent/5 p-4 rounded-xl border border-brand-accent/10 opacity-0 translate-x-12 transition-all duration-700 value-box-right">
-                            <div className="text-brand-accent font-bold mb-1">Humility &amp; Modesty</div>
-                        </div>
-                        <div className="bg-brand-accent/5 p-4 rounded-xl border border-brand-accent/10 opacity-0 -translate-x-12 transition-all duration-700 value-box-left">
-                            <div className="text-brand-accent font-bold mb-1">Flexibility</div>
-                        </div>
-                        <div className="bg-brand-accent/5 p-4 rounded-xl border border-brand-accent/10 opacity-0 translate-x-12 transition-all duration-700 value-box-right">
-                            <div className="text-brand-accent font-bold mb-1">People &amp; Family</div>
-                        </div>
+      <LeadershipSection />
+
+      {/* 1. Platforms We Work With */}
+      <section className="py-24 px-6 bg-slate-50 border-b border-slate-200">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16 space-y-4">
+            <div className="inline-flex items-center gap-2 text-brand-accent font-semibold uppercase tracking-wider text-sm">
+              <span className="w-2 h-2 rounded-full bg-brand-accent"></span> Production Stack
+            </div>
+            <h2 className="text-4xl md:text-5xl font-display font-bold text-slate-900">
+              Platforms We Work With
+            </h2>
+            <p className="text-slate-600 text-base max-w-2xl mx-auto leading-relaxed">
+              We have deep production experience on the platforms most logistics EDI runs on. Most of our clients run two or three of these side by side, often with older legacy versions in the mix.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {PLATFORMS_DATA.map((plat) => (
+              <div
+                key={plat.name}
+                className="p-6 rounded-2xl border border-slate-200 bg-white shadow-sm hover:border-brand-accent/50 hover:shadow-md transition-all flex flex-col justify-between"
+              >
+                <div>
+                  <div className="flex flex-col gap-2 mb-3">
+                    <span className="text-[11px] font-semibold text-brand-accent bg-orange-50 px-2.5 py-0.5 rounded-full border border-brand-accent/20 w-fit">
+                      {plat.category}
+                    </span>
+                    <h3 className="font-bold text-slate-900 text-xl">{plat.name}</h3>
+                  </div>
+                  <p className="text-sm text-slate-600 leading-relaxed">{plat.summary}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 2. Standards & Documents Handled */}
+      <section className="py-24 px-6 bg-white border-b border-slate-200">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16 space-y-4">
+            <div className="inline-flex items-center gap-2 text-brand-accent font-semibold uppercase tracking-wider text-sm">
+              <span className="w-2 h-2 rounded-full bg-brand-accent"></span> Strict Compliance
+            </div>
+            <h2 className="text-4xl md:text-5xl font-display font-bold text-slate-900">
+              Standards & Documents Handled
+            </h2>
+            <p className="text-slate-600 text-base max-w-3xl mx-auto leading-relaxed">
+              Every map is tested against partner implementation guides, covering edge cases like split shipments, partial receipts, and multi-stop loads.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {STANDARDS_DOCUMENTS_DATA.map((item) => (
+              <div
+                key={item.area}
+                className="p-6 rounded-2xl border border-slate-200 bg-slate-50/50 shadow-sm flex flex-col justify-between"
+              >
+                <div>
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full bg-brand-accent"></span>
+                      <h3 className="font-bold text-slate-900 text-base">{item.area}</h3>
                     </div>
+                    <span className="text-[11px] text-slate-400 font-semibold px-2 py-0.5 rounded bg-white border border-slate-200">
+                      {item.documents.length} transaction sets
+                    </span>
+                  </div>
+                  <div className="flex flex-wrap gap-1.5">
+                    {item.documents.map((doc) => (
+                      <span
+                        key={doc.code}
+                        className="inline-flex items-center gap-1 px-2.5 py-1 rounded bg-white border border-slate-200 text-xs font-medium text-slate-700"
+                      >
+                        <strong className="text-brand-accent font-bold">{doc.code}</strong> {doc.name}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
+      {/* 3. Why LogisticsStudio */}
+      <section className="py-24 px-6 bg-slate-50">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16 space-y-4">
+            <div className="inline-flex items-center gap-2 text-brand-accent font-semibold uppercase tracking-wider text-sm">
+              <span className="w-2 h-2 rounded-full bg-brand-accent"></span> Strategic Advantage
             </div>
-            
-            </div>
-    </section>
+            <h2 className="text-4xl md:text-5xl font-display font-bold text-slate-900">
+              Why LogisticsStudio
+            </h2>
+            <p className="text-slate-600 text-base max-w-2xl mx-auto leading-relaxed">
+              Everything we’ve learned has come from logistics. We don’t split our attention across banking, retail, and healthcare.
+            </p>
+          </div>
 
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {WHY_LOGISTICS_STUDIO.map((item, idx) => (
+              <div
+                key={idx}
+                className="p-7 rounded-2xl border border-slate-200 bg-white shadow-sm hover:border-brand-accent/40 hover:shadow-md transition-all"
+              >
+                <div className="w-10 h-10 rounded-xl bg-orange-50 text-brand-accent flex items-center justify-center mb-4 border border-brand-accent/20">
+                  <i data-lucide={item.icon} className="w-5 h-5"></i>
+                </div>
+                <h3 className="text-lg font-bold text-slate-900 mb-2">{item.title}</h3>
+                <p className="text-sm text-slate-500 leading-relaxed">{item.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
     </>
   );
 }

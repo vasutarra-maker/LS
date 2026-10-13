@@ -61,8 +61,8 @@ const SERVICE_CARDS = [
   {
     img: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=800',
     icon: 'compass',
-    title: 'Development & Strategy',
-    desc: 'Rapid Prototyping, Custom Software Development, Strategy Roadmaps, and Technology Consulting. Taking digital ideas from conception to deployment.',
+    title: 'Strategy & Development',
+    desc: 'Technology roadmaps, architecture and custom software, planned and built by the same team.',
     link: '/strategy-and-development',
     label: 'Explore Strategy',
     accent: { ring: 'border-brand-accent', text: 'text-brand-accent', bg: 'bg-orange-50', hover: 'group-hover:text-brand-accent', hoverBg: 'group-hover:bg-brand-accent', overlay: 'bg-brand-accent/20' },
@@ -70,8 +70,8 @@ const SERVICE_CARDS = [
   {
     img: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=800',
     icon: 'users',
-    title: 'Dedicated Teams',
-    desc: 'Ongoing Long-Term Support & Maintenance, Product Development & Integration. Scalable engineering team augmentation tailored to client roadmaps.',
+    title: 'Dedicated Teams / Staff Augmentation',
+    desc: 'Engineers who already know logistics, working inside your team.',
     link: '/dedicated-teams',
     label: 'Explore Teams',
     accent: { ring: 'border-blue-500', text: 'text-blue-600', bg: 'bg-blue-50', hover: 'group-hover:text-blue-600', hoverBg: 'group-hover:bg-blue-600', overlay: 'bg-blue-500/20' },
@@ -79,8 +79,8 @@ const SERVICE_CARDS = [
   {
     img: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=800',
     icon: 'network',
-    title: 'Data Science & AI',
-    desc: 'Predictive modeling, disruption prevention, and system optimization. Combining data scientists and ML models for decision-making.',
+    title: 'AI & Data Science',
+    desc: 'Forecasting, pattern detection and automation built on your operational data.',
     link: '/data-science',
     label: 'Explore Data Science',
     accent: { ring: 'border-emerald-500', text: 'text-emerald-600', bg: 'bg-emerald-50', hover: 'group-hover:text-emerald-600', hoverBg: 'group-hover:bg-emerald-600', overlay: 'bg-emerald-500/20' },
@@ -335,15 +335,53 @@ function CoreCapabilitiesSection({ UpArrow }) {
     offset: ["start 90%", "center center"] 
   });
 
+  useEffect(() => {
+    if (window.lucide) {
+      window.lucide.createIcons();
+    }
+  }, []);
+
   // Cards start clustered in the center (inwards) and spread out (outwards) while scrolling
-  const x0 = useTransform(scrollYProgress, [0, 1], [200, 0]);
-  const x1 = useTransform(scrollYProgress, [0, 1], [70, 0]);
-  const x2 = useTransform(scrollYProgress, [0, 1], [-70, 0]);
-  const x3 = useTransform(scrollYProgress, [0, 1], [-200, 0]);
-  const cardTransforms = [x0, x1, x2, x3];
+  const x0 = useTransform(scrollYProgress, [0, 1], [140, 0]);
+  const x1 = useTransform(scrollYProgress, [0, 1], [0, 0]);
+  const x2 = useTransform(scrollYProgress, [0, 1], [-140, 0]);
+  const cardTransforms = [x0, x1, x2];
 
   const cardScale = useTransform(scrollYProgress, [0, 1], [0.85, 1]);
   const cardOpacity = useTransform(scrollYProgress, [0, 1], [0, 1]);
+
+  const cards = [
+    {
+      icon: 'layers',
+      title: 'Project',
+      subtitle: 'FIXED SCOPE AND TIMELINE, DELIVERED BY OUR TEAM',
+      desc: 'A platform migration, a batch of partner onboardings, a new integration',
+      borderHover: 'hover:border-brand-accent',
+      textHover: 'group-hover:text-brand-accent',
+      iconBg: 'bg-orange-50 text-brand-accent',
+      iconHoverBg: 'group-hover:bg-brand-accent group-hover:text-white',
+    },
+    {
+      icon: 'users',
+      title: 'Dedicated Team',
+      subtitle: 'A TEAM ASSIGNED TO YOU, WORKING TO YOUR PRIORITIES',
+      desc: 'Ongoing development and long term product work',
+      borderHover: 'hover:border-blue-500',
+      textHover: 'group-hover:text-blue-600',
+      iconBg: 'bg-blue-50 text-blue-600',
+      iconHoverBg: 'group-hover:bg-blue-600 group-hover:text-white',
+    },
+    {
+      icon: 'shield-check',
+      title: 'Managed Service',
+      subtitle: 'WE OWN THE OUTCOME UNDER AN ONGOING AGREEMENT',
+      desc: 'EDI support and monitoring, or fully managed EDI',
+      borderHover: 'hover:border-purple-500',
+      textHover: 'group-hover:text-purple-600',
+      iconBg: 'bg-purple-50 text-purple-600',
+      iconHoverBg: 'group-hover:bg-purple-600 group-hover:text-white',
+    },
+  ];
 
   return (
     <section data-no-fx ref={secRef} className="py-28 px-6 bg-slate-50 overflow-hidden">
@@ -366,64 +404,54 @@ function CoreCapabilitiesSection({ UpArrow }) {
                   transition={{ delay: 0.1 + i * 0.05, duration: 0.4 }} />
               ))}
             </div>
-            <span className="text-brand-accent font-semibold text-sm uppercase tracking-wider">Growth Capabilities</span>
+            <span className="text-brand-accent font-semibold text-sm uppercase tracking-wider">Engagement Framework</span>
           </div>
-          <h2 className="text-4xl font-display font-bold text-slate-900">
-            Core Capabilities <span className="text-brand-accent">"What We Do"</span>
+          <h2 className="text-4xl md:text-5xl font-display font-bold text-slate-900 mb-3">
+            How We Work
           </h2>
+          <p className="text-slate-600 text-base max-w-2xl mx-auto leading-relaxed">
+            You can work with us in three ways, and move between them as your business needs evolve.
+          </p>
         </motion.div>
 
-        {/* 4 capability cards — fanning out tied to scroll position */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {[
-            {
-              icon: 'map', delay: 0,
-              title: 'Strategy Solutions',
-              desc: 'Helps logistics companies create clear technology roadmaps through a tailored discovery process.',
-              accent: 'brand-accent', border: 'border-brand-accent', text: 'text-brand-accent', bg: 'bg-orange-50',
-            },
-            {
-              icon: 'code', delay: 0.12,
-              title: 'Development & Design',
-              desc: 'Custom software and mobile apps across TMS, office systems, and executive dashboards.',
-              accent: 'blue-600', border: 'border-blue-500', text: 'text-blue-600', bg: 'bg-blue-50',
-            },
-            {
-              icon: 'cpu', delay: 0.24,
-              title: 'Digital Transformation',
-              desc: 'Cloud migration, custom API/EDI integrations, and ML/AI integration into everyday software.',
-              accent: 'purple-600', border: 'border-purple-500', text: 'text-purple-600', bg: 'bg-purple-50',
-            },
-            {
-              icon: 'users', delay: 0.36,
-              title: 'Agile Engineering',
-              desc: 'Agile development squads tailored specifically to the nuances of supply chain challenges.',
-              accent: 'emerald-600', border: 'border-emerald-500', text: 'text-emerald-600', bg: 'bg-emerald-50',
-            },
-          ].map((card, i) => (
+        {/* 3 engagement cards — fanning out tied to scroll position */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {cards.map((card, i) => (
             <motion.div 
               key={i} 
               className="h-full relative"
               style={{ x: cardTransforms[i], scale: cardScale, opacity: cardOpacity }}
             >
               <div 
-                className={`bg-white p-8 rounded-2xl text-left shadow-sm border border-slate-200 group h-full
-                  hover:-translate-y-3 hover:shadow-xl hover:${card.border} transition-all duration-500 cursor-pointer relative`}
+                className={`bg-white p-8 rounded-2xl text-left shadow-sm border border-slate-200 group h-full flex flex-col justify-between
+                  hover:-translate-y-3 hover:shadow-xl ${card.borderHover} transition-all duration-500 cursor-pointer relative`}
               >
                 {/* Upward arrow accent — visible on hover */}
-                <div className={`absolute top-4 right-4 ${card.text} opacity-0 group-hover:opacity-100
+                <div className={`absolute top-4 right-4 ${card.textHover} opacity-0 group-hover:opacity-100
                   translate-y-1 group-hover:translate-y-0 transition-all duration-300`}>
                   <UpArrow size={16} />
                 </div>
 
-                <div className={`w-14 h-14 rounded-full ${card.bg} ${card.text} flex items-center justify-center mb-6
-                  group-hover:scale-110 group-hover:bg-${card.accent} group-hover:text-white transition-all duration-300`}>
-                  <i data-lucide={card.icon} className="w-6 h-6" />
+                <div>
+                  <div className={`w-14 h-14 rounded-full ${card.iconBg} flex items-center justify-center mb-6
+                    group-hover:scale-110 ${card.iconHoverBg} transition-all duration-300`}>
+                    <i data-lucide={card.icon} className="w-6 h-6" />
+                  </div>
+                  <h4 className={`text-2xl font-bold font-display text-slate-900 ${card.textHover} transition-colors duration-300`}>
+                    {card.title}
+                  </h4>
+                  <p className="text-xs font-semibold text-brand-accent uppercase tracking-wider mt-2 mb-3">
+                    {card.subtitle}
+                  </p>
+                  <p className="text-sm text-slate-600 leading-relaxed">
+                    {card.desc}
+                  </p>
                 </div>
-                <h4 className={`text-xl font-bold text-slate-900 group-hover:${card.text} transition-colors duration-300`}>
-                  {card.title}
-                </h4>
-                <p className="text-sm text-slate-500 mt-3 leading-relaxed">{card.desc}</p>
+
+                <div className="pt-6 mt-6 border-t border-slate-100 flex items-center gap-2 text-xs font-bold text-brand-accent">
+                  <span>Flexible Agreement</span>
+                  <i data-lucide="check" className="w-4 h-4"></i>
+                </div>
               </div>
             </motion.div>
           ))}
