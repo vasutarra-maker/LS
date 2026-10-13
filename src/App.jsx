@@ -17,6 +17,11 @@ import StrategyAndDevelopment from './pages/StrategyAndDevelopment';
 import SupplyChainSustainability from './pages/SupplyChainSustainability';
 import Tracking from './pages/Tracking';
 
+import Category1 from './pages/Category1';
+import Category2 from './pages/Category2';
+import Category3 from './pages/Category3';
+import Category4 from './pages/Category4';
+
 function App() {
   return (
     <Router basename={import.meta.env.BASE_URL}>
@@ -37,6 +42,12 @@ function App() {
           <Route path="/strategy-and-development" element={<StrategyAndDevelopment />} />
           <Route path="/supply-chain-sustainability" element={<SupplyChainSustainability />} />
           <Route path="/tracking" element={<Tracking />} />
+
+          {/* 4 Added Dummy Services (matching existing layout) */}
+          <Route path="/category-1" element={<Category1 />} />
+          <Route path="/category-2" element={<Category2 />} />
+          <Route path="/category-3" element={<Category3 />} />
+          <Route path="/category-4" element={<Category4 />} />
 
         </Routes>
       </Layout>

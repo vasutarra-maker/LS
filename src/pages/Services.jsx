@@ -1,8 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { ALL_SERVICES } from '../data/servicesList';
 
 export default function Services() {
+  useEffect(() => {
+    if (window.lucide) {
+      window.lucide.createIcons();
+    }
+  }, []);
 
   return (
     <>
@@ -42,6 +48,48 @@ export default function Services() {
             </div>
         </div>
     </section>
+
+{/*  All Services Portfolio Section (10 Services)  */}
+<section className="py-24 px-6 max-w-7xl mx-auto border-b border-slate-200">
+    <div className="text-center mb-16 space-y-4">
+        <div className="inline-flex items-center gap-2 text-brand-accent font-semibold uppercase tracking-wider text-sm">
+            <span className="w-2 h-2 rounded-full bg-brand-accent"></span> Service Portfolio
+        </div>
+        <h2 className="text-4xl md:text-5xl font-display font-bold text-slate-900">
+            Comprehensive <span className="text-brand-accent">Services</span>
+        </h2>
+        <p className="text-slate-500 text-base max-w-2xl mx-auto">
+            Explore our complete suite of logistics solutions, from strategic consulting and dedicated teams to cloud infrastructure and IoT telematics.
+        </p>
+    </div>
+
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {ALL_SERVICES.map((srv) => (
+            <Link
+                key={srv.id}
+                to={srv.path}
+                className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm hover:shadow-xl hover:border-brand-accent/50 transition-all flex flex-col justify-between group"
+            >
+                <div>
+                    <div className="w-12 h-12 rounded-xl border border-brand-accent/40 bg-orange-50 text-brand-accent flex items-center justify-center group-hover:bg-brand-accent group-hover:text-white transition-all mb-4">
+                        <i data-lucide={srv.icon} className="w-6 h-6"></i>
+                    </div>
+                    <h3 className="text-xl font-bold text-slate-900 group-hover:text-brand-accent transition-colors mb-2">
+                        {srv.fullName || srv.name}
+                    </h3>
+                    <p className="text-sm text-slate-500 mb-6 leading-relaxed">
+                        {srv.subtitle}
+                    </p>
+                </div>
+
+                <div className="inline-flex items-center gap-2 text-brand-accent font-bold text-sm group-hover:translate-x-1 transition-transform">
+                    <span>Explore solution</span>
+                    <i data-lucide="arrow-right" className="w-4 h-4"></i>
+                </div>
+            </Link>
+        ))}
+    </div>
+</section>
 
 <section className="py-24 px-6 max-w-7xl mx-auto" id="services">
         <div className="text-center mb-16 space-y-4">

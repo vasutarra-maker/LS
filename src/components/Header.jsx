@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { ALL_SERVICES } from '../data/servicesList';
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -25,83 +26,35 @@ export default function Header() {
                         Services <i data-lucide="chevron-down" className="w-4 h-4 group-hover:rotate-180 transition-transform duration-300"></i>
                     </Link>
                     
-                    {/*  Mega Menu Dropdown  */}
-                    <div className="absolute top-full left-1/2 -translate-x-1/2 pt-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 w-[650px] z-50">
-                        <div className="bg-[#0b1536] rounded-2xl p-4 shadow-2xl border border-slate-700/50 grid grid-cols-2 gap-2 relative">
-                            
-                            {/*  Item 1  */}
-                            <Link to="/strategy-and-development" className="flex items-start gap-4 p-4 rounded-xl hover:bg-slate-800/50 transition-colors group/link">
-                                <div className="w-10 h-10 rounded-lg border border-brand-accent/50 flex items-center justify-center text-brand-accent shrink-0 mt-0.5">
-                                    <i data-lucide="compass" className="w-5 h-5"></i>
-                                </div>
-                                <div>
-                                    <div className="text-slate-100 font-bold text-[15px] mb-1">Strategy and Development</div>
-                                    <div className="text-xs text-slate-400">Digital roadmaps &amp; consulting</div>
-                                </div>
-                            </Link>
+                    {/*  Mega Menu Dropdown (All 10 Services in 3 Columns)  */}
+                    <div className="absolute top-full left-1/2 -translate-x-[40%] pt-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 w-[920px] z-50">
+                        <div className="bg-[#0b1536] rounded-2xl p-4 shadow-2xl border border-slate-700/50 grid grid-cols-3 gap-2 relative">
+                            {ALL_SERVICES.map((item) => (
+                                <Link
+                                    key={item.id}
+                                    to={item.path}
+                                    className="flex items-start gap-3 p-3 rounded-xl hover:bg-slate-800/50 transition-colors group/link"
+                                >
+                                    <div className="w-9 h-9 rounded-lg border border-brand-accent/50 flex items-center justify-center text-brand-accent shrink-0 mt-0.5 group-hover/link:bg-brand-accent group-hover/link:text-white transition-all">
+                                        <i data-lucide={item.icon} className="w-4.5 h-4.5"></i>
+                                    </div>
+                                    <div>
+                                        <div className="text-slate-100 font-bold text-[14px] leading-tight mb-1 group-hover/link:text-brand-accent transition-colors">
+                                            {item.name}
+                                        </div>
+                                        <div className="text-xs text-slate-400 leading-snug">
+                                            {item.subtitle}
+                                        </div>
+                                    </div>
+                                </Link>
+                            ))}
 
-                            {/*  Item 2  */}
-                            <Link to="/dedicated-teams" className="flex items-start gap-4 p-4 rounded-xl hover:bg-slate-800/50 transition-colors group/link">
-                                <div className="w-10 h-10 rounded-lg border border-brand-accent/50 flex items-center justify-center text-brand-accent shrink-0 mt-0.5">
-                                    <i data-lucide="users" className="w-5 h-5"></i>
-                                </div>
-                                <div>
-                                    <div className="text-slate-100 font-bold text-[15px] mb-1">Dedicated Teams</div>
-                                    <div className="text-xs text-slate-400">Staff augmentation &amp; support</div>
-                                </div>
-                            </Link>
-
-                            {/*  Item 3  */}
-                            <Link to="/data-science" className="flex items-start gap-4 p-4 rounded-xl hover:bg-slate-800/50 transition-colors group/link">
-                                <div className="w-10 h-10 rounded-lg border border-brand-accent/50 flex items-center justify-center text-brand-accent shrink-0 mt-0.5">
-                                    <i data-lucide="bar-chart-2" className="w-5 h-5"></i>
-                                </div>
-                                <div>
-                                    <div className="text-slate-100 font-bold text-[15px] mb-1">Data Science</div>
-                                    <div className="text-xs text-slate-400">AI predictive models &amp; analytics</div>
-                                </div>
-                            </Link>
-
-                            {/*  Item 4  */}
-                            <Link to="/ibm-sterling-b2b-integrator" className="flex items-start gap-4 p-4 rounded-xl hover:bg-slate-800/50 transition-colors group/link">
-                                <div className="w-10 h-10 rounded-lg border border-brand-accent/50 flex items-center justify-center text-brand-accent shrink-0 mt-0.5">
-                                    <i data-lucide="git-merge" className="w-5 h-5"></i>
-                                </div>
-                                <div>
-                                    <div className="text-slate-100 font-bold text-[15px] mb-1">IBM Sterling Integrator</div>
-                                    <div className="text-xs text-slate-400">Supply chain &amp; B2B workflows</div>
-                                </div>
-                            </Link>
-
-                            {/*  Item 5  */}
-                            <Link to="/supply-chain-sustainability" className="flex items-start gap-4 p-4 rounded-xl hover:bg-slate-800/50 transition-colors group/link">
-                                <div className="w-10 h-10 rounded-lg border border-brand-accent/50 flex items-center justify-center text-brand-accent shrink-0 mt-0.5">
-                                    <i data-lucide="leaf" className="w-5 h-5"></i>
-                                </div>
-                                <div>
-                                    <div className="text-slate-100 font-bold text-[15px] mb-1">Sustainability</div>
-                                    <div className="text-xs text-slate-400">Green metrics &amp; optimization</div>
-                                </div>
-                            </Link>
-
-                            {/*  Item 6  */}
-                            <Link to="/ibm-watsonx" className="flex items-start gap-4 p-4 rounded-xl hover:bg-slate-800/50 transition-colors group/link">
-                                <div className="w-10 h-10 rounded-lg border border-brand-accent/50 flex items-center justify-center text-brand-accent shrink-0 mt-0.5">
-                                    <i data-lucide="cpu" className="w-5 h-5"></i>
-                                </div>
-                                <div>
-                                    <div className="text-slate-100 font-bold text-[15px] mb-1">IBM Watsonx</div>
-                                    <div className="text-xs text-slate-400">Enterprise AI for logistics</div>
-                                </div>
-                            </Link>
-                            
                             {/*  Bottom Action  */}
-                            <div className="col-span-2 mt-2 pt-4 border-t border-slate-700/50 flex justify-start">
-                                <Link to="/services" className="text-brand-accent font-bold text-sm hover:text-orange-400 transition-colors flex items-center gap-2 pl-4 pb-2">
+                            <div className="col-span-3 mt-2 pt-3 border-t border-slate-700/50 flex justify-start">
+                                <Link to="/services" className="text-brand-accent font-bold text-sm hover:text-orange-400 transition-colors flex items-center gap-2 pl-3 pb-1">
                                     View all services <i data-lucide="arrow-right" className="w-4 h-4"></i>
                                 </Link>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -131,10 +84,17 @@ export default function Header() {
 
         {/* Mobile Navigation Dropdown */}
         {mobileMenuOpen && (
-          <div className="md:hidden bg-white border-t border-slate-100 shadow-xl absolute left-0 right-0 top-full flex flex-col py-4 px-6 gap-4 text-lg font-semibold text-slate-700">
+          <div className="md:hidden bg-white border-t border-slate-100 shadow-xl absolute left-0 right-0 top-full flex flex-col py-4 px-6 gap-3 text-base font-semibold text-slate-700 max-h-[85vh] overflow-y-auto">
              <Link to="/" onClick={() => setMobileMenuOpen(false)} className="hover:text-brand-accent">Home</Link>
              <Link to="/about" onClick={() => setMobileMenuOpen(false)} className="hover:text-brand-accent">About Us</Link>
-             <Link to="/services" onClick={() => setMobileMenuOpen(false)} className="hover:text-brand-accent">Services</Link>
+             <div className="border-t border-slate-100 pt-2">
+                 <Link to="/services" onClick={() => setMobileMenuOpen(false)} className="hover:text-brand-accent font-bold text-slate-900 block mb-2">Services</Link>
+                 <div className="pl-3 space-y-2 text-sm text-slate-600">
+                     {ALL_SERVICES.map((s) => (
+                         <Link key={s.id} to={s.path} onClick={() => setMobileMenuOpen(false)} className="block hover:text-brand-accent">• {s.fullName || s.name}</Link>
+                     ))}
+                 </div>
+             </div>
              <Link to="/resources" onClick={() => setMobileMenuOpen(false)} className="hover:text-brand-accent">Resources</Link>
              <Link to="/quote" onClick={() => setMobileMenuOpen(false)} className="text-brand-accent mt-2 inline-flex items-center gap-2">
                  Request Quote <i data-lucide="arrow-right" className="w-4 h-4"></i>

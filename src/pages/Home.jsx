@@ -1,6 +1,7 @@
 import React, { useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import ValuesScrollSection from '../components/ValuesScrollSection';
 
 /* ── Upward arrow particle floating in hero ── */
 function ArrowParticle({ x, delay, duration, size = 16 }) {
@@ -89,12 +90,12 @@ const SERVICE_CARDS = [
 /* ── Smooth scroll section: cards fly in from right smoothly ── */
 function ServiceScrollSection({ UpArrow }) {
   return (
-    <section className="py-24 bg-white relative" id="services">
+    <section className="pt-24 pb-12 bg-white relative" id="services">
       <div className="max-w-7xl mx-auto px-6">
 
-        {/* Header */}
+        {/* Header — Kept intact as requested */}
         <motion.div 
-          className="text-center mb-16 space-y-3"
+          className="text-center space-y-3"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
@@ -111,7 +112,7 @@ function ServiceScrollSection({ UpArrow }) {
           </h2>
         </motion.div>
 
-        {/* Cards grid — each slides in from right smoothly */}
+        {/* Cards grid — commented out
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 overflow-hidden">
           {SERVICE_CARDS.map((card, i) => (
             <div
@@ -122,7 +123,6 @@ function ServiceScrollSection({ UpArrow }) {
                 <div className="h-48 overflow-hidden relative">
                   <div className={`absolute inset-0 ${card.accent.overlay} opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10`} />
                   <img src={card.img} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt={card.title} />
-                  {/* Upward arrow badge on hover */}
                   <div className="absolute top-3 right-3 z-20 bg-white/85 backdrop-blur rounded-xl p-2
                     opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300">
                     <UpArrow size={18} className={card.accent.text} />
@@ -152,6 +152,7 @@ function ServiceScrollSection({ UpArrow }) {
             </div>
           ))}
         </div>
+        */}
       </div>
     </section>
   );
@@ -318,8 +319,11 @@ export default function Home() {
       {/* ═══════════════ CORE CAPABILITIES — elevator-rise ONCE, stays on scroll-up ═══════════════ */}
       <CoreCapabilitiesSection UpArrow={UpArrow} />
 
-      {/* ═══════════════ SERVICES — cards slide in from RIGHT as you scroll ═══════════════ */}
+      {/* ═══════════════ SERVICES HEADER — Featured Service Modules / Comprehensive Solutions ═══════════════ */}
       <ServiceScrollSection UpArrow={UpArrow} />
+
+      {/* ═══════════════ VALUES (COMMUNITY, INNOVATION, SUSTAINABILITY) — Animated Scroll Section Above Partners ═══════════════ */}
+      <ValuesScrollSection />
     </>
   );
 }

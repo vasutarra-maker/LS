@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import ServiceSidebar from '../components/ServiceSidebar';
+
 export default function DataScience() {
 
   return (
@@ -22,23 +24,7 @@ export default function DataScience() {
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16">
             {/*  Sidebar (Fretrix style)  */}
             <div className="lg:col-span-4">
-                <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm sticky top-32">
-                    <h3 className="font-display font-bold text-xl mb-4 text-slate-900">All Services</h3>
-                    <ul className="space-y-2">
-                        <li><Link to="/strategy-and-development" className="block px-4 py-3 rounded-lg bg-[#f8fafc] hover:bg-brand-accent hover:text-white text-slate-700 font-medium transition-colors border border-transparent hover:border-brand-accent">Strategy and Development</Link></li>
-                        <li><Link to="/dedicated-teams" className="block px-4 py-3 rounded-lg bg-[#f8fafc] hover:bg-brand-accent hover:text-white text-slate-700 font-medium transition-colors border border-transparent hover:border-brand-accent">Dedicated Teams</Link></li>
-                        <li><Link to="/data-science" className="block px-4 py-3 rounded-lg bg-[#f8fafc] hover:bg-brand-accent hover:text-white text-slate-700 font-medium transition-colors border border-transparent hover:border-brand-accent">Data Science</Link></li>
-                        <li><Link to="/ibm-sterling-b2b-integrator" className="block px-4 py-3 rounded-lg bg-[#f8fafc] hover:bg-brand-accent hover:text-white text-slate-700 font-medium transition-colors border border-transparent hover:border-brand-accent">IBM Sterling B2B Integrator</Link></li>
-                        <li><Link to="/supply-chain-sustainability" className="block px-4 py-3 rounded-lg bg-[#f8fafc] hover:bg-brand-accent hover:text-white text-slate-700 font-medium transition-colors border border-transparent hover:border-brand-accent">Supply chain sustainability</Link></li>
-                        <li><Link to="/ibm-watsonx" className="block px-4 py-3 rounded-lg bg-[#f8fafc] hover:bg-brand-accent hover:text-white text-slate-700 font-medium transition-colors border border-transparent hover:border-brand-accent">IBM Watsonx</Link></li>
-                    </ul>
-                    <div className="mt-8 p-8 bg-[#0a1945] rounded-2xl text-center relative overflow-hidden">
-                        <div className="absolute inset-0 bg-brand-accent/10"></div>
-                        <h4 className="text-white font-display font-bold text-xl mb-4 relative z-10">Need a Quote?</h4>
-                        <p className="text-slate-300 text-sm mb-6 relative z-10">Contact our logistics experts to get a tailored solution for your business.</p>
-                        <Link to="/quote" className="relative z-10 inline-block px-8 py-3 bg-brand-accent text-white font-bold rounded-full text-sm hover:bg-brand-accentHover transition-colors">Contact Us</Link>
-                    </div>
-                </div>
+                <ServiceSidebar />
             </div>
 
             {/*  Content Area  */}
