@@ -19,13 +19,12 @@ export default function ScrollEffects() {
   const location = useLocation();
   const navigate = useNavigate();
   const lenisRef = useRef(null);
-  const barRef = useRef(null);
 
   const reduceMotion =
     typeof window !== 'undefined' &&
     window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* ---------- Mount-once: smooth scroll, progress bar, header, links ---------- */
+  /* ---------- Mount-once: smooth scroll, header, links ---------- */
   useEffect(() => {
     const lenis = new Lenis({ lerp: reduceMotion ? 1 : 0.085, smoothWheel: !reduceMotion });
     lenisRef.current = lenis;
@@ -34,9 +33,6 @@ export default function ScrollEffects() {
 
     lenis.on('scroll', (e) => {
       ScrollTrigger.update();
-      if (barRef.current) {
-        barRef.current.style.transform = `scaleX(${e.progress || 0})`;
-      }
       if (header) {
         const isScrolled = e.scroll > 40;
         header.classList.toggle('fx-scrolled', isScrolled);
@@ -256,12 +252,5 @@ export default function ScrollEffects() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.pathname]);
 
-  return (
-    <div
-      ref={barRef}
-      aria-hidden="true"
-      className="fixed top-0 left-0 right-0 h-[3px] z-[100] bg-gradient-to-r from-brand-accent via-orange-400 to-amber-300 pointer-events-none"
-      style={{ transform: 'scaleX(0)', transformOrigin: '0 50%' }}
-    />
-  );
+  return null;
 }

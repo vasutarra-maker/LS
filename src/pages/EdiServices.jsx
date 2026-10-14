@@ -86,13 +86,6 @@ export default function EdiServices() {
               </p>
             </div>
 
-            {/* Quote Callout */}
-            <div className="bg-[#f0f5fa] p-8 rounded-2xl border-l-4 border-brand-accent">
-              <p className="font-medium text-slate-800 italic">
-                "EDI gets the most space because it's the part of the business that our clients feel straight away when it breaks. A map that is almost right still gets rejected. Maps built by people who know both EDI and logistics hold up under real volumes and partner audits."
-              </p>
-            </div>
-
             {/* 10 Areas Section */}
             <div className="pt-6 border-t border-slate-200">
               <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">

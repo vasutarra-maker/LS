@@ -23,9 +23,7 @@ export default function ServiceSidebar() {
         <div>
           <div className="flex items-center gap-2">
             <h3 className="font-display font-bold text-lg sm:text-xl text-slate-900">All Services</h3>
-            <span className="text-xs font-semibold px-2 py-0.5 rounded bg-slate-100 text-slate-600">
-              6 Lines
-            </span>
+          
           </div>
           {activeService && !mobileExpanded && (
             <p className="text-xs text-brand-accent font-medium mt-1 lg:hidden">

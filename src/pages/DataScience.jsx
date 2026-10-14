@@ -76,13 +76,6 @@ export default function DataScience() {
               </p>
             </div>
 
-            {/* Quote Callout */}
-            <div className="bg-[#f0f5fa] p-5 sm:p-8 rounded-2xl border-l-4 border-brand-accent">
-              <p className="font-medium text-slate-800 italic text-base sm:text-lg">
-                "Logistics produces huge amounts of data that rarely gets used beyond reporting. Using it well means fewer surprises, better planning and fewer people doing repetitive work."
-              </p>
-            </div>
-
             {/* How We Deliver It */}
             <div>
               <h3 className="text-xl sm:text-2xl font-display font-bold text-slate-900 mb-4">

@@ -81,7 +81,7 @@ export default function Services() {
             <span className="w-2 h-2 rounded-full bg-brand-accent"></span> Services at a Glance
           </div>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-slate-900">
-            Six Dedicated <span className="text-brand-accent">Service Lines</span>
+            Six Dedicated <span className="text-brand-accent">Services</span>
           </h2>
           <p className="text-slate-500 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
             Each service answers four fundamental questions: what the service is, who it’s for, how we deliver it, and why it matters.

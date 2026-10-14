@@ -37,12 +37,12 @@ export default function Quote() {
                     <div className="space-y-2">
                         <label className="text-sm font-semibold text-slate-300">Service Required</label>
                         <select className="w-full bg-[#0a0f1c] border border-[#1e293b] rounded-xl px-4 py-3 text-white text-base focus:outline-none focus:border-brand-accent transition-colors appearance-none">
-                            <option>Strategy and Development</option>
-                            <option>Dedicated Teams</option>
-                            <option>Data Science</option>
-                            <option>IBM Sterling B2B Integrator</option>
+                            <option>Strategy & Development</option>
+                            <option>Dedicated Teams / Staff Augmentation</option>
+                            <option>AI & Data Science</option>
+                            <option>Legacy Migration & Modernization</option>
                             <option>Supply Chain Sustainability</option>
-                            <option>IBM Watsonx</option>
+                            <option>EDI Services</option>
                         </select>
                     </div>
                 </div>

@@ -79,11 +79,6 @@ function LeadershipSection() {
             <div className="absolute -bottom-1 left-4 text-white/15 font-display font-extrabold text-3xl sm:text-4xl pointer-events-none select-none tracking-tight">
               Krishna Vattipalli
             </div>
-
-            <div className="absolute bottom-6 left-6 z-10">
-              <h3 className="text-white font-bold text-xl drop-shadow-md">Krishna Vattipalli</h3>
-              <p className="text-white/80 text-sm font-medium drop-shadow-md">CEO & Founder</p>
-            </div>
           </div>
 
           {/* Right: Testimonial Slider */}
