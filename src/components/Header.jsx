@@ -12,15 +12,22 @@ export default function Header() {
       window.lucide.createIcons();
     }
   }, [location]);
+  const [servicesSubmenuOpen, setServicesSubmenuOpen] = useState(false);
+
+  useEffect(() => {
+    if (mobileMenuOpen && window.lucide) {
+      window.lucide.createIcons();
+    }
+  }, [mobileMenuOpen, servicesSubmenuOpen]);
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200 shadow-sm transition-all duration-300">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-            <Link to="/" className="flex items-center gap-3 group">
-                <img src="https://logisticsstudio.com/wp-content/uploads/2024/04/Logistics-Studio-logo_hd-1-768x269.png" alt="Logistics Studio" className="h-10 w-auto" />
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3.5 sm:py-4 flex items-center justify-between">
+            <Link to="/" className="flex items-center gap-3 group shrink-0">
+                <img src="https://logisticsstudio.com/wp-content/uploads/2024/04/Logistics-Studio-logo_hd-1-768x269.png" alt="Logistics Studio" className="h-8 sm:h-10 w-auto" />
             </Link>
 
-            <nav className="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-600">
+            <nav className="hidden lg:flex items-center gap-8 text-sm font-semibold text-slate-600">
                 <Link to="/" className="hover:text-brand-accent transition-colors transform hover:-translate-y-0.5 duration-300">Home</Link>
                 <Link to="/about" className="hover:text-brand-accent transition-colors transform hover:-translate-y-0.5 duration-300">About Us</Link>
                 
@@ -30,7 +37,7 @@ export default function Header() {
                     </Link>
                     
                     {/* Mega Menu Dropdown */}
-                    <div className="absolute top-full left-1/2 -translate-x-[40%] pt-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 w-[920px] z-50">
+                    <div className="absolute top-full left-1/2 -translate-x-[40%] pt-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 w-[920px] max-w-[95vw] z-50">
                         <div className="bg-[#0b1536] rounded-2xl p-4 shadow-2xl border border-slate-700/50 grid grid-cols-3 gap-2 relative">
                             {ALL_SERVICES.map((item) => (
                                 <Link
@@ -74,14 +81,15 @@ export default function Header() {
                 <Link to="/resources" className="hover:text-brand-accent transition-colors transform hover:-translate-y-0.5 duration-300">Resources</Link>
             </nav>
 
-            <div className="flex items-center gap-4">
-                <Link to="/quote" className="hidden md:flex items-center gap-2 px-6 py-2.5 rounded-full bg-brand-accent text-white font-bold text-sm hover:bg-brand-accentHover transition-colors shadow-md shadow-brand-accent/30">
+            <div className="flex items-center gap-3">
+                <Link to="/quote" className="hidden lg:flex items-center gap-2 px-6 py-2.5 rounded-full bg-brand-accent text-white font-bold text-sm hover:bg-brand-accentHover transition-colors shadow-md shadow-brand-accent/30">
                     Request Quote <i data-lucide="arrow-right" className="w-4 h-4"></i>
                 </Link>
-                {/* Mobile Menu Toggle */}
+                {/* Mobile / Tablet Menu Toggle */}
                 <button 
-                  className="md:hidden p-2 text-slate-600 hover:text-brand-accent focus:outline-none"
+                  className="lg:hidden p-2 rounded-lg text-slate-700 hover:text-brand-accent hover:bg-slate-100 focus:outline-none transition-colors"
                   onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                  aria-label="Toggle navigation menu"
                 >
                   <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     {mobileMenuOpen ? (
@@ -94,23 +102,86 @@ export default function Header() {
             </div>
         </div>
 
-        {/* Mobile Navigation Dropdown */}
+        {/* Mobile & Tablet Navigation Dropdown */}
         {mobileMenuOpen && (
-          <div className="md:hidden bg-white border-t border-slate-100 shadow-xl absolute left-0 right-0 top-full flex flex-col py-4 px-6 gap-3 text-base font-semibold text-slate-700 max-h-[85vh] overflow-y-auto">
-             <Link to="/" onClick={() => setMobileMenuOpen(false)} className="hover:text-brand-accent">Home</Link>
-             <Link to="/about" onClick={() => setMobileMenuOpen(false)} className="hover:text-brand-accent">About Us</Link>
-             <div className="border-t border-slate-100 pt-2">
-                 <Link to="/services" onClick={() => setMobileMenuOpen(false)} className="hover:text-brand-accent font-bold text-slate-900 block mb-2">Services</Link>
-                 <div className="pl-3 space-y-2 text-sm text-slate-600">
-                     {ALL_SERVICES.map((s) => (
-                         <Link key={s.id} to={s.path} onClick={() => setMobileMenuOpen(false)} className="block hover:text-brand-accent">• {s.fullName || s.name}</Link>
-                     ))}
-                 </div>
-             </div>
-             <Link to="/resources" onClick={() => setMobileMenuOpen(false)} className="hover:text-brand-accent">Resources</Link>
-             <Link to="/quote" onClick={() => setMobileMenuOpen(false)} className="text-brand-accent mt-2 inline-flex items-center gap-2">
-                 Request Quote <i data-lucide="arrow-right" className="w-4 h-4"></i>
+          <div className="lg:hidden bg-white/98 backdrop-blur-xl border-t border-slate-200 shadow-2xl absolute left-0 right-0 top-full flex flex-col py-5 px-6 gap-3 text-base font-semibold text-slate-700 max-h-[calc(100vh-70px)] overflow-y-auto">
+             <Link 
+               to="/" 
+               onClick={() => setMobileMenuOpen(false)} 
+               className={`py-2 px-3 rounded-lg transition-colors ${location.pathname === '/' ? 'bg-orange-50 text-brand-accent font-bold' : 'hover:bg-slate-50 hover:text-brand-accent'}`}
+             >
+               Home
              </Link>
+             <Link 
+               to="/about" 
+               onClick={() => setMobileMenuOpen(false)} 
+               className={`py-2 px-3 rounded-lg transition-colors ${location.pathname === '/about' ? 'bg-orange-50 text-brand-accent font-bold' : 'hover:bg-slate-50 hover:text-brand-accent'}`}
+             >
+               About Us
+             </Link>
+
+             {/* Services Dropdown in Mobile/Tablet Menu */}
+             <div className="border-t border-slate-100 pt-2 pb-1">
+                 <div className="flex items-center justify-between py-2 px-3 rounded-lg hover:bg-slate-50">
+                   <Link 
+                     to="/services" 
+                     onClick={() => setMobileMenuOpen(false)} 
+                     className="hover:text-brand-accent font-bold text-slate-900 flex-1"
+                   >
+                     Services
+                   </Link>
+                   <button 
+                     type="button"
+                     onClick={() => setServicesSubmenuOpen(!servicesSubmenuOpen)}
+                     className="p-1 text-slate-500 hover:text-brand-accent"
+                     aria-label="Toggle services submenu"
+                   >
+                     <svg className={`w-5 h-5 transition-transform duration-200 ${servicesSubmenuOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                     </svg>
+                   </button>
+                 </div>
+                 
+                 {servicesSubmenuOpen && (
+                   <div className="mt-1 pl-4 pr-2 space-y-1 text-sm bg-slate-50 rounded-xl py-2 border border-slate-100">
+                       <Link 
+                         to="/services" 
+                         onClick={() => setMobileMenuOpen(false)} 
+                         className="block py-1.5 px-3 rounded-md text-brand-accent font-bold hover:bg-white"
+                       >
+                         → Overview & All Services
+                       </Link>
+                       {ALL_SERVICES.map((s) => (
+                           <Link 
+                             key={s.id} 
+                             to={s.path} 
+                             onClick={() => setMobileMenuOpen(false)} 
+                             className={`block py-1.5 px-3 rounded-md transition-colors ${location.pathname === s.path ? 'bg-brand-accent text-white font-bold' : 'text-slate-600 hover:text-brand-accent hover:bg-white'}`}
+                           >
+                             • {s.fullName || s.name}
+                           </Link>
+                       ))}
+                   </div>
+                 )}
+             </div>
+
+             <Link 
+               to="/resources" 
+               onClick={() => setMobileMenuOpen(false)} 
+               className={`py-2 px-3 rounded-lg transition-colors ${location.pathname === '/resources' ? 'bg-orange-50 text-brand-accent font-bold' : 'hover:bg-slate-50 hover:text-brand-accent'}`}
+             >
+               Resources
+             </Link>
+             
+             <div className="pt-3 border-t border-slate-100">
+               <Link 
+                 to="/quote" 
+                 onClick={() => setMobileMenuOpen(false)} 
+                 className="w-full py-3 px-6 rounded-full bg-brand-accent text-white font-bold text-center flex items-center justify-center gap-2 shadow-md shadow-brand-accent/25 hover:bg-brand-accentHover transition-colors"
+               >
+                   Request Quote <i data-lucide="arrow-right" className="w-4 h-4"></i>
+               </Link>
+             </div>
           </div>
         )}
     </header>

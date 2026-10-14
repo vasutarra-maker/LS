@@ -90,7 +90,7 @@ const SERVICE_CARDS = [
 /* ── Smooth scroll section: cards fly in from right smoothly ── */
 function ServiceScrollSection({ UpArrow }) {
   return (
-    <section className="pt-24 pb-12 bg-white relative" id="services">
+    <section className="pt-12 sm:pt-16 pb-6 sm:pb-8 bg-white relative" id="services">
       <div className="max-w-7xl mx-auto px-6">
 
         {/* Header — Kept intact as requested */}
@@ -229,7 +229,7 @@ export default function Home() {
             </motion.div>
 
             <motion.h1 variants={{ hidden: { opacity: 0, y: 40 }, show: { opacity: 1, y: 0 } }}
-              className="text-5xl lg:text-7xl font-display font-extrabold leading-tight tracking-tight text-white">
+              className="text-4xl sm:text-5xl lg:text-7xl font-display font-extrabold leading-tight tracking-tight text-white">
               Elevate Your <span className="text-brand-accent">Supply Chain</span>
             </motion.h1>
 
@@ -249,20 +249,20 @@ export default function Home() {
             </motion.div>
 
             <motion.p variants={{ hidden: { opacity: 0, y: 40 }, show: { opacity: 1, y: 0 } }}
-              className="text-lg text-slate-400 max-w-lg leading-relaxed">
+              className="text-base sm:text-lg text-slate-400 max-w-lg leading-relaxed">
               Supply chain software development, data analytics, staff augmentation, and system integrations — from ERP to last-mile delivery. Lifting your logistics to new heights.
             </motion.p>
 
-            <motion.div variants={{ hidden: { opacity: 0, y: 40 }, show: { opacity: 1, y: 0 } }} className="flex gap-4">
+            <motion.div variants={{ hidden: { opacity: 0, y: 40 }, show: { opacity: 1, y: 0 } }} className="flex flex-col sm:flex-row gap-3 sm:gap-4">
               <Link to="/quote"
-                className="px-8 py-4 rounded-full bg-brand-accent text-white font-bold hover:bg-brand-accentHover transition-all duration-300 flex items-center gap-2 shadow-lg shadow-brand-accent/30 hover:-translate-y-1 hover:scale-105 group">
-                Get Started
+                className="px-8 py-4 rounded-full bg-brand-accent text-white font-bold hover:bg-brand-accentHover transition-all duration-300 flex items-center justify-center gap-2 shadow-lg shadow-brand-accent/30 hover:-translate-y-1 hover:scale-105 group text-center">
+                <span>Get Started</span>
                 <motion.span animate={{ y: [0, -4, 0] }} transition={{ repeat: Infinity, duration: 1.2 }}>
                   <UpArrow size={18} className="text-white" />
                 </motion.span>
               </Link>
               <Link to="/services"
-                className="px-8 py-4 rounded-full border border-slate-600 text-slate-300 font-bold hover:border-brand-accent hover:text-brand-accent transition-all duration-300 flex items-center gap-2">
+                className="px-8 py-4 rounded-full border border-slate-600 text-slate-300 font-bold hover:border-brand-accent hover:text-brand-accent transition-all duration-300 flex items-center justify-center gap-2 text-center">
                 Our Services
               </Link>
             </motion.div>
@@ -276,12 +276,12 @@ export default function Home() {
               <div className="overflow-hidden rounded-2xl">
                 <motion.img style={{ scale: heroImgSc }}
                   src="https://images.unsplash.com/photo-1553413077-190dd305871c?q=80&w=1000&auto=format&fit=crop"
-                  className="object-cover h-[380px] w-full opacity-80" alt="Warehouse logistics" />
+                  className="object-cover h-[300px] sm:h-[380px] w-full opacity-80" alt="Warehouse logistics" />
               </div>
 
               {/* Stats overlay */}
-              <div className="absolute bottom-5 left-5 right-5 bg-slate-900/90 backdrop-blur-md rounded-2xl p-5 border border-slate-700 shadow-xl">
-                <div className="grid grid-cols-3 gap-4">
+              <div className="absolute bottom-3 sm:bottom-5 left-3 sm:left-5 right-3 sm:right-5 bg-slate-900/90 backdrop-blur-md rounded-2xl p-3 sm:p-5 border border-slate-700 shadow-xl">
+                <div className="grid grid-cols-3 gap-2 sm:gap-4">
                   {[
                     { label: 'Deliveries', value: '2.4M+', icon: '📦' },
                     { label: 'On-Time Rate', value: '99.2%', icon: '⬆️' },
@@ -289,9 +289,9 @@ export default function Home() {
                   ].map((s, i) => (
                     <motion.div key={i} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 1.2 + i * 0.15 }} className="text-center">
-                      <div className="text-lg mb-0.5">{s.icon}</div>
-                      <div className="text-white font-bold text-lg leading-none">{s.value}</div>
-                      <div className="text-slate-400 text-xs mt-1">{s.label}</div>
+                      <div className="text-base sm:text-lg mb-0.5">{s.icon}</div>
+                      <div className="text-white font-bold text-base sm:text-lg leading-none">{s.value}</div>
+                      <div className="text-slate-400 text-[10px] sm:text-xs mt-1">{s.label}</div>
                     </motion.div>
                   ))}
                 </div>
@@ -330,6 +330,15 @@ export default function Home() {
 
 function CoreCapabilitiesSection({ UpArrow }) {
   const secRef = React.useRef(null);
+  const [isMobile, setIsMobile] = React.useState(false);
+
+  React.useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
+
   const { scrollYProgress } = useScroll({ 
     target: secRef, 
     offset: ["start 90%", "center center"] 
@@ -384,11 +393,11 @@ function CoreCapabilitiesSection({ UpArrow }) {
   ];
 
   return (
-    <section data-no-fx ref={secRef} className="py-28 px-6 bg-slate-50 overflow-hidden">
+    <section data-no-fx ref={secRef} className="py-14 sm:py-20 px-4 sm:px-6 bg-slate-50 overflow-hidden">
       <div className="max-w-7xl mx-auto">
 
         {/* Header */}
-        <motion.div className="text-center mb-14"
+        <motion.div className="text-center mb-10 sm:mb-14"
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "200px" }}
@@ -406,24 +415,24 @@ function CoreCapabilitiesSection({ UpArrow }) {
             </div>
             <span className="text-brand-accent font-semibold text-sm uppercase tracking-wider">Engagement Framework</span>
           </div>
-          <h2 className="text-4xl md:text-5xl font-display font-bold text-slate-900 mb-3">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-slate-900 mb-3">
             How We Work
           </h2>
-          <p className="text-slate-600 text-base max-w-2xl mx-auto leading-relaxed">
+          <p className="text-slate-600 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
             You can work with us in three ways, and move between them as your business needs evolve.
           </p>
         </motion.div>
 
-        {/* 3 engagement cards — fanning out tied to scroll position */}
+        {/* 3 engagement cards — fanning out tied to scroll position on desktop/tablet, clean stack on mobile */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {cards.map((card, i) => (
             <motion.div 
               key={i} 
               className="h-full relative"
-              style={{ x: cardTransforms[i], scale: cardScale, opacity: cardOpacity }}
+              style={{ x: isMobile ? 0 : cardTransforms[i], scale: cardScale, opacity: cardOpacity }}
             >
               <div 
-                className={`bg-white p-8 rounded-2xl text-left shadow-sm border border-slate-200 group h-full flex flex-col justify-between
+                className={`bg-white p-6 sm:p-8 rounded-2xl text-left shadow-sm border border-slate-200 group h-full flex flex-col justify-between
                   hover:-translate-y-3 hover:shadow-xl ${card.borderHover} transition-all duration-500 cursor-pointer relative`}
               >
                 {/* Upward arrow accent — visible on hover */}

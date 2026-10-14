@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import shippingImg from '../assets/shipping-containers.png';
+import krishnaImg from '../assets/krishna-vattipalli.png';
 import {
   PLATFORMS_DATA,
   STANDARDS_DOCUMENTS_DATA,
@@ -42,9 +43,9 @@ function LeadershipSection() {
   return (
     <section className="bg-[#0a0a0a] py-24 px-6 overflow-hidden">
       <div className="max-w-7xl mx-auto">
-        <div className="flex flex-col md:flex-row justify-between items-end mb-12">
-          <h2 className="text-4xl md:text-5xl font-display font-bold text-white">
-            Words From Our <br /> <span className="text-brand-accent">Leadership Team</span>
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 mb-8 sm:mb-12">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-white">
+            Words From Our <br className="hidden sm:inline" /> <span className="text-brand-accent">Leadership Team</span>
           </h2>
           <button className="hidden md:flex items-center gap-2 border border-slate-700 rounded-full px-6 py-3 text-white text-sm font-semibold hover:bg-white hover:text-black transition-colors">
             View All Testimonials
@@ -56,16 +57,17 @@ function LeadershipSection() {
 
         <div className="flex flex-col lg:flex-row gap-6 lg:h-[500px]">
           {/* Left: CEO Video */}
-          <div className="lg:w-5/12 relative rounded-3xl overflow-hidden group cursor-pointer h-[400px] lg:h-full shrink-0">
+          <div className="lg:w-5/12 relative rounded-3xl overflow-hidden group cursor-pointer h-[320px] sm:h-[400px] lg:h-full shrink-0">
             <img 
-              src="https://logisticsstudio.com/wp-content/uploads/2024/04/krishna-1.png" 
+              src={krishnaImg} 
               alt="Krishna Vattipalli"
-              className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500 group-hover:scale-105"
+              className="w-full h-full object-cover object-top sm:object-center opacity-90 group-hover:opacity-100 transition-all duration-500 group-hover:scale-105"
             />
-            <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500"></div>
+            <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors duration-500"></div>
+            <div className="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-black/85 via-black/40 to-transparent pointer-events-none"></div>
             
-            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-full px-6 py-4 flex items-center gap-3 shadow-2xl hover:scale-105 transition-transform">
-              <div className="w-8 h-8 rounded-full border-2 border-black flex items-center justify-center">
+            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-full px-5 sm:px-6 py-3 sm:py-4 flex items-center gap-3 shadow-2xl hover:scale-105 transition-transform z-10">
+              <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full border-2 border-black flex items-center justify-center">
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="black">
                   <path d="M5 3L19 12L5 21V3Z" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
@@ -73,18 +75,23 @@ function LeadershipSection() {
               <span className="font-bold text-black tracking-widest text-xs">WATCH REEL</span>
             </div>
 
-            <div className="absolute bottom-6 left-6">
+            {/* Subtle watermark name as in design */}
+            <div className="absolute -bottom-1 left-4 text-white/15 font-display font-extrabold text-3xl sm:text-4xl pointer-events-none select-none tracking-tight">
+              Krishna Vattipalli
+            </div>
+
+            <div className="absolute bottom-6 left-6 z-10">
               <h3 className="text-white font-bold text-xl drop-shadow-md">Krishna Vattipalli</h3>
               <p className="text-white/80 text-sm font-medium drop-shadow-md">CEO & Founder</p>
             </div>
           </div>
 
           {/* Right: Testimonial Slider */}
-          <div className="lg:w-7/12 relative h-auto min-h-[400px] lg:h-full flex items-center mt-8 lg:mt-0">
+          <div className="lg:w-7/12 relative h-auto min-h-[380px] sm:min-h-[400px] lg:h-full flex items-center mt-4 sm:mt-8 lg:mt-0">
             <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-orange-50 via-white to-[#ff8c42]"></div>
             
-            <div className="relative z-10 w-full p-8 md:p-12 pr-16 h-full flex items-center">
-              <div className="bg-white w-full rounded-2xl p-8 md:p-10 shadow-xl relative min-h-[300px]">
+            <div className="relative z-10 w-full p-4 sm:p-8 md:p-12 pr-4 sm:pr-14 md:pr-16 h-full flex items-center">
+              <div className="bg-white w-full rounded-2xl p-6 sm:p-8 md:p-10 shadow-xl relative min-h-[280px] sm:min-h-[300px]">
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={activeSlide}
@@ -95,26 +102,26 @@ function LeadershipSection() {
                     className="flex flex-col h-full justify-between"
                   >
                     <div>
-                      <div className="mb-6 text-[#1a56ff]">
-                        <svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor">
+                      <div className="mb-4 sm:mb-6 text-[#1a56ff]">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor" className="sm:w-12 sm:h-12">
                           <path d="M9 10C9 12.2091 7.20914 14 5 14C2.79086 14 1 12.2091 1 10C1 7.79086 2.79086 6 5 6C5 6 5.5 6 6 6.1C5.5 4.5 4 3 2 3L3 1C5.5 1 8 3 9 6V10ZM21 10C21 12.2091 19.2091 14 17 14C14.7909 14 13 12.2091 13 10C13 7.79086 14.7909 6 17 6C17 6 17.5 6 18 6.1C17.5 4.5 16 3 14 3L15 1C17.5 1 20 3 21 6V10Z" />
                         </svg>
                       </div>
                       
-                      <p className="text-slate-800 text-lg md:text-xl font-medium leading-relaxed mb-8">
+                      <p className="text-slate-800 text-base sm:text-lg md:text-xl font-medium leading-relaxed mb-6 sm:mb-8">
                         "{teamSlides[activeSlide].words}"
                       </p>
                     </div>
 
-                    <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-3 sm:gap-4">
                       <img 
                         src={teamSlides[activeSlide].image} 
                         alt={teamSlides[activeSlide].name}
-                        className="w-14 h-14 rounded-full object-cover border-2 border-slate-100"
+                        className="w-12 h-12 sm:w-14 sm:h-14 rounded-full object-cover border-2 border-slate-100 shrink-0"
                       />
                       <div>
-                        <h4 className="font-bold text-slate-900">{teamSlides[activeSlide].name}</h4>
-                        <p className="text-slate-500 text-sm">{teamSlides[activeSlide].role}</p>
+                        <h4 className="font-bold text-slate-900 text-sm sm:text-base">{teamSlides[activeSlide].name}</h4>
+                        <p className="text-slate-500 text-xs sm:text-sm">{teamSlides[activeSlide].role}</p>
                       </div>
                     </div>
                   </motion.div>
@@ -122,7 +129,7 @@ function LeadershipSection() {
               </div>
             </div>
 
-            <div className="absolute right-8 top-1/2 transform -translate-y-1/2 flex flex-col gap-2 z-20">
+            <div className="hidden sm:flex absolute right-6 md:right-8 top-1/2 transform -translate-y-1/2 flex-col gap-2 z-20">
               {teamSlides.map((_, i) => (
                 <div 
                   key={i} 
@@ -131,20 +138,22 @@ function LeadershipSection() {
               ))}
             </div>
 
-            <div className="absolute right-0 top-1/2 transform translate-x-1/2 -translate-y-1/2 flex flex-col gap-3 z-30">
+            <div className="absolute right-4 bottom-4 sm:bottom-auto sm:right-0 sm:top-1/2 sm:transform sm:translate-x-1/2 sm:-translate-y-1/2 flex flex-row sm:flex-col gap-2 sm:gap-3 z-30">
               <button 
                 onClick={prevSlide}
-                className="w-12 h-12 bg-white rounded-full shadow-lg flex items-center justify-center text-slate-800 hover:text-brand-accent transition-colors hover:scale-105 border border-slate-100"
+                className="w-10 h-10 sm:w-12 sm:h-12 bg-white rounded-full shadow-lg flex items-center justify-center text-slate-800 hover:text-brand-accent transition-colors hover:scale-105 border border-slate-100"
+                aria-label="Previous leadership quote"
               >
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" className="sm:w-6 sm:h-6">
                   <path d="M12 19V5M12 5L5 12M12 5L19 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               </button>
               <button 
                 onClick={nextSlide}
-                className="w-12 h-12 bg-[#0070f3] rounded-full shadow-lg flex items-center justify-center text-white hover:bg-blue-600 transition-colors hover:scale-105"
+                className="w-10 h-10 sm:w-12 sm:h-12 bg-[#0070f3] rounded-full shadow-lg flex items-center justify-center text-white hover:bg-blue-600 transition-colors hover:scale-105"
+                aria-label="Next leadership quote"
               >
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" className="sm:w-6 sm:h-6">
                   <path d="M12 5V19M12 19L5 12M12 19L19 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               </button>
@@ -174,39 +183,39 @@ export default function About() {
 
   return (
     <>
-<section className="hero-bg pt-32 pb-24 px-6 relative overflow-hidden">
-        <div className="max-w-7xl mx-auto text-center space-y-8">
+<section className="hero-bg pt-32 pb-20 sm:pb-24 px-4 sm:px-6 relative overflow-hidden">
+        <div className="max-w-7xl mx-auto text-center space-y-6 sm:space-y-8">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-800/50 border border-slate-700 text-xs font-semibold text-slate-300">
                 <span className="w-2 h-2 rounded-full bg-brand-accent animate-pulse"></span>
                 About Logistics Studio
             </div>
-            <h1 className="text-5xl lg:text-6xl font-display font-extrabold leading-tight text-white">
+            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-display font-extrabold leading-tight text-white">
                 Innovating for the <span className="text-brand-accent">Transportation &amp; Logistics Industry.</span>
             </h1>
-            <p className="text-lg text-slate-400 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-base sm:text-lg text-slate-400 max-w-3xl mx-auto leading-relaxed">
                 Logistics Studio provides digital strategy and solutions for the transportation &amp; logistics industry. Inspired by the evolution of technology and the pursuit of innovation, we are grounded in a passion for applying tech to modern supply chains.
             </p>
         </div>
     </section>
 
     {/* ── Our Scope of Work Section ── */}
-    <section className="py-24 bg-white overflow-hidden border-b border-slate-100" id="scope">
-      <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+    <section className="py-16 sm:py-24 bg-white overflow-hidden border-b border-slate-100" id="scope">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center">
         {/* Left Column */}
         <motion.div 
           initial={{ opacity: 0, x: -50 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.7 }}
-          className="space-y-8"
+          className="space-y-6 sm:space-y-8"
         >
-          <h2 className="text-4xl md:text-5xl font-display font-bold text-slate-900 leading-tight">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-slate-900 leading-tight">
             Our Scope of Work
           </h2>
-          <p className="text-slate-500 text-lg leading-relaxed">
+          <p className="text-slate-500 text-base sm:text-lg leading-relaxed">
             By collaborating with industry leaders, we have tackled unique supply chain challenges and technology roadblocks. Our work spans the entire supply chain—servicing carriers, shippers, and 3PL providers across critical operational areas.
           </p>
-          <ul className="space-y-5">
+          <ul className="space-y-4 sm:space-y-5">
             {scopeItems.map((item, i) => (
               <motion.li 
                 key={i}
@@ -214,7 +223,7 @@ export default function About() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.2 + (i * 0.1), duration: 0.5 }}
-                className="flex items-center gap-4 text-slate-700 font-medium"
+                className="flex items-center gap-3 sm:gap-4 text-slate-700 font-medium text-sm sm:text-base"
               >
                 <div className="w-6 h-6 rounded-full bg-brand-accent/10 text-brand-accent flex items-center justify-center shrink-0">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
@@ -229,10 +238,10 @@ export default function About() {
 
         {/* Right Column - Image with UX pattern */}
         <div 
-          className="relative group pb-12 pl-4"
+          className="relative group pb-12 pl-0 sm:pl-4 mt-4 lg:mt-0"
         >
           {/* Main Image Container */}
-          <div className="relative rounded-[2rem] overflow-hidden shadow-2xl h-[420px] md:h-[480px]">
+          <div className="relative rounded-[2rem] overflow-hidden shadow-2xl h-[320px] sm:h-[420px] md:h-[480px]">
              <img src={shippingImg} className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" alt="Shipping Containers" />
              <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
           </div>
@@ -243,30 +252,30 @@ export default function About() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.5, duration: 0.6 }}
-            className="absolute bottom-4 left-0 w-[85%] z-20"
+            className="absolute bottom-4 left-0 w-[95%] sm:w-[85%] z-20"
           >
-             <div className="bg-white/95 backdrop-blur-xl rounded-2xl p-6 shadow-[0_20px_40px_rgb(0,0,0,0.15)] border border-slate-50 group-hover:-translate-y-4 transition-transform duration-500">
-               <div className="flex items-center gap-4 mb-3">
-                 <div className="w-12 h-12 rounded-full bg-brand-accent flex items-center justify-center shrink-0 shadow-lg shadow-brand-accent/40 group-hover:scale-110 transition-transform duration-500">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-white">
+             <div className="bg-white/95 backdrop-blur-xl rounded-2xl p-4 sm:p-6 shadow-[0_20px_40px_rgb(0,0,0,0.15)] border border-slate-50 group-hover:-translate-y-4 transition-transform duration-500">
+               <div className="flex items-center gap-3 sm:gap-4 mb-3">
+                 <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-brand-accent flex items-center justify-center shrink-0 shadow-lg shadow-brand-accent/40 group-hover:scale-110 transition-transform duration-500">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" className="text-white">
                       <circle cx="12" cy="12" r="8" stroke="currentColor" strokeWidth="2.5" strokeDasharray="4 4" className="animate-spin-slow" />
                       <circle cx="12" cy="12" r="3" fill="currentColor" />
                     </svg>
                  </div>
-                 <h3 className="text-xl font-bold text-slate-900">Tech Expertise</h3>
+                 <h3 className="text-lg sm:text-xl font-bold text-slate-900">Tech Expertise</h3>
                </div>
-               <p className="text-slate-500 leading-relaxed text-sm">
+               <p className="text-slate-500 leading-relaxed text-xs sm:text-sm">
                   From MVPs to platforms scaling to over 1M users, delivering custom tech strategies.
                </p>
 
                {/* Hidden stats that reveal on hover */}
-               <div className="mt-0 h-0 overflow-hidden opacity-0 group-hover:h-auto group-hover:mt-5 group-hover:opacity-100 transition-all duration-500 flex gap-8">
+               <div className="mt-0 h-0 overflow-hidden opacity-0 group-hover:h-auto group-hover:mt-5 group-hover:opacity-100 transition-all duration-500 flex gap-6 sm:gap-8">
                   <div>
-                     <div className="text-brand-accent font-bold text-xl">1M+</div>
+                     <div className="text-brand-accent font-bold text-lg sm:text-xl">1M+</div>
                      <div className="text-[10px] text-slate-500 uppercase tracking-wider font-semibold">Active Users</div>
                   </div>
                   <div>
-                     <div className="text-brand-accent font-bold text-xl">99.9%</div>
+                     <div className="text-brand-accent font-bold text-lg sm:text-xl">99.9%</div>
                      <div className="text-[10px] text-slate-500 uppercase tracking-wider font-semibold">Uptime</div>
                   </div>
                </div>
@@ -277,9 +286,9 @@ export default function About() {
           <motion.div 
              animate={{ y: [0, -10, 0] }}
              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-             className="absolute top-8 -left-6 bg-white rounded-2xl p-3 shadow-xl z-10 border border-slate-100 flex items-end gap-1 h-12"
+             className="absolute top-6 sm:top-8 left-2 sm:-left-6 bg-white rounded-2xl p-2.5 sm:p-3 shadow-xl z-10 border border-slate-100 flex items-end gap-1 h-10 sm:h-12"
           >
-             {[2,4,3,5].map((h,i) => <div key={i} className="w-1.5 bg-brand-accent rounded-t" style={{height: `${h*20}%`}} />)}
+             {[2,4,3,5].map((h,i) => <div key={i} className="w-1 sm:w-1.5 bg-brand-accent rounded-t" style={{height: `${h*20}%`}} />)}
           </motion.div>
         </div>
       </div>

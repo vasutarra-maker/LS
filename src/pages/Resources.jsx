@@ -127,33 +127,33 @@ export default function Resources() {
 
   return (
     <>
-      <section className="bg-[#0b1536] pt-40 pb-20 px-6 border-b border-slate-800 relative overflow-hidden">
+      <section className="bg-[#0b1536] pt-32 sm:pt-40 pb-14 sm:pb-20 px-4 sm:px-6 border-b border-slate-800 relative overflow-hidden">
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&auto=format&fit=crop')] opacity-10 mix-blend-overlay bg-cover bg-center"></div>
         <div className="absolute top-0 right-0 w-96 h-96 bg-[#e85d22]/20 rounded-full blur-3xl animate-pulse"></div>
         
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between relative z-10">
           <div>
-            <div className="inline-flex items-center gap-2 text-[#e85d22] font-semibold uppercase tracking-wider text-sm mb-4 animate-fade-in-up">
+            <div className="inline-flex items-center gap-2 text-[#e85d22] font-semibold uppercase tracking-wider text-xs sm:text-sm mb-3 sm:mb-4 animate-fade-in-up">
               <span className="w-2 h-2 rounded-full bg-[#e85d22] animate-ping"></span> Knowledge Hub
             </div>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-white mb-6 animate-fade-in-up" style={{ animationDelay: "100ms" }}>
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display font-bold text-white mb-4 sm:mb-6 animate-fade-in-up" style={{ animationDelay: "100ms" }}>
               Resources
             </h1>
-            <p className="text-slate-400 text-lg max-w-2xl leading-relaxed animate-fade-in-up" style={{ animationDelay: "200ms" }}>
+            <p className="text-slate-400 text-sm sm:text-base md:text-lg max-w-2xl leading-relaxed animate-fade-in-up" style={{ animationDelay: "200ms" }}>
               Industry insights, blog posts, press releases, case studies, and technical guides. Explore how Logistics Studio is transforming the supply chain.
             </p>
           </div>
         </div>
       </section>
 
-      <div className="sticky-tabs bg-white border-b border-slate-200 sticky z-40 shadow-sm hidden md:block top-0">
-        <div className="max-w-7xl mx-auto px-6">
-          <ul className="flex items-center gap-8 text-sm font-semibold text-slate-500 overflow-x-auto">
+      <div className="sticky-tabs bg-white border-b border-slate-200 sticky z-40 shadow-sm top-0 overflow-x-auto">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <ul className="flex items-center gap-4 sm:gap-8 text-xs sm:text-sm font-semibold text-slate-500 overflow-x-auto no-scrollbar">
             {['All Resources', 'White papers', 'Blog posts', 'Webinars', 'Case studies', 'Info sheets'].map(cat => (
               <li 
                 key={cat}
                 onClick={() => handleCategoryClick(cat)}
-                className={`py-4 border-b-2 cursor-pointer transition-colors whitespace-nowrap ${
+                className={`py-3.5 sm:py-4 border-b-2 cursor-pointer transition-colors whitespace-nowrap shrink-0 ${
                   activeCategory === cat 
                     ? 'border-[#e85d22] text-slate-900' 
                     : 'border-transparent hover:text-[#e85d22] hover:border-[#e85d22]'
@@ -166,7 +166,7 @@ export default function Resources() {
         </div>
       </div>
 
-      <section className="py-24 px-6 bg-[#f8fafc] min-h-[600px]" data-no-fx>
+      <section className="py-12 sm:py-16 md:py-24 px-4 sm:px-6 bg-[#f8fafc] min-h-[600px]" data-no-fx>
         <div className="max-w-5xl mx-auto">
           
           <div className="border-t border-slate-200">
@@ -182,25 +182,25 @@ export default function Resources() {
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, height: 0 }}
-                    className="border-b border-slate-200 bg-white px-6 first:rounded-t-2xl last:rounded-b-2xl"
+                    className="border-b border-slate-200 bg-white px-4 sm:px-6 first:rounded-xl sm:first:rounded-2xl last:rounded-xl sm:last:rounded-2xl"
                   >
                     <button
                       onClick={() => toggleAccordion(i)}
-                      className="w-full py-8 flex items-center justify-between group cursor-pointer text-left focus:outline-none"
+                      className="w-full py-5 sm:py-8 flex items-center justify-between group cursor-pointer text-left focus:outline-none gap-4"
                     >
-                      <div className="flex items-center gap-6 md:gap-12">
-                        <span className="text-slate-300 font-mono text-xl md:text-2xl">{num}</span>
-                        <h3 className={`text-xl md:text-3xl font-bold transition-colors duration-300 ${isOpen ? 'text-[#e85d22]' : 'text-slate-900 group-hover:text-[#e85d22]'}`}>
+                      <div className="flex items-center gap-3 sm:gap-6 md:gap-12 min-w-0">
+                        <span className="text-slate-300 font-mono text-sm sm:text-xl md:text-2xl shrink-0">{num}</span>
+                        <h3 className={`text-base sm:text-xl md:text-3xl font-bold transition-colors duration-300 ${isOpen ? 'text-[#e85d22]' : 'text-slate-900 group-hover:text-[#e85d22]'}`}>
                           {item.title}
                         </h3>
                       </div>
-                      <div className={`shrink-0 w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 ${isOpen ? 'bg-black text-white' : 'bg-slate-100 text-slate-900 group-hover:bg-[#e85d22] group-hover:text-white'}`}>
+                      <div className={`shrink-0 w-9 h-9 sm:w-12 sm:h-12 rounded-full flex items-center justify-center transition-all duration-300 ${isOpen ? 'bg-black text-white' : 'bg-slate-100 text-slate-900 group-hover:bg-[#e85d22] group-hover:text-white'}`}>
                         <motion.div
                           initial={false}
                           animate={{ rotate: isOpen ? 45 : 0 }}
                           transition={{ duration: 0.3 }}
                         >
-                          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                          <svg className="w-4 h-4 sm:w-6 sm:h-6" viewBox="0 0 24 24" fill="none">
                             <path d="M12 5V19M5 12H19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
                           </svg>
                         </motion.div>
@@ -213,22 +213,22 @@ export default function Resources() {
                       className="overflow-hidden"
                       transition={{ duration: 0.4, ease: "easeInOut" }}
                     >
-                      <div className="pb-8 pt-2 pl-[4.5rem] md:pl-[6.5rem] flex flex-col md:flex-row gap-8">
+                      <div className="pb-6 sm:pb-8 pt-2 pl-0 sm:pl-12 md:pl-[6.5rem] flex flex-col md:flex-row gap-4 sm:gap-8">
                         <div className="md:w-3/5">
-                          <p className="text-slate-500 leading-relaxed text-lg mb-6">
+                          <p className="text-slate-500 leading-relaxed text-sm sm:text-base md:text-lg mb-4 sm:mb-6">
                             {item.desc}
                           </p>
-                          <div className="flex items-center gap-4 text-sm font-semibold text-slate-400">
+                          <div className="flex items-center gap-4 text-xs sm:text-sm font-semibold text-slate-400">
                             <span className="flex items-center gap-1">
-                              <i data-lucide="map-pin" className="w-4 h-4"></i> {item.location}
+                              <i data-lucide="map-pin" className="w-3.5 h-3.5 sm:w-4 sm:h-4"></i> {item.location}
                             </span>
                             <span className="flex items-center gap-1">
-                              <i data-lucide="calendar" className="w-4 h-4"></i> {item.date}
+                              <i data-lucide="calendar" className="w-3.5 h-3.5 sm:w-4 sm:h-4"></i> {item.date}
                             </span>
                           </div>
                         </div>
                         <div className="md:w-2/5 flex flex-wrap gap-2 items-start content-start">
-                          <span className={`px-4 py-1.5 rounded-full text-sm font-semibold border ${getCategoryStyles(item.category)}`}>
+                          <span className={`px-3 sm:px-4 py-1 sm:py-1.5 rounded-full text-xs sm:text-sm font-semibold border ${getCategoryStyles(item.category)}`}>
                             {item.category}
                           </span>
                         </div>
@@ -241,8 +241,8 @@ export default function Resources() {
           </div>
 
           {filteredResources.length > visibleCount && (
-            <div className="mt-16 text-center">
-              <button onClick={handleLoadMore} className="px-8 py-4 rounded-full border-2 border-[#e85d22] text-[#e85d22] font-bold hover:bg-[#e85d22] hover:text-white transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg">
+            <div className="mt-10 sm:mt-16 text-center">
+              <button onClick={handleLoadMore} className="px-6 sm:px-8 py-3 sm:py-4 rounded-full border-2 border-[#e85d22] text-[#e85d22] font-bold text-sm sm:text-base hover:bg-[#e85d22] hover:text-white transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg">
                 Load More Articles
               </button>
             </div>

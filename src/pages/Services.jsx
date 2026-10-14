@@ -18,30 +18,30 @@ export default function Services() {
   return (
     <>
       {/* Hero Section */}
-      <section className="hero-bg pt-36 pb-24 px-6 relative overflow-hidden">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div className="space-y-8">
+      <section className="hero-bg pt-32 sm:pt-36 pb-20 sm:pb-24 px-4 sm:px-6 relative overflow-hidden">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-12 items-center">
+          <div className="space-y-6 sm:space-y-8">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-800/50 border border-slate-700 text-xs font-semibold text-slate-300">
               <span className="w-2 h-2 rounded-full bg-brand-accent animate-pulse"></span>
               Logistics Only · 14 Years · 400 Engineers
             </div>
-            <h1 className="text-5xl lg:text-7xl font-display font-extrabold leading-tight text-white">
+            <h1 className="text-3xl sm:text-5xl lg:text-7xl font-display font-extrabold leading-tight text-white">
               Logistics Technology. <span className="text-brand-accent">Engineered for Precision.</span>
             </h1>
-            <p className="text-lg text-slate-300 max-w-xl leading-relaxed">
+            <p className="text-base sm:text-lg text-slate-300 max-w-xl leading-relaxed">
               For 14 years, LogisticsStudio has built technology for one industry only: logistics. We work with 3PLs, freight forwarders, warehouse operators, and last-mile carriers. Our 400-engineer team knows the code and knows how a load tender, an ASN, or a freight invoice moves through a business.
             </p>
-            <div className="flex flex-wrap gap-4 pt-2">
+            <div className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 pt-2">
               <Link
                 to="/quote"
-                className="px-8 py-4 rounded-full bg-brand-accent text-white font-bold hover:bg-brand-accentHover transition-all flex items-center gap-2 shadow-lg shadow-brand-accent/30"
+                className="px-8 py-4 rounded-full bg-brand-accent text-white font-bold hover:bg-brand-accentHover transition-all flex items-center justify-center gap-2 shadow-lg shadow-brand-accent/30 text-center"
               >
                 <span>Request Assessment</span>
                 <i data-lucide="arrow-right" className="w-5 h-5"></i>
               </Link>
               <Link
                 to="/edi-services"
-                className="px-8 py-4 rounded-full bg-slate-800/80 hover:bg-slate-700 text-white font-semibold transition-all flex items-center gap-2 border border-slate-700"
+                className="px-8 py-4 rounded-full bg-slate-800/80 hover:bg-slate-700 text-white font-semibold transition-all flex items-center justify-center gap-2 border border-slate-700 text-center"
               >
                 <span>Explore EDI Capabilities</span>
                 <i data-lucide="chevron-right" className="w-4 h-4"></i>
@@ -50,23 +50,23 @@ export default function Services() {
           </div>
 
           {/* Hero Proof Visual */}
-          <div className="relative bg-slate-800 rounded-3xl p-2 border border-slate-700 shadow-2xl transform lg:rotate-1 hover:rotate-0 transition-transform duration-500">
+          <div className="relative bg-slate-800 rounded-3xl p-2 border border-slate-700 shadow-2xl transform lg:rotate-1 hover:rotate-0 transition-transform duration-500 mt-6 lg:mt-0">
             <img
               src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=1000&auto=format&fit=crop"
-              className="rounded-2xl object-cover h-[400px] w-full opacity-85"
+              className="rounded-2xl object-cover h-[300px] sm:h-[400px] w-full opacity-85"
               alt="Logistics Studio EDI & Supply Chain Technology"
             />
-            <div className="absolute bottom-6 left-6 right-6 bg-slate-900/95 backdrop-blur-md rounded-2xl p-6 border border-slate-700 flex items-center justify-between">
+            <div className="absolute bottom-3 sm:bottom-6 left-3 sm:left-6 right-3 sm:right-6 bg-slate-900/95 backdrop-blur-md rounded-2xl p-4 sm:p-6 border border-slate-700 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
               <div>
                 <span className="text-xs font-semibold text-brand-accent uppercase tracking-wider block mb-1">
                   Domain Proven
                 </span>
-                <p className="text-white font-bold text-xl">
+                <p className="text-white font-bold text-lg sm:text-xl">
                   400 Engineers <span className="text-sm font-normal text-slate-400">· 100% Logistics Focus</span>
                 </p>
               </div>
-              <div className="text-right">
-                <p className="text-3xl font-display font-bold text-white">14 Yrs</p>
+              <div className="text-left sm:text-right">
+                <p className="text-2xl sm:text-3xl font-display font-bold text-white">14 Yrs</p>
                 <p className="text-xs text-slate-400 uppercase tracking-wider">Domain Depth</p>
               </div>
             </div>
@@ -76,14 +76,14 @@ export default function Services() {
 
       {/* Services Portfolio Section (6 Official Service Lines) */}
       <section className="py-24 px-6 max-w-7xl mx-auto border-b border-slate-200" id="services-grid">
-        <div className="text-center mb-16 space-y-4">
+        <div className="text-center mb-12 sm:mb-16 space-y-3 sm:space-y-4">
           <div className="inline-flex items-center gap-2 text-brand-accent font-semibold uppercase tracking-wider text-sm">
             <span className="w-2 h-2 rounded-full bg-brand-accent"></span> Services at a Glance
           </div>
-          <h2 className="text-4xl md:text-5xl font-display font-bold text-slate-900">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-slate-900">
             Six Dedicated <span className="text-brand-accent">Service Lines</span>
           </h2>
-          <p className="text-slate-500 text-base max-w-2xl mx-auto leading-relaxed">
+          <p className="text-slate-500 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
             Each service answers four fundamental questions: what the service is, who it’s for, how we deliver it, and why it matters.
           </p>
         </div>
@@ -93,7 +93,7 @@ export default function Services() {
             <Link
               key={srv.id}
               to={srv.path}
-              className="bg-white rounded-2xl border border-slate-200 p-7 shadow-sm hover:shadow-xl hover:border-brand-accent/50 transition-all flex flex-col justify-between group"
+              className="bg-white rounded-2xl border border-slate-200 p-6 sm:p-7 shadow-sm hover:shadow-xl hover:border-brand-accent/50 transition-all flex flex-col justify-between group"
             >
               <div>
                 <div className="flex items-center justify-between mb-4">
@@ -134,16 +134,16 @@ export default function Services() {
       </section>
 
       {/* Spotlight: The 10 EDI Lifecycle Areas */}
-      <section className="py-24 px-6 bg-slate-50 border-b border-slate-200">
+      <section className="py-20 sm:py-24 px-4 sm:px-6 bg-slate-50 border-b border-slate-200">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16 space-y-4">
+          <div className="text-center mb-12 sm:mb-16 space-y-3 sm:space-y-4">
             <div className="inline-flex items-center gap-2 text-brand-accent font-semibold uppercase tracking-wider text-sm">
               <span className="w-2 h-2 rounded-full bg-brand-accent"></span> Flagship Depth
             </div>
-            <h2 className="text-4xl md:text-5xl font-display font-bold text-slate-900">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-slate-900">
               The Complete <span className="text-brand-accent">EDI Lifecycle</span>
             </h2>
-            <p className="text-slate-600 text-base max-w-3xl mx-auto leading-relaxed">
+            <p className="text-slate-600 text-sm sm:text-base max-w-3xl mx-auto leading-relaxed">
               EDI gets the most space because it’s the part of the business clients feel straight away when it breaks. We handle every step in a trading relationship, on the platforms you already run.
             </p>
           </div>
@@ -158,7 +158,7 @@ export default function Services() {
                   <button
                     key={area.id}
                     onClick={() => setSelectedArea(area)}
-                    className={`w-full text-left p-4 rounded-xl border transition-all flex items-center justify-between ${
+                    className={`w-full text-left p-3.5 sm:p-4 rounded-xl border transition-all flex items-center justify-between ${
                       isSelected
                         ? 'bg-brand-accent text-white border-brand-accent shadow-md'
                         : 'bg-white text-slate-800 border-slate-200 hover:border-brand-accent/50 hover:bg-orange-50/50'
@@ -188,13 +188,13 @@ export default function Services() {
             </div>
 
             {/* Right details box */}
-            <div className="lg:col-span-7 bg-white rounded-2xl border border-slate-200 p-8 shadow-sm">
+            <div className="lg:col-span-7 bg-white rounded-2xl border border-slate-200 p-5 sm:p-8 shadow-sm">
               <div className="flex items-center gap-3 mb-4">
                 <span className="w-10 h-10 rounded-xl bg-orange-50 border border-brand-accent/30 text-brand-accent font-bold text-base flex items-center justify-center shrink-0">
                   {selectedArea.number}
                 </span>
                 <div>
-                  <h3 className="text-2xl font-display font-bold text-slate-900">
+                  <h3 className="text-xl sm:text-2xl font-display font-bold text-slate-900">
                     {selectedArea.title}
                   </h3>
                   <span className="text-xs text-brand-accent font-semibold uppercase tracking-wider">
@@ -203,7 +203,7 @@ export default function Services() {
                 </div>
               </div>
 
-              <div className="space-y-5 text-sm mt-6">
+              <div className="space-y-4 sm:space-y-5 text-sm mt-6">
                 <div>
                   <span className="font-bold text-slate-900 block mb-1">What it is:</span>
                   <p className="text-slate-600 leading-relaxed">{selectedArea.whatItIs}</p>
@@ -216,25 +216,25 @@ export default function Services() {
                   <span className="font-bold text-slate-900 block mb-1">How we deliver it:</span>
                   <p className="text-slate-600 leading-relaxed">{selectedArea.howWeDeliverIt}</p>
                 </div>
-                <div className="p-4 bg-orange-50 rounded-xl border border-brand-accent/20">
+                <div className="p-3.5 sm:p-4 bg-orange-50 rounded-xl border border-brand-accent/20">
                   <span className="font-bold text-brand-accent block mb-1 text-xs uppercase tracking-wider">
                     Why it matters:
                   </span>
-                  <p className="text-slate-700 leading-relaxed italic">{selectedArea.whyItMatters}</p>
+                  <p className="text-slate-700 leading-relaxed italic text-xs sm:text-sm">{selectedArea.whyItMatters}</p>
                 </div>
               </div>
 
-              <div className="mt-8 pt-6 border-t border-slate-100 flex items-center justify-between">
+              <div className="mt-8 pt-6 border-t border-slate-100 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
                 <Link
                   to={`/edi-services#${selectedArea.id}`}
-                  className="inline-flex items-center gap-2 text-brand-accent font-bold text-sm hover:underline"
+                  className="inline-flex items-center justify-center gap-2 text-brand-accent font-bold text-sm hover:underline"
                 >
                   <span>Explore in EDI Services</span>
                   <i data-lucide="arrow-right" className="w-4 h-4"></i>
                 </Link>
                 <Link
                   to="/edi-services"
-                  className="px-5 py-2.5 rounded-full bg-slate-900 hover:bg-brand-accent text-white text-xs font-semibold transition-colors"
+                  className="px-5 py-2.5 rounded-full bg-slate-900 hover:bg-brand-accent text-white text-xs font-semibold transition-colors text-center"
                 >
                   View All 10 Capabilities
                 </Link>

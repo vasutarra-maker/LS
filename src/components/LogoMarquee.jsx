@@ -21,16 +21,16 @@ export default function LogoMarquee() {
           </div>
           <span className="text-brand-accent font-semibold text-sm uppercase tracking-wider">Trusted Network</span>
         </div>
-        <h2 className="text-4xl font-display font-bold text-slate-900">
+        <h2 className="text-3xl sm:text-4xl font-display font-bold text-slate-900">
           Our <span className="text-brand-accent">Partners</span>
         </h2>
       </motion.div>
       <div className="overflow-hidden flex relative">
-        <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
-        <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
+        <div className="absolute left-0 top-0 bottom-0 w-12 sm:w-24 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
+        <div className="absolute right-0 top-0 bottom-0 w-12 sm:w-24 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
         
         <motion.div 
-          className="flex gap-16 md:gap-24 items-center w-max pl-16 md:pl-24"
+          className="flex gap-10 sm:gap-16 md:gap-24 items-center w-max pl-10 sm:pl-16 md:pl-24"
           animate={{ x: ["0%", "-50%"] }}
           transition={{ duration: 40, ease: "linear", repeat: Infinity }}
         >
@@ -63,7 +63,7 @@ export default function LogoMarquee() {
             'https://logisticsstudio.com/wp-content/uploads/2024/04/Simple-Logo-Schema-1-Kittl.svg',
             'https://logisticsstudio.com/wp-content/uploads/2024/05/pgt-1.png',
           ]).map((src, i) => (
-            <img key={i} src={src} className="h-12 w-auto object-contain grayscale transition-all duration-300 opacity-60 hover:opacity-100 hover-brand-filter" alt="" />
+            <img key={i} src={src} className="h-8 sm:h-12 w-auto object-contain grayscale transition-all duration-300 opacity-60 hover:opacity-100 hover-brand-filter" alt="" />
           ))}
         </motion.div>
       </div>

@@ -6,10 +6,10 @@ import LogoMarquee from './LogoMarquee';
 
 export default function Layout({ children }) {
   return (
-    <div className="antialiased">
+    <div className="antialiased w-full">
       <ScrollEffects />
       <Header />
-      <main className="min-h-screen">
+      <main className="min-h-screen w-full">
         {children}
       </main>
       <LogoMarquee />

@@ -8,7 +8,7 @@ export default function Footer() {
         {/* ── Giant text watermark ── */}
         <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none select-none z-0 overflow-hidden" aria-hidden="true">
             <span style={{
-                fontSize: 'clamp(5rem, 14vw, 12rem)',
+                fontSize: 'clamp(3rem, 12vw, 12rem)',
                 fontWeight: 900,
                 fontFamily: '"Sora", "Inter", sans-serif',
                 letterSpacing: '-0.04em',
@@ -19,7 +19,7 @@ export default function Footer() {
                 textTransform: 'uppercase',
             }}>LOGISTICS</span>
             <span style={{
-                fontSize: 'clamp(5rem, 14vw, 12rem)',
+                fontSize: 'clamp(3rem, 12vw, 12rem)',
                 fontWeight: 900,
                 fontFamily: '"Sora", "Inter", sans-serif',
                 letterSpacing: '-0.04em',
@@ -32,7 +32,7 @@ export default function Footer() {
         </div>
 
 
-        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 mb-16 relative z-10">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10 lg:gap-12 mb-16 relative z-10">
             
             {/*  Links Column  */}
             <div className="space-y-6">
@@ -68,7 +68,7 @@ export default function Footer() {
             </div>
 
             {/*  Email & Location Column  */}
-            <div className="space-y-8 md:col-span-2 lg:col-span-1">
+            <div className="space-y-8">
                 <div>
                     <h4 className="text-[#e85d22] text-lg mb-3">Email:</h4>
                     <a href="mailto:info@logisticsstudio.com" className="text-white text-lg hover:text-[#e85d22] transition-colors">info@logisticsstudio.com</a>

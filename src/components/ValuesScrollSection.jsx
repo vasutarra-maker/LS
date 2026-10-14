@@ -11,25 +11,25 @@ export default function ValuesScrollSection() {
 
   // Staggered column transforms (Development & Strategy -> Dedicated Teams -> Data Science & AI)
   // Column 1: Development & Strategy
-  const col1TextY = useTransform(scrollYProgress, [0.02, 0.5], [0, 240]);
-  const col1RingY = useTransform(scrollYProgress, [0.02, 0.5], [0, 140]);
-  const col1RingOpacity = useTransform(scrollYProgress, [0.02, 0.25, 0.5], [0.2, 0.7, 0.1]);
-  const col1Overlay = useTransform(scrollYProgress, [0.02, 0.5], [0.82, 0.22]);
-  const col1Scale = useTransform(scrollYProgress, [0.02, 0.5], [1.12, 1.0]);
+  const col1TextY = useTransform(scrollYProgress, [0.02, 0.45], [0, 160]);
+  const col1RingY = useTransform(scrollYProgress, [0.02, 0.45], [0, 90]);
+  const col1RingOpacity = useTransform(scrollYProgress, [0.02, 0.22, 0.45], [0.2, 0.7, 0.1]);
+  const col1Overlay = useTransform(scrollYProgress, [0.02, 0.45], [0.55, 0.15]);
+  const col1Scale = useTransform(scrollYProgress, [0.02, 0.45], [1.10, 1.0]);
 
   // Column 2: Dedicated Teams
-  const col2TextY = useTransform(scrollYProgress, [0.18, 0.72], [0, 240]);
-  const col2RingY = useTransform(scrollYProgress, [0.18, 0.72], [0, 140]);
-  const col2RingOpacity = useTransform(scrollYProgress, [0.18, 0.45, 0.72], [0.2, 0.7, 0.1]);
-  const col2Overlay = useTransform(scrollYProgress, [0.18, 0.72], [0.82, 0.22]);
-  const col2Scale = useTransform(scrollYProgress, [0.18, 0.72], [1.12, 1.0]);
+  const col2TextY = useTransform(scrollYProgress, [0.15, 0.65], [0, 160]);
+  const col2RingY = useTransform(scrollYProgress, [0.15, 0.65], [0, 90]);
+  const col2RingOpacity = useTransform(scrollYProgress, [0.15, 0.4, 0.65], [0.2, 0.7, 0.1]);
+  const col2Overlay = useTransform(scrollYProgress, [0.15, 0.65], [0.55, 0.15]);
+  const col2Scale = useTransform(scrollYProgress, [0.15, 0.65], [1.10, 1.0]);
 
   // Column 3: Data Science & AI
-  const col3TextY = useTransform(scrollYProgress, [0.35, 0.95], [0, 240]);
-  const col3RingY = useTransform(scrollYProgress, [0.35, 0.95], [0, 140]);
-  const col3RingOpacity = useTransform(scrollYProgress, [0.35, 0.65, 0.95], [0.2, 0.7, 0.1]);
-  const col3Overlay = useTransform(scrollYProgress, [0.35, 0.95], [0.82, 0.22]);
-  const col3Scale = useTransform(scrollYProgress, [0.35, 0.95], [1.12, 1.0]);
+  const col3TextY = useTransform(scrollYProgress, [0.3, 0.88], [0, 160]);
+  const col3RingY = useTransform(scrollYProgress, [0.3, 0.88], [0, 90]);
+  const col3RingOpacity = useTransform(scrollYProgress, [0.3, 0.58, 0.88], [0.2, 0.7, 0.1]);
+  const col3Overlay = useTransform(scrollYProgress, [0.3, 0.88], [0.55, 0.15]);
+  const col3Scale = useTransform(scrollYProgress, [0.3, 0.88], [1.10, 1.0]);
 
   const columns = [
     {
@@ -82,23 +82,32 @@ export default function ValuesScrollSection() {
     },
   ];
 
+  const [isMobile, setIsMobile] = React.useState(false);
+
+  React.useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
+
   return (
     <section
       data-no-fx
       ref={containerRef}
-      className="relative h-[220vh] bg-black"
+      className="relative md:h-[160vh] bg-white"
     >
-      {/* Sticky viewport frame */}
-      <div className="sticky top-0 h-screen w-full overflow-hidden flex flex-col justify-center">
-        <div className="grid grid-cols-1 md:grid-cols-3 h-full w-full divide-y md:divide-y-0 md:divide-x divide-white/10">
+      {/* Sticky viewport frame on desktop / tablet, natural flow on mobile */}
+      <div className="relative md:sticky md:top-0 md:h-screen w-full overflow-hidden flex flex-col">
+        <div className="grid grid-cols-1 md:grid-cols-3 md:grid-rows-1 h-full w-full divide-y md:divide-y-0 md:divide-x divide-white/20 flex-1">
           {columns.map((col, idx) => (
             <div
               key={idx}
-              className="relative h-full w-full overflow-hidden flex flex-col justify-start p-8 md:p-12 lg:p-14 select-none"
+              className="relative min-h-[500px] md:min-h-full h-full w-full overflow-hidden flex flex-col justify-start p-6 sm:p-8 md:p-8 lg:p-14 select-none"
             >
               {/* Background Image with parallax scale */}
               <motion.div
-                style={{ scale: col.scale }}
+                style={{ scale: isMobile ? 1 : col.scale }}
                 className="absolute inset-0 w-full h-full z-0"
               >
                 <img
@@ -110,25 +119,22 @@ export default function ValuesScrollSection() {
 
               {/* Dynamic scroll overlay that clears up */}
               <motion.div
-                style={{ opacity: col.overlay }}
-                className="absolute inset-0 bg-gradient-to-b from-black/90 via-black/75 to-black/90 z-1 pointer-events-none"
+                style={{ opacity: isMobile ? 0.45 : col.overlay }}
+                className="absolute inset-0 bg-gradient-to-b from-slate-950/65 via-slate-900/35 to-slate-950/65 z-1 pointer-events-none"
               />
-
-              {/* Subtle top ambient glow */}
-              <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-black/60 to-transparent z-1 pointer-events-none" />
 
               {/* Animated Text Content Box */}
               <motion.div
-                style={{ y: col.textY }}
-                className="relative z-10 flex flex-col justify-start pt-8 md:pt-16 max-w-md"
+                style={{ y: isMobile ? 0 : col.textY }}
+                className="relative z-10 flex flex-col justify-start pt-6 sm:pt-8 md:pt-16 max-w-md"
               >
                 {/* Number Badge */}
-                <div className="w-9 h-9 rounded-full border border-white/40 flex items-center justify-center text-white text-xs font-mono mb-6 shrink-0 backdrop-blur-md bg-black/20">
+                <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full border border-white/50 flex items-center justify-center text-white text-xs font-mono mb-4 sm:mb-6 shrink-0 backdrop-blur-md bg-white/10">
                   {col.number}
                 </div>
 
                 {/* Title */}
-                <h3 className="text-3xl lg:text-4xl font-display font-medium text-white mb-4 tracking-tight drop-shadow-md">
+                <h3 className="text-2xl sm:text-3xl lg:text-4xl font-display font-medium text-white mb-3 sm:mb-4 tracking-tight drop-shadow-md">
                   {col.title}
                 </h3>
 
@@ -137,10 +143,10 @@ export default function ValuesScrollSection() {
                   {col.description}
                 </p>
 
-                {/* Floating Ghost Ring (as captured in scroll sequence) */}
+                {/* Floating Ghost Ring */}
                 <motion.div
-                  style={{ y: col.ringY, opacity: col.ringOpacity }}
-                  className="w-9 h-9 rounded-full border border-white/40 my-5 shrink-0 pointer-events-none"
+                  style={{ y: isMobile ? 0 : col.ringY, opacity: isMobile ? 0.35 : col.ringOpacity }}
+                  className="w-8 h-8 sm:w-9 sm:h-9 rounded-full border border-white/40 my-4 sm:my-5 shrink-0 pointer-events-none"
                 />
 
                 {/* Explore Link based on service page */}

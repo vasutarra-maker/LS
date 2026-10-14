@@ -20,20 +20,20 @@ export default function EdiServices() {
   return (
     <>
       {/* Top Banner / Hero */}
-      <section className="bg-[#f0f5fa] pt-40 pb-20 px-6 border-b border-slate-200">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+      <section className="bg-[#f0f5fa] pt-32 sm:pt-40 pb-14 sm:pb-20 px-4 sm:px-6 border-b border-slate-200">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-4 md:gap-6">
           <div>
-            <div className="inline-flex items-center gap-2 text-brand-accent font-semibold uppercase tracking-wider text-sm mb-4">
+            <div className="inline-flex items-center gap-2 text-brand-accent font-semibold uppercase tracking-wider text-xs sm:text-sm mb-3 sm:mb-4">
               <span className="w-2 h-2 rounded-full bg-brand-accent"></span> Flagship Service
             </div>
-            <h1 className="text-4xl md:text-5xl font-display font-bold text-slate-900">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-slate-900">
               EDI Services & Capabilities
             </h1>
-            <p className="text-slate-500 font-medium mt-2 max-w-2xl">
+            <p className="text-slate-500 font-medium text-sm sm:text-base mt-2 max-w-2xl">
               Every part of EDI, from onboarding a new trading partner to 24/7 support, mapping, integration, and platform migration.
             </p>
           </div>
-          <div className="mt-4 md:mt-0 text-slate-500 font-medium text-sm">
+          <div className="text-slate-500 font-medium text-xs sm:text-sm flex flex-wrap gap-1 items-center">
             <Link to="/" className="hover:text-brand-accent transition-colors">Home</Link> /{' '}
             <Link to="/services" className="hover:text-brand-accent transition-colors">Services</Link> /{' '}
             <span className="text-slate-800 font-semibold">EDI Services</span>
@@ -42,21 +42,21 @@ export default function EdiServices() {
       </section>
 
       {/* Main Content Area */}
-      <section className="py-24 px-6 bg-white">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16">
+      <section className="py-16 sm:py-24 px-4 sm:px-6 bg-white">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16">
           {/* Left Sidebar */}
           <div className="lg:col-span-4">
             <ServiceSidebar />
           </div>
 
           {/* Right Content */}
-          <div className="lg:col-span-8 space-y-12 text-slate-600 leading-relaxed text-lg">
+          <div className="lg:col-span-8 space-y-8 sm:space-y-12 text-slate-600 leading-relaxed text-base sm:text-lg">
             <img
               src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=1200&auto=format&fit=crop"
               onError={(e) => {
                 e.currentTarget.src = 'https://images.unsplash.com/photo-1494412519320-aa613dfb7738?q=80&w=1200&auto=format&fit=crop';
               }}
-              className="w-full rounded-2xl shadow-xl object-cover h-[340px]"
+              className="w-full rounded-2xl shadow-xl object-cover h-[220px] sm:h-[340px]"
               alt="EDI Services & Trading Partner Network"
             />
 
@@ -100,10 +100,10 @@ export default function EdiServices() {
                   <div className="text-xs font-bold text-brand-accent uppercase tracking-wider mb-1">
                     Relationship Lifecycle
                   </div>
-                  <h3 className="text-2xl md:text-3xl font-display font-bold text-slate-900">
+                  <h3 className="text-xl sm:text-2xl md:text-3xl font-display font-bold text-slate-900">
                     The 10 Core EDI Capabilities
                   </h3>
-                  <p className="text-sm text-slate-500 mt-1">
+                  <p className="text-xs sm:text-sm text-slate-500 mt-1">
                     These 10 areas follow the typical lifecycle of a trading relationship. Pick one area or take the whole set.
                   </p>
                 </div>
@@ -122,20 +122,20 @@ export default function EdiServices() {
               </div>
 
               {/* 10 Areas Detailed Cards */}
-              <div className="space-y-6">
+              <div className="space-y-4 sm:space-y-6">
                 {filteredAreas.map((area) => (
                   <div
                     key={area.id}
                     id={area.id}
-                    className="p-6 rounded-2xl bg-white border border-slate-200 hover:border-brand-accent/60 hover:shadow-md transition-all group"
+                    className="p-4 sm:p-6 rounded-2xl bg-white border border-slate-200 hover:border-brand-accent/60 hover:shadow-md transition-all group"
                   >
-                    <div className="flex items-start justify-between gap-4 mb-4">
+                    <div className="flex items-start justify-between gap-4 mb-3 sm:mb-4">
                       <div className="flex items-center gap-3">
-                        <span className="w-9 h-9 rounded-xl bg-orange-50 border border-brand-accent/30 text-brand-accent font-bold text-sm flex items-center justify-center shrink-0">
+                        <span className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-orange-50 border border-brand-accent/30 text-brand-accent font-bold text-xs sm:text-sm flex items-center justify-center shrink-0">
                           {area.number}
                         </span>
                         <div>
-                          <h4 className="text-xl font-bold text-slate-900 group-hover:text-brand-accent transition-colors">
+                          <h4 className="text-lg sm:text-xl font-bold text-slate-900 group-hover:text-brand-accent transition-colors">
                             {area.title}
                           </h4>
                           <span className="text-xs text-brand-accent font-semibold uppercase tracking-wider">
@@ -148,7 +148,7 @@ export default function EdiServices() {
                       </div>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm mt-4 pt-4 border-t border-slate-100">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs sm:text-sm mt-3 sm:mt-4 pt-3 sm:pt-4 border-t border-slate-100">
                       <div>
                         <span className="font-bold text-slate-800 block mb-1">What it is:</span>
                         <p className="text-slate-600 leading-relaxed">{area.whatItIs}</p>
@@ -159,7 +159,7 @@ export default function EdiServices() {
                       </div>
                     </div>
 
-                    <div className="mt-4 pt-4 border-t border-slate-100 text-sm space-y-3">
+                    <div className="mt-3 sm:mt-4 pt-3 sm:pt-4 border-t border-slate-100 text-xs sm:text-sm space-y-3">
                       <div>
                         <span className="font-bold text-slate-800 block mb-1">How we deliver it:</span>
                         <p className="text-slate-600 leading-relaxed">{area.howWeDeliverIt}</p>
@@ -168,7 +168,7 @@ export default function EdiServices() {
                         <span className="font-bold text-brand-accent block mb-0.5 text-xs uppercase tracking-wide">
                           Why it matters:
                         </span>
-                        <p className="text-slate-700 text-sm italic">{area.whyItMatters}</p>
+                        <p className="text-slate-700 text-xs sm:text-sm italic">{area.whyItMatters}</p>
                       </div>
                     </div>
                   </div>
@@ -177,17 +177,17 @@ export default function EdiServices() {
             </div>
 
             {/* CTA */}
-            <div className="p-8 rounded-2xl bg-[#0a1945] text-white relative overflow-hidden mt-10">
+            <div className="p-6 sm:p-8 rounded-2xl bg-[#0a1945] text-white relative overflow-hidden mt-8 sm:mt-10">
               <div className="absolute top-0 right-0 w-64 h-64 bg-brand-accent/20 rounded-full blur-3xl pointer-events-none"></div>
-              <h3 className="text-2xl font-display font-bold mb-3 relative z-10">
+              <h3 className="text-xl sm:text-2xl font-display font-bold mb-3 relative z-10">
                 Ready to talk EDI with an engineer who gets it?
               </h3>
-              <p className="text-slate-300 text-base mb-6 max-w-xl relative z-10 leading-relaxed">
+              <p className="text-slate-300 text-sm sm:text-base mb-6 max-w-xl relative z-10 leading-relaxed">
                 If you have a trading partner waiting to go live, an EDI setup that keeps you up at night, or a platform you need to move off, talk to us. We’ll start by understanding how your operation actually works.
               </p>
               <Link
                 to="/quote"
-                className="inline-flex items-center gap-2 px-8 py-3.5 bg-brand-accent hover:bg-brand-accentHover text-white font-bold rounded-full text-sm transition-all shadow-lg shadow-brand-accent/30 relative z-10"
+                className="inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3.5 bg-brand-accent hover:bg-brand-accentHover text-white font-bold rounded-full text-sm transition-all shadow-lg shadow-brand-accent/30 relative z-10 w-full sm:w-auto text-center"
               >
                 <span>Request EDI Assessment</span>
                 <i data-lucide="arrow-right" className="w-4 h-4"></i>
