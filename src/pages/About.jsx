@@ -4,9 +4,9 @@ import shippingImg from '../assets/shipping-containers.png';
 import krishnaImg from '../assets/krishna-vattipalli.png';
 import {
   PLATFORMS_DATA,
-  STANDARDS_DOCUMENTS_DATA,
-  WHY_LOGISTICS_STUDIO,
 } from '../data/servicesList';
+import StandardsAccordion from '../components/StandardsAccordion';
+import WhyLogisticsCards from '../components/WhyLogisticsCards';
 
 function LeadershipSection() {
   const [activeSlide, setActiveSlide] = useState(0);
@@ -327,7 +327,7 @@ export default function About() {
       </section>
 
       {/* 2. Standards & Documents Handled */}
-      <section className="py-24 px-6 bg-white border-b border-slate-200">
+      <section data-no-fx className="py-24 px-6 bg-white border-b border-slate-200">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16 space-y-4">
             <div className="inline-flex items-center gap-2 text-brand-accent font-semibold uppercase tracking-wider text-sm">
@@ -341,41 +341,12 @@ export default function About() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {STANDARDS_DOCUMENTS_DATA.map((item) => (
-              <div
-                key={item.area}
-                className="p-6 rounded-2xl border border-slate-200 bg-slate-50/50 shadow-sm flex flex-col justify-between"
-              >
-                <div>
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="flex items-center gap-2">
-                      <span className="w-2 h-2 rounded-full bg-brand-accent"></span>
-                      <h3 className="font-bold text-slate-900 text-base">{item.area}</h3>
-                    </div>
-                    <span className="text-[11px] text-slate-400 font-semibold px-2 py-0.5 rounded bg-white border border-slate-200">
-                      {item.documents.length} transaction sets
-                    </span>
-                  </div>
-                  <div className="flex flex-wrap gap-1.5">
-                    {item.documents.map((doc) => (
-                      <span
-                        key={doc.code}
-                        className="inline-flex items-center gap-1 px-2.5 py-1 rounded bg-white border border-slate-200 text-xs font-medium text-slate-700"
-                      >
-                        <strong className="text-brand-accent font-bold">{doc.code}</strong> {doc.name}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
+          <StandardsAccordion />
         </div>
       </section>
 
       {/* 3. Why LogisticsStudio */}
-      <section className="py-24 px-6 bg-slate-50">
+      <section data-no-fx className="py-24 px-6 bg-slate-50">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16 space-y-4">
             <div className="inline-flex items-center gap-2 text-brand-accent font-semibold uppercase tracking-wider text-sm">
@@ -389,20 +360,7 @@ export default function About() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {WHY_LOGISTICS_STUDIO.map((item, idx) => (
-              <div
-                key={idx}
-                className="p-7 rounded-2xl border border-slate-200 bg-white shadow-sm hover:border-brand-accent/40 hover:shadow-md transition-all"
-              >
-                <div className="w-10 h-10 rounded-xl bg-orange-50 text-brand-accent flex items-center justify-center mb-4 border border-brand-accent/20">
-                  <i data-lucide={item.icon} className="w-5 h-5"></i>
-                </div>
-                <h3 className="text-lg font-bold text-slate-900 mb-2">{item.title}</h3>
-                <p className="text-sm text-slate-500 leading-relaxed">{item.desc}</p>
-              </div>
-            ))}
-          </div>
+          <WhyLogisticsCards />
         </div>
       </section>
     </>
