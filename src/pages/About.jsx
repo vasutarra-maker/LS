@@ -306,16 +306,27 @@ export default function About() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {PLATFORMS_DATA.map((plat) => (
+            {PLATFORMS_DATA.map((plat, idx) => (
               <div
                 key={plat.name}
-                className="p-6 rounded-2xl border border-slate-200 bg-white shadow-sm hover:border-brand-accent/50 hover:shadow-md transition-all flex flex-col justify-between"
+                className="group p-6 rounded-2xl border border-slate-200 bg-white shadow-sm hover:border-brand-accent/50 hover:shadow-md transition-all flex flex-col justify-between"
               >
                 <div>
                   <div className="flex flex-col gap-2 mb-3">
-                    <span className="text-[11px] font-semibold text-brand-accent bg-orange-50 px-2.5 py-0.5 rounded-full border border-brand-accent/20 w-fit">
+                    <motion.span
+                      initial={{ scale: 1 }}
+                      whileInView={{ scale: [1, 1.05, 1] }}
+                      viewport={{ once: true, amount: 0.3 }}
+                      transition={{
+                        duration: 0.65,
+                        delay: 0.3 + idx * 0.12,
+                        times: [0, 0.5, 1],
+                        ease: [0.22, 1, 0.36, 1],
+                      }}
+                      className="inline-block origin-left text-[11px] font-semibold text-brand-accent bg-orange-50 px-2.5 py-0.5 rounded-full border border-brand-accent/20 w-fit transition-colors group-hover:bg-orange-100/80 group-hover:border-brand-accent/40"
+                    >
                       {plat.category}
-                    </span>
+                    </motion.span>
                     <h3 className="font-bold text-slate-900 text-xl">{plat.name}</h3>
                   </div>
                   <p className="text-sm text-slate-600 leading-relaxed">{plat.summary}</p>
@@ -327,16 +338,16 @@ export default function About() {
       </section>
 
       {/* 2. Standards & Documents Handled */}
-      <section data-no-fx className="py-24 px-6 bg-white border-b border-slate-200">
+      <section data-no-fx className="py-14 sm:py-20 px-4 sm:px-6 bg-white border-b border-slate-200">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16 space-y-4">
+          <div className="text-center mb-8 sm:mb-10 space-y-3 sm:space-y-4">
             <div className="inline-flex items-center gap-2 text-brand-accent font-semibold uppercase tracking-wider text-sm">
               <span className="w-2 h-2 rounded-full bg-brand-accent"></span> Strict Compliance
             </div>
-            <h2 className="text-4xl md:text-5xl font-display font-bold text-slate-900">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-slate-900">
               Standards & Documents Handled
             </h2>
-            <p className="text-slate-600 text-base max-w-3xl mx-auto leading-relaxed">
+            <p className="text-slate-600 text-sm sm:text-base max-w-3xl mx-auto leading-relaxed">
               Every map is tested against partner implementation guides, covering edge cases like split shipments, partial receipts, and multi-stop loads.
             </p>
           </div>

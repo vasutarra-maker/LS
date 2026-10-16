@@ -153,7 +153,7 @@ export default function StandardsAccordion({ data = STANDARDS_DOCUMENTS_DATA }) 
   };
 
   return (
-    <div className="w-full max-w-4xl mx-auto">
+    <div className="w-full">
       {/* Top Controls & Summary Bar */}
       <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 mb-6 bg-slate-50 p-3 sm:p-4 rounded-2xl border border-slate-200">
         {/* Search input */}

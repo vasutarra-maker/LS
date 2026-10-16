@@ -37,7 +37,7 @@ export default function Header() {
                     </Link>
                     
                     {/* Mega Menu Dropdown */}
-                    <div className="absolute top-full left-1/2 -translate-x-[40%] pt-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 w-[920px] max-w-[95vw] z-50">
+                    <div className="absolute top-full left-1/2 -translate-x-[40%] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 w-[920px] max-w-[95vw] z-50">
                         <div className="bg-[#0b1536] rounded-2xl p-4 shadow-2xl border border-slate-700/50 grid grid-cols-3 gap-2 relative">
                             {ALL_SERVICES.map((item) => (
                                 <Link
